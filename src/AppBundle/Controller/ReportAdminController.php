@@ -27,24 +27,6 @@ class ReportAdminController extends Controller {
 		return $this->displayGrades ( 'report/gradesPrint.html.twig' );
 	}
 	
-	/**
-	 * @Route("/admin/report/grades/pdf")
-	 */
-	public function displayPdf() {
-		$html = $this->displayGrades ( 'report/gradesPdf.html.twig' );
-		$html2pdf = $this->get ('html2pdf_factory')->create ( 'P', 'A4', 'en' );
-		//$html2pdf->setDefaultFont ( 'arialunicid0' );
-		 $html2pdf->setDefaultFont('freeserif');
-		// real : utilise la taille réelle
-		$html2pdf->pdf->SetDisplayMode ( 'real' );
-		// writeHTML va tout simplement prendre la vue stocker dans la variable $html pour la convertir en format PDF
-		$html2pdf->writeHTML ( $html );
-		// Output envoit le document PDF au navigateur internet
-		return new Response ( $html2pdf->Output ( 'grades.pdf' ), 200, array (
-				'Content-Type' => 'application/pdf' 
-		) );
-	}
-	
 	public function displayGrades($reportName) {
 		$em = $this->getDoctrine ()->getManager ();
 		
