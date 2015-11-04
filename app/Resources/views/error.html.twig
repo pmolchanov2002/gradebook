@@ -1,0 +1,16 @@
+{# app/Resources/views/year.html.twig #}
+{% extends 'base-admin.html.twig' %}
+
+{% block pageTitle %}Years of study{% endblock %}
+{% block title %}Years of study{% endblock %}
+{% block script %}
+	$(document).ready(function() {
+	    $('#results').DataTable({
+	    	paging: false
+	    });
+	} );
+{% endblock %}
+
+{% block body %}
+Error: {{e}}
+{% endblock %}

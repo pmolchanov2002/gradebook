@@ -1,0 +1,52 @@
+<?php
+
+// src/AppBundle/Entity/GradeAttendance.php
+namespace AppBundle\Entity;
+
+use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\ORM\Mapping as ORM;
+
+use AppBundle\Entity\Exam;
+use AppBundle\Entity\User;
+use AppBundle\Entity\Year;
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="GradeAttendance")
+ */
+class GradeAttendance
+{
+
+	/**
+	 * @ORM\Id
+	 * @ORM\ManyToOne(targetEntity="Exam")
+	 * @ORM\JoinColumn(name="ExamId", referencedColumnName="id")
+	 **/
+	protected $exam;
+	
+    /** 
+     * @ORM\Id 
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumn(name="StudentId", referencedColumnName="id")
+     **/
+    protected $student;
+    
+    /**
+     * @ORM\Id
+     * @ORM\ManyToOne(targetEntity="Year")
+     * @ORM\JoinColumn(name="YearId", referencedColumnName="id")
+     **/
+    protected $year;    
+    
+    /**
+     * @ORM\Column()
+     * @Assert\NotBlank()
+     **/
+    protected $grade;
+    
+    /**
+     * @ORM\Column(name="MaxGrade")
+     * @Assert\NotBlank()
+     **/
+    protected $maxGrade;    
+}

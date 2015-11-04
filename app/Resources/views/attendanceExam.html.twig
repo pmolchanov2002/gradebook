@@ -1,0 +1,17 @@
+{# app/Resources/views/teacher/exam.html.twig #}
+{% extends 'base-teacher.html.twig' %}
+
+{% block title %}Attendance{% endblock %}
+
+{% block body %}
+<div class="container">
+  <h3>Select period:</h3>
+  {%for exam in exams %}
+  <div class="row">
+      <div class="col-md-10">
+        <p><a class="btn btn-primary btn-lg" href="/admin/attendance/exam/{{ exam.id }}" role="button">{{ exam.name }} &raquo;</a></p>
+      </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %} 

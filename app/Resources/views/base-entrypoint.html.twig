@@ -1,0 +1,40 @@
+{# app/Resources/views/base-admin.html.twig #}
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="Pavel Molchanov">
+<link rel="stylesheet" type="text/css"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css"
+	href="https://cdn.datatables.net/responsive/1.0.7/css/responsive.bootstrap.min.css">
+<script type="text/javascript" language="javascript"
+	src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" language="javascript"
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</script>
+<title>St Sergius Learning Center Grade Book {% block pageTitle %}{% endblock %}
+</title>
+<script type="text/javascript">
+        {% block script %}{% endblock %}
+        </script>
+</head>
+<body>
+	<nav class="navbar navbar-default navbar-fixed-top">
+		<div class="container">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="/">Grade Book</a>
+				</div>
+			</div>
+			<!--/.container-fluid -->
+		</div>
+	</nav>
+	<div class="container" style="margin-top:70px;">
+		{% block body %}{% endblock %}
+	</div>
+</body>
+</html>

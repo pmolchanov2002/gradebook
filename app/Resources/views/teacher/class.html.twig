@@ -1,0 +1,21 @@
+{# app/Resources/views/teacher/class.html.twig #}
+{% extends 'base-teacher.html.twig' %}
+
+{% block title %}Class{% endblock %}
+
+{% block body %}
+<div class="container">
+  <!-- Example row of columns -->
+  <a class="btn btn-default" href="/teacher/exam/{{ examId }}/course" role="button">&lt;&lt; Back to courses</a>
+  <h2>{{ examName }}</h2>
+  <h3>{{ courseName }}</h3>
+  <p>Select class:</p>
+  {%for class in classes %}
+  <div class="row">
+      <div class="col-md-10">
+        <p><a class="btn btn-primary btn-lg" href="/teacher/exam/{{ examId }}/course/{{ courseId }}/class/{{class.id}}" role="button">{{ class.name }} &raquo;</a></p>
+      </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %} 

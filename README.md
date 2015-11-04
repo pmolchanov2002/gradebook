@@ -17,6 +17,19 @@ Front end is powered by Bootstrap and is nicely resized on both mobile (Android,
 Minimum maintenance is required. Code can be easily adjusted for specific school needs with minimum knowledge of PHP/ORM/MySQL.
 Some reports are in Russian!
 
+#Howto run
+
+1. Create MySQL database and upload schema from /src/SQL folder
+2. Update DB and Mail server connection settings in the /app/config/parameters.yml file
+3. Start local Symfony server:
+
+cd gradebook
+php app/console server:run
+
+4. Open http://127.0.0.1:8000/ in the browser. 
+5. Default administrator username: admin, password: 123
+6. Enjoy
+
 ## Functionality
 
 Application allow to:

@@ -1,0 +1,35 @@
+{# app/Resources/views/teacher/studentGrades.html.twig #}
+{% extends 'base-teacher.html.twig' %}
+
+{% block title %}Schedule{% endblock %}
+
+{% block body %}
+<div class="container">
+  <!-- Example row of columns -->
+  <a class="btn btn-default" href="/admin/user/teacher" role="button">&lt;&lt; Back</a>
+  <a class="btn btn-default" target="_blank" href="/admin/teacher/lesson/{{ user.id }}/print" role="button">Print</a>
+    <h1>Today's schedule</h1>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Class</th>
+          <th>Course</th>
+          <th>Period</th>
+          <th>Start time</th>
+          <th>End time</th>
+        </tr>
+      </thead>
+      <tbody>
+        {%for lesson in lessons %}
+          <tr>
+            <td>{{ lesson.classOfStudents.name }}</td>
+            <td>{{ lesson.course.name }}</td>
+            <td>{{ lesson.period.name }}</td>
+            <td>{{ lesson.period.startTime|date("H:i") }}</td>
+            <td>{{ lesson.period.endTime|date("H:i") }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+</div>
+{% endblock %} 

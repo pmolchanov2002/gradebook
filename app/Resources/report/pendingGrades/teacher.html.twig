@@ -1,0 +1,21 @@
+{# app/Resources/views/teacher/exam.html.twig #}
+{% extends 'base-admin.html.twig' %}
+
+{% block title %}Teachers with pending grades{% endblock %}
+
+{% block body %}
+<div class="container">
+  <!-- Example row of columns -->
+  <h3>Teachers:</h3>
+  {%for teacher in teachers %}
+  <div class="row">
+      <div class="col-md-4">
+        <p><a href='/admin/teacher/edit/{{ teacher.id }}'>{{ teacher.lastName }} {{ teacher.firstName }}</a></p>
+      </div>
+      <div class="col-md-4">
+      	<a class="btn btn-default" href='/admin/report/pendingGrades/mail/exam/{{ exam.id }}/teacher/{{ teacher.id }}'>Send Email</a></p>
+      </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %} 

@@ -1,0 +1,11 @@
+{# app/Resources/views/forms/exam.html.twig #}
+{% extends 'base-admin.html.twig' %}
+{% block pageTitle %}Change grade{% endblock %}
+{% block title %}Change grade{% endblock %}
+
+
+{% block body %}
+	{{ form_start(form) }}
+	{{ form_widget(form) }}
+	{{ form_end(form) }}
+{% endblock %}

@@ -1,0 +1,107 @@
+{# app/Resources/views/base-admin.html.twig #}
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="Pavel Molchanov">
+<link rel="stylesheet" type="text/css"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css"
+	href="https://cdn.datatables.net/1.10.9/css/dataTables.bootstrap.min.css">
+<link rel="stylesheet" type="text/css"
+	href="https://cdn.datatables.net/responsive/1.0.7/css/responsive.bootstrap.min.css">
+<script type="text/javascript" language="javascript"
+	src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" language="javascript"
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script type="text/javascript" language="javascript"
+	src="https://cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" language="javascript"
+	src="https://cdn.datatables.net/1.10.9/js/dataTables.bootstrap.min.js"></script>
+<script type="text/javascript" language="javascript"
+	src="https://cdn.datatables.net/responsive/1.0.7/js/dataTables.responsive.min.js">
+        </script>
+<title>St Sergius Learning Center Grade Book - Admin - {% block
+	pageTitle %}{% endblock %}</title>
+<script type="text/javascript">
+        {% block script %}{% endblock %}
+        </script>
+</head>
+<body>
+		<nav class="navbar navbar-default navbar-fixed-top">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed"
+						data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+						aria-controls="navbar">
+						<span class="sr-only">Toggle navigation</span> <span
+							class="icon-bar"></span> <span class="icon-bar"></span> <span
+							class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="/">Grade Book</a>
+				</div>
+				<div id="navbar" class="navbar-collapse collapse">
+					<ul class="nav navbar-nav">
+						<li class="active"><a href="/admin">Home</a></li>
+						<li class="dropdown"><a href="#" class="dropdown-toggle"
+							data-toggle="dropdown" role="button" aria-haspopup="true"
+							aria-expanded="false">Admin <span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li><a href="/admin/lesson">Lessons</a></li>
+								<li><a href="/admin/class">Classes</a></li>
+								<li><a href="/admin/course">Courses</a></li>
+								<li><a href="/admin/period">Periods</a></li>
+								<li><a href="/admin/exam">Exams</a></li>
+								<li><a href="/admin/day">Days</a></li>
+								<li><a href="/admin/year">Years</a></li>
+							</ul></li>
+						<li class="dropdown"><a href="#" class="dropdown-toggle"
+							data-toggle="dropdown" role="button" aria-haspopup="true"
+							aria-expanded="false">Users <span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li><a href="/admin/user/teacher">Teachers</a></li>
+								<li><a href="/admin/student">Students</a></li>
+								<li><a href="/admin/admin">Administrators</a></li>
+								<li role="separator" class="divider"></li>
+								<li><a href="/admin/user">All users</a></li>
+							</ul></li>
+						<li class="dropdown"><a href="#" class="dropdown-toggle"
+							data-toggle="dropdown" role="button" aria-haspopup="true"
+							aria-expanded="false">Grades<span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li><a href="/admin/report/grades">Grades Report</a></li>
+								<li><a href="/admin/attendance/exam">Attendance</a></li>
+								<li><a href="/admin/report/pendingGrades/exam">Pending grades</a></li>
+								<li role="separator" class="divider"></li>
+								<li><a href="/admin/gradeExam">Change grade</a></li>								
+							</ul>
+						</li>
+						<li class="dropdown"><a href="#" class="dropdown-toggle"
+							data-toggle="dropdown" role="button" aria-haspopup="true"
+							aria-expanded="false">Email <span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li><a href="/admin/mail/exam">Teachers</a></li>
+							</ul>
+						</li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right">
+						<li class="active"><a href="./">{{ app.user.firstName }}
+								{{ app.user.lastName }}</a></li>
+						<li><a href="/logout">Logout</a></li>
+					</ul>
+				</div>
+				<!--/.nav-collapse -->
+			</div>
+			<!--/.container-fluid -->
+		</nav>
+            <div class="container">
+                <h2 style="margin-top:70px;">{% block title %}{% endblock %}</h2>
+            	<div >
+                	{% block body %}{% endblock %}
+                </div>
+            </div>
+</body>
+</html>

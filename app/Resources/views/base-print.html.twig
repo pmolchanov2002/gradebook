@@ -1,0 +1,67 @@
+{# app/Resources/views/base-print.html.twig #}
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+
+@media print {
+    footer {page-break-after: always;}
+}
+
+h3 {
+  display: block;
+  font-size: 1.17em;
+  -webkit-margin-before: 5px;
+  -webkit-margin-after: 5px;
+  -webkit-margin-start: 0px;
+  -webkit-margin-end: 0px;
+  font-weight: bold;
+}
+
+.bold {
+ font-weight:bold;
+}
+.italic {
+font-style:italic;
+}
+.underline {
+    text-decoration: underline;
+}
+
+.middle {
+	text-align: center;
+}
+
+table {
+	font-size:11px;
+	color:#333333;
+	border-width: 1px;
+	border-color: #666666;
+	border-collapse: collapse;
+}
+table th {
+	border-width: 1px;
+	padding: 8px;
+	border-style: solid;
+	border-color: #666666;
+	background-color: #dedede;
+}
+table td {
+	border-width: 1px;
+	padding: 4px;
+	border-style: solid;
+	border-color: #666666;
+	background-color: #ffffff;
+}
+
+.grade {
+	text-align:right;
+	margin-right:10px;
+}
+
+</style>
+</head>
+<body>
+		{% block body %}{% endblock %}
+</body>
+</html>

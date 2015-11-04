@@ -1,0 +1,69 @@
+{# app/Resources/views/teacher/grades.html.twig #}
+{% extends 'base-teacher.html.twig' %}
+
+{% block title %}Grades{% endblock %}
+
+{% block body %}
+<div class="container">
+  <!-- Example row of columns -->
+  <a class="btn btn-default" href="/teacher" role="button">&lt;&lt; Back</a>
+
+	{% for examStudent in examStudents %}
+	 <hr>
+		<h3>{{ examStudent.class.name }} ({{ examStudent.class.year.name }})</h3>
+		<h1>{{ examStudent.student }}</h1>
+		<table class="table">
+			<thead>
+	    		<th>Предмет</th>
+	    			{% for exam in allExams %}
+	    		<th>{{ exam.name }}</th>
+	    			{% endfor %}
+	    	</thead>
+	    	<tbody>
+	    	{% for examCourse in examCourses %}
+		    	{% if examCourse.student.id == examStudent.student.id %}
+		    	<tr>
+		    		<td><h3>{{ examCourse.course.name }}</h3><small>{{ examCourse.teacher }}</small></td>
+		    		{% for examGrade in examGrades %}
+			    		{% for exam in allExams %}
+			    			{% if examGrade.student.id == examStudent.student.id and
+			    		      	examGrade.course.id == examCourse.course.id and
+			    		      	examGrade.class.id == examStudent.class.id and
+			    		      	examGrade.exam.id == exam.id %}
+			    		      	<td><h3>{{ examGrade.grade }}</h3></td>
+			    		     {% endif %}
+			    		{% endfor %}
+		    		{% endfor %}
+		    	</tr>
+		    	{% endif %}
+	    	{% endfor %}
+	    	<tr>
+	    		<td><h3>Прилежание</h3></td>
+		    		{% for exam in exams %}
+		    			{% for examDiligence in diligence %}
+		    			{% if examDiligence.studentId == examStudent.student.id and
+		    		      	examDiligence.classId == examStudent.class.id and
+		    		      	examDiligence.examId == exam.id %}
+		    		      	<td><h3>{{ examDiligence.grade|round }}</h3></td>
+		    		     {% endif %}
+		    		{% endfor %}
+	    		{% endfor %}
+	    	</tr>
+	    	<tr>
+	    		<td><h3>Поведение</h3></td>
+		    		{% for exam in exams %}
+		    			{% for examDiscipline in discipline %}
+		    			{% if examDiscipline.studentId == examStudent.student.id and
+		    		      	examDiscipline.classId == examStudent.class.id and
+		    		      	examDiscipline.examId == exam.id %}
+		    		      	<td><h3>{{ examDiscipline.grade|round }}</h3></td>
+		    		     {% endif %}
+		    		{% endfor %}
+	    		{% endfor %}
+	    	</tr>	    	
+	    	</tbody>
+	    </table>
+	    </hr>
+	 {% endfor %}
+</div>
+{% endblock %} 

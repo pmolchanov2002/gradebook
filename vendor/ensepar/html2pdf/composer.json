@@ -1,0 +1,33 @@
+{
+    "name": "ensepar/html2pdf",
+    "type": "library",
+    "description": "Unofficial fork of 'html2pdf' with Composer support. (Fixed composer dependency problem)",
+    "keywords": ["html", "pdf", "html2pdf"],
+    "homepage": "https://github.com/jwronsky/html2pdf",
+    "license": "LGPL",
+    "authors":
+    [
+        {
+            "name": "Spipu",
+            "homepage": "http://sourceforge.net/users/spipu",
+            "role": "Developer"
+        },
+        {
+            "name": "OwlyCode",
+            "homepage": "http://www.github.com/OwlyCode",
+            "role": "Developer"
+        }
+    ],
+    "require":
+    {
+        "php": ">=5.2",
+        "tecnick.com/tcpdf": "~6.2"
+    },
+    "autoload":
+    {
+        "psr-0":
+        {
+            "HTML2PDF": "."
+        }
+    }
+}

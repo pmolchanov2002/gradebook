@@ -1,0 +1,11 @@
+{# app/Resources/views/forms/user.html.twig #}
+{% extends 'base-admin.html.twig' %}
+{% block pageTitle %}Teachers{% endblock %}
+{% block title %}Teachers{% endblock %}
+
+
+{% block body %}
+	{{ form_start(form) }}
+	{{ form_widget(form) }}
+	{{ form_end(form) }}
+{% endblock %}

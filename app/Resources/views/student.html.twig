@@ -1,0 +1,56 @@
+{# app/Resources/views/student.html.twig #}
+{% extends 'base-admin.html.twig' %}
+
+{% block pageTitle %}Students{% endblock %}
+{% block title %}Students{% endblock %}
+{% block script %}
+	$(document).ready(function() {
+	    $('#results').DataTable({
+	    	paging: false
+	    });
+	    $('.delete_row').click(function(){
+    		return confirm("Are you sure you want to delete?");
+		});
+	} );
+{% endblock %}
+
+{% block body %}
+    <div style="margin-bottom:10px;">
+    	<a class="btn btn-default" href="/admin/student/create" role="button">New student</a>
+	</div>
+	<table id="results" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>Last Name</th>
+                <th>First Name</th>
+                <th>Class</th>
+                <th>Grades</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+	    {% for user in users %}
+	    	<tr>
+	    		<td data-sort="{{ user.lastName }}">{{ user.lastName }}</td>
+	        	<td>{{ user.firstName }}</td>
+					{% set classFound = false %}
+	        	    {% for class in user.classes %}
+		        	    {% if class.year.active %}
+		        	    	{% set classFound = true %}
+			        	   	<td data-sort="{{ class.ordinal }}">
+		        					<div>{{ class.name }}</div>
+		        			</td>
+	        			{% endif %}
+    				{% endfor %}
+    				{% if not classFound %}
+    					<td>Not assigned</td>
+    				{% endif %}
+    			<td width="10"><a href='/admin/student/grade/{{ user.id }}'>Grades</a></td>
+	        	<td width="10"><a href='/admin/student/edit/{{ user.id }}'>Edit</a></td>
+	        	<td class="delete_row" width="10"><a href='/admin/student/delete/{{ user.id }}'>Delete</a></td>
+	        </tr>
+	    {% endfor %}
+    	</tbody>        
+    </table>
+{% endblock %}

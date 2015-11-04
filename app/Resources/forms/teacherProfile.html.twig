@@ -1,0 +1,14 @@
+{# app/Resources/views/forms/user.html.twig #}
+{% extends 'base-entrypoint.html.twig' %}
+{% block pageTitle %}Teacher{% endblock %}
+{% block title %}Teacher{% endblock %}
+
+{% block body %}
+	<div class="jumbotron" style="margin-top:10px;">
+		<h1>Welcome, {{ user.firstName }} {{ user.lastName }}</h1>
+		<p>Before you start to work with the system please update your profile information and change your password</p>
+	</div>
+	{{ form_start(form) }}
+	{{ form_widget(form) }}
+	{{ form_end(form) }}
+{% endblock %}

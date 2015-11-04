@@ -1,0 +1,27 @@
+{# app/Resources/views/welcome_teacher.html.twig #}
+{% extends 'base-teacher.html.twig' %}
+
+{% block title %}Welcome, {{ app.user.firstName }} {{ app.user.lastName }}{% endblock %}
+
+{% block body %}
+<div class="container">
+  <!-- Example row of columns -->
+  <div class="row">
+    <div class="col-md-4">
+      <h2>Grades</h2>
+      <p>Submit students grades for mid-term and final exams.</p>
+      <p><a class="btn btn-default" href="/teacher/exam" role="button">Grades &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+      <h2>Schedule</h2>
+      <p>Check the courses and the periods.</p>
+      <p><a class="btn btn-default" href="/teacher/schedule" role="button">Schedule &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+      <h2>Report</h2>
+      <p>Check students grades for all terms.</p>
+      <p><a class="btn btn-default" href="/teacher/report/grades" role="button">Report &raquo;</a></p>
+    </div>
+  </div>
+</div>
+{% endblock %} 

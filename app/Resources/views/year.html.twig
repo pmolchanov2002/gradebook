@@ -1,0 +1,41 @@
+{# app/Resources/views/year.html.twig #}
+{% extends 'base-admin.html.twig' %}
+
+{% block pageTitle %}Years of study{% endblock %}
+{% block title %}Years of study{% endblock %}
+{% block script %}
+	$(document).ready(function() {
+	    $('#results').DataTable({
+	    	paging: false
+	    });
+	    $('.delete_row').click(function(){
+    		return confirm("Are you sure you want to delete?");
+		});
+	} );
+{% endblock %}
+
+{% block body %}
+    <div style="margin-bottom:10px;">
+    	<a class="btn btn-default" href="/admin/year/create" role="button">New year</a>
+	</div>
+	<table id="results" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Active?</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+	    {% for year in years %}
+	    	<tr>
+	        	<td>{{ year.name }}</td>
+	        	<td>{% if year.active %}Active{% else %}Archived{% endif %}</td>
+	        	<td width="10"><a href='/admin/year/edit/{{ year.id }}'>Edit</a></td>
+	        	<td class="delete_row" width="10"><a href='/admin/year/delete/{{ year.id }}'>Delete</a></td>
+	        </tr>
+	    {% endfor %}
+    	</tbody>        
+    </table>
+{% endblock %}

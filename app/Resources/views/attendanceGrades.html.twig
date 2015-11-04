@@ -1,0 +1,77 @@
+{# app/Resources/views/teacher/studentGrades.html.twig #}
+{% extends 'base-teacher.html.twig' %}
+
+{%block script %}
+<script>
+$(document).ready(function() {
+    $('#input').validator();
+});
+</script>
+{% endblock %}
+
+{% block title %}Attendance Grades{% endblock %}
+
+{% block body %}
+<div class="container">
+  <h2>{{ examName }}</h2>
+  <p>Enter grades:</p>
+  <form name="input" action="" method="post" data-toggle="validator" role="form">
+    <div>
+    	{%if enableSubmit %}
+    	<label>Total days in period:</label>
+    	<input type="number" name="maxGrade" width="20" required/>
+    	{% endif %}
+    </div>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+			<th>Student</th>
+			<th>Class</th>
+			<th width="20%">Actual</th>
+	    	{%if not enableSubmit %}
+			<th width="20%">Total</th>
+	    	{% endif %}          
+        </tr>
+      </thead>
+      <tbody>
+        {% for gradeAttendance in gradesAttendance %}
+        	<tr>
+        		<td>
+					{{ gradeAttendance.student.lastName }} {{ gradeAttendance.student.firstName }}
+        		</td>
+				{% set classFound = false %}
+        	    {% for class in gradeAttendance.student.classes %}
+	        	    {% if class.year.active %}
+	        	    	{% set classFound = true %}
+		        	   	<td data-sort="{{ class.ordinal }}">
+	        					<div>{{ class.name }}</div>
+	        			</td>
+        			{% endif %}
+   				{% endfor %}
+   				{% if not classFound %}
+   					<td>Not assigned</td>
+   				{% endif %}    
+	            {% if gradeAttendance.grade is empty %}
+	            <td>
+            		<input class="form-control" type="number" step="0.5" name="grade_{{gradeAttendance.student.id}}" width="40" value="{{gradeAttendance.grade}}" required/>    
+	            </td>	            
+	            {% else %}
+	            <td>
+            		<input class="form-control" type="number" name="grade_{{gradeAttendance.student.id}}" width="40" value="{{gradeAttendance.grade}}" disabled/>    
+	            </td>
+	            <td>
+            		<input class="form-control" type="number" name="maxGrade_{{gradeAttendance.student.id}}" width="40" value="{{gradeAttendance.maxGrade}}" disabled/>    
+	            </td>	                        
+	            {% endif %}
+	        </tr>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% if enableSubmit %}
+	    <p style="color:red">Please review grades before pressing on submit button. Grades cannot be changed afterwards.</p>
+	    <input class="btn btn-primary" type="submit" name="submit" value="Submit">
+	 {% endif %}
+  </form>
+</div>
+{% endblock %} 

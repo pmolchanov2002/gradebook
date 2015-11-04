@@ -1,0 +1,34 @@
+{# app/Resources/mail/grades.html.twig #}
+<html>
+<head>
+<title>Time to grade students!</title>
+</head>
+<body>
+<h3>Уважаемый/ая {{ user.firstName }} {{ user.lastName }}!</h3>
+<p>Пришло время поставить отметки ученикам Русской школы Св. Сергия Радонежского!</p>
+<p>Пожалуйста, откройте веб страницу системы GradeBook на вашем компьютере или смартфоне:</p>
+<p></p>
+<p><a href="http://grades.stsergiuslc.com/teacher">http://grades.stsergiuslc.com/teacher</a></p>
+<p></p>
+<p>Ваш логин: <b>{{ user.username }}</b></p>
+<p>Если вы заходите в систему первый раз то ваш пароль: <b>0000</b></p>
+<p>Если вы забыли пароль или хотите его сбросить, пожалуста обратитесь к Павлу Молчанову по e-mail: <b>pavel@stsergiuslc.com</b> или по телефону <b>(845) 553-0997</b></p>
+<p>Вам надо поставить отметки всем студентам за {{ exam.name }}</p>
+<p></p>
+<p>Пожалуйста, поставьте отметки до субботы на этой неделе.</p>
+<p>Если у вас будут трудности с работой с системой, принесите отметки в школу и мы занесем их вместе в систему.</p>
+<p>Спасибо.</p>
+<hr/>
+<h3>Dear {{ user.firstName }} {{ user.lastName }},</h3>
+<p>It's time to fill in the students' grades of St. Sergius Learning Center!</p>
+<p>Please open GradeBook web page in your browser:</p>
+<p><a href="http://grades.stsergiuslc.com/teacher">http://grades.stsergiuslc.com/teacher</a></p>
+<p>And login using your account: <b>{{ user.username }}</b></p>
+<p>If you login first time your password is: <b>0000</b></p>
+<p>If you forget your password or want to reset it please send an e-mail to <b>pavel@stsergiuslc.com</b> or call by phone <b>(845) 553-0997</b>.</p>
+<p>You need to grade all students for the {{ exam.name }}</p>
+<p>Please grade all students before Saturday this week.</p>
+<p>Should you have difficulties witht the system, please bring grades to the school this Saturday and we will enter them together in the system.</p>
+<p>Thanks you.</p>
+</body>
+</html>

@@ -1,0 +1,33 @@
+{# app/Resources/views/teacher/studentGrades.html.twig #}
+{% extends 'base-print.html.twig' %}
+
+{% block title %}Schedule{% endblock %}
+
+{% block body %}
+<div class="container">
+  <!-- Example row of columns -->
+    <h1>{{user.lastName}} {{user.firstName}}</h1>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Класс</th>
+          <th>Предмет</th>
+          <th>Урок</th>
+          <th>Начало урока</th>
+          <th>Конец урока</th>
+        </tr>
+      </thead>
+      <tbody>
+        {%for lesson in lessons %}
+          <tr>
+            <td>{{ lesson.classOfStudents.name }}</td>
+            <td>{{ lesson.course.name }}</td>
+            <td>{{ lesson.period.name }}</td>
+            <td>{{ lesson.period.startTime|date("H:i") }}</td>
+            <td>{{ lesson.period.endTime|date("H:i") }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+</div>
+{% endblock %} 

@@ -1,0 +1,120 @@
+{# app/Resources/views/teacher/grades.html.twig #}
+{% extends 'base-print.html.twig' %}
+
+{% block title %}Grades{% endblock %}
+
+{% block body %}
+
+<div class="container">
+  <!-- Example row of columns -->
+
+	{% for examStudent in examStudents %}
+		<div style="float:left;"><img src="/logo.png" alt="logo" style="margin-left:20px;margin-top:20px;margin-bottom:20px;width:130px;height:130px;"></img></div>
+	 	<div>
+	 	<div style="float:right;width:150px; height:170px;">&nbsp;</div>
+	 	<h1 class="middle">Аттестат</h1>
+	 	<h2 class="underline italic bold middle">{{ examStudent.student }}</h2>
+		<h4 class="middle">{{ examStudent.class.name }}</h4>
+		<h4 class="middle">{{ examStudent.class.year.name }}</h4>
+		</div>
+		<table width="100%">
+			<thead>
+	    		<th width="30%"><h3>Предмет</h3></th>
+	    		{% for exam in allExams %}
+	    		<th>
+	    			<h3>
+	    				{{ exam.name }}
+	    			</h3>
+	    		</th>
+	    		{% endfor %}
+	    	</thead>
+	    	<tbody>
+	    	{% for examCourse in examCourses %}
+		    	{% if examCourse.student.id == examStudent.student.id %}
+		    	<tr>
+		    		<td>
+		    			<h3>
+		    				{{ examCourse.course.name }}
+		    			</h3>
+		    			<small>
+		    				{{ examCourse.teacher }}
+		    			</small>
+		    		</td>
+		    		{% for exam in allExams %}
+			    	<td>
+			    		<h3 class="grade">	
+			    		{% if examCourses[[examStudent.student.id,examCourse.course.id,examStudent.class.id,exam.id]|join('-')] is defined %}	
+			    			{{ examCourses[[examStudent.student.id,examCourse.course.id,examStudent.class.id,exam.id]|join('-')].grade }}
+			    		{% else %}
+			    			&nbsp;
+			    		{% endif %}
+		    			</h3>
+		    		</td>
+		    		{% endfor %}
+		    	</tr>
+		    	{% endif %}
+	    	{% endfor %}
+	    	<tr>
+	    		<td><h3>Прилежание</h3></td>
+		    		{% for exam in allExams %}
+		    			{% set foundGrade2 = 0 %}
+		    			{% for examDiligence in diligence %}
+			    			{% if examDiligence.studentId == examStudent.student.id and
+			    		      	examDiligence.classId == examStudent.class.id and
+			    		      	examDiligence.examId == exam.id %}
+			    		      	{% set foundGrade2 = 1 %}
+			    		      	<td><h3 class="grade">{{ examDiligence.grade|round }}</h3></td>
+			    		     {% endif %}
+		    			{% endfor %}
+		    		{%if foundGrade2 == 0 %}
+	    				<td>&nbsp;</td>
+	    			{% endif %}		    		
+	    		{% endfor %}
+	    	</tr>
+	    	<tr>
+	    		<td><h3>Поведение</h3></td>
+		    		{% for exam in allExams %}
+		    			{% set foundGrade = 0 %}
+		    			{% for examDiscipline in discipline %}
+		    			{% if examDiscipline.studentId == examStudent.student.id and
+		    		      	examDiscipline.classId == examStudent.class.id and
+		    		      	examDiscipline.examId == exam.id %}
+		    		      	{% set foundGrade = 1 %}
+		    		      	<td><h3 class="grade">{{ examDiscipline.grade|round }}</h3></td>
+		    		     {% endif %}
+		    			{% endfor %}
+		    		{%if foundGrade == 0 %}
+			    		<td>&nbsp;</td>
+			    	{% endif %}
+	    		{% endfor %}
+	    	</tr>
+	    	<tr>
+	    		<td><h3>Посещаемость</h3></td>
+	    		{% for exam in allExams %}
+	    		<td>&nbsp;</td>
+	    		{% endfor %}
+	    	</tr>
+	    	<tr>
+	    		<td><h3>Подпись родителей</h3></td>
+	    		{% for exam in allExams %}
+	    		<td>&nbsp;</td>
+	    		{% endfor %}
+	    	</tr>	    	
+	    	</tbody>
+	    </table>
+	    <div class="middle" style="margin-top:20px; margin-bottom:10px;">Замечания</div>
+	    <table width="100%">
+	    	<tr>
+	    		<td style="height:20px"></td>
+	    	<tr>
+	    	<tr>
+	    		<td style="height:20px"></td>
+	    	<tr>	    	
+	    </table>
+	    {% if not loop.last %}
+	   		<div style="page-break-after: always;">
+	   		</div>
+	   	{% endif %}
+	 {% endfor %}
+</div>
+{% endblock %} 

@@ -1,0 +1,53 @@
+{# app/Resources/views/user.html.twig #}
+{% extends 'base-admin.html.twig' %}
+
+{% block pageTitle %}Users{% endblock %}
+{% block title %}Users{% endblock %}
+{% block script %}
+	$(document).ready(function() {
+	    $('#results').DataTable({
+	    	paging: false
+	    });
+	    $('.delete_row').click(function(){
+    		return confirm("Are you sure you want to delete?");
+		});
+	} );
+{% endblock %}
+
+{% block body %}
+    <div style="margin-bottom:10px;">
+    	<a class="btn btn-default" href="/admin/user/create" role="button">New user</a>
+	</div>
+	<table id="results" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>Last Name</th>
+                <th>First Name</th>
+                <th>E-mail</th>
+                <th>Username</th>
+                <th>Roles</th>
+                <th>Active</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+	    {% for user in users %}
+	    	<tr>
+	        	<td data-sort="{{ user.lastName }}">{{ user.lastName }}</td>
+	        	<td>{{ user.firstName }}</td>
+	        	<td>{{ user.email }}</td>
+	        	<td>{{ user.username }}</td>
+	        	<td>
+	        	    {% for role in user.roles %}
+        					<div>{{ role.name }}</div>
+    				{% endfor %}
+	        	</td>
+	        	<td>{% if user.active %}Active{% else %}Disabled{% endif %}</td>
+	        	<td width="10"><a href='/admin/user/edit/{{ user.id }}'>Edit</a></td>
+	        	<td class="delete_row" width="10"><a href='/admin/user/delete/{{ user.id }}'>Delete</a></td>
+	        </tr>
+	    {% endfor %}
+    	</tbody>        
+    </table>
+{% endblock %}

@@ -1,0 +1,62 @@
+{# app/Resources/views/welcome_admin.html.twig #}
+{% extends 'base-admin.html.twig' %}
+
+{% block title %}Welcome, {{ app.user.firstName }} {{app.user.lastName }}{% endblock %}
+
+{% block body %}
+        <p>
+        Grade Book was created for St. Sergius Learning Center to help teachers, student and administrative personal to track and to handle student performance and grades. All administrative options of the system are available at any moment from the top menu or from the admin welcome page. </p>
+      <div class="container">
+      <!-- Example row of columns -->
+      <div class="row">
+        <div class="col-md-4">
+          <h2>Students</h2>
+          <p>Students option is used to create, edit or delete students in the system.</p>
+          <p><a class="btn btn-default" href="/admin/user/student" role="button">Students &raquo;</a></p>
+        </div>
+        <div class="col-md-4">
+          <h2>Teachers</h2>
+          <p>Teachers option is used to create, edit or delete teachers in the system.</p>
+          <p><a class="btn btn-default" href="/admin/user/teacher" role="button">Teachers &raquo;</a></p>
+       </div>
+       <div class="col-md-4">
+          <h2>Classes</h2>
+          <p>Classes option is used to create classes of students. Students can be assigned to classes. New students can be registered in the system in a specific class. Class can be created in the selected year.</p>
+          <p><a class="btn btn-default" href="/admin/class" role="button">Classes &raquo;</a></p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <h2>Reports</h2>
+          <p>Display mid-term reports for all students in all classes.</p>
+          <p><a class="btn btn-default" href="/admin/report/grades" role="button">Grades &raquo;</a></p>
+        </div>
+        <div class="col-md-4">
+          <h2>Final</h2>
+          <p>Display final reports for all students in all classes.</p>
+          <p><a class="btn btn-default" href="admin/report/final" role="button" disabled>Final &raquo;</a></p>
+       </div>
+        <div class="col-md-4">
+          <h2>Lessons</h2>
+          <p>Display class schedule.</p>
+          <p><a class="btn btn-default" href="admin/lesson" role="button" disabled>Lessons &raquo;</a></p> 
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <h2>Users</h2>
+          <p>Users option is used to create, edit or delete any user in the system. It provides more granular management of user permissions, user accounts, e-mail address and other options.</p>
+          <p><a class="btn btn-default" href="/admin/user" role="button">Users &raquo;</a></p>
+        </div>
+        <div class="col-md-4">
+          <h2>Courses</h2>
+          <p>Courses option is used to create subjects that are studied at the school. Teachers can be assigned to teach subjects on permanent or temrorality basis.</p>
+          <p><a class="btn btn-default" href="/admin/course" role="button">Courses &raquo;</a></p>
+       </div>
+        <div class="col-md-4">
+          <h2>Exams</h2>
+          <p>Mid-term and final exams is managed by this option. Teachers evaluate students performance using pre-defined exams.</p>
+          <p><a class="btn btn-default" href="/admin/exam" role="button">Exams &raquo;</a></p>
+        </div>
+      </div>
+{% endblock %} 

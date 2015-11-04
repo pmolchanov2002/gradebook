@@ -1,0 +1,70 @@
+{# app/Resources/views/teacher/studentGrades.html.twig #}
+{% extends 'base-teacher.html.twig' %}
+
+{%block script %}
+<script>
+$(document).ready(function() {
+    $('#input').validator();
+});
+</script>
+{% endblock %}
+
+{% block title %}Grades{% endblock %}
+
+{% block body %}
+<div class="container">
+  <!-- Example row of columns -->
+  <a class="btn btn-default" href="/teacher/exam/{{ examId }}/course/{{courseId}}" role="button">&lt;&lt; Back to classes</a>
+  <h2>{{ examName }}</h2>
+  <h3>{{ courseName }}</h3>
+  <h3>{{ className }}</h3>
+  <p>Enter grades:</p>
+  <form name="input" action="" method="post" data-toggle="validator" role="form">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Student</th>
+          <th width="40%">Grade</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% set lastid = -1 %}
+        {% for gradeExam in gradeExams %}
+            {%if lastid != gradeExam.student.id %}
+            	{% set lastid = gradeExam.student.id %}
+            	<tr class="info">
+            		<td colspan="2">{{ gradeExam.student.lastName }} {{ gradeExam.student.firstName }}</td>
+           		</tr>
+            {% endif %}
+        	<tr>
+        		<td>
+        		{% if gradeExam.gradeType.code == 'Course' %}
+        			{{ courseName }}
+        		{% else %}
+        			{{ gradeExam.gradeType.name }}
+        		{% endif %}
+        		</td>     
+	            {% if gradeExam.grade is empty %}
+	            <td>
+	            	<div class="form-group">
+	            		<input class="form-control" type="number" max="100" min="1" placeholder="Grade" type="number" name="grade_{{gradeExam.gradeType.id}}_{{gradeExam.student.id}}" width="40" value="{{gradeExam.grade}}" data-error="Grade must be between 1 and 100" required/>  
+	            		<div class="help-block with-errors"></div>
+	            	</div>    
+	            </td>
+	            {% else %}
+	            <td>
+	            	<input class="form-control" type="text" name="grade_{{gradeExam.gradeType.id}}_{{gradeExam.student.id}}" width="40" value="{{gradeExam.grade}}" disabled/>
+	            </td>
+	            {% endif %}
+	        </tr>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% if enableSubmit %}
+	    <p style="color:red">Please review grades before pressing on submit button. Grades cannot be changed afterwards.</p>
+	    <input class="btn btn-primary" type="submit" name="submit" value="Submit">
+	 {% endif %}
+  </form>
+</div>
+{% endblock %} 

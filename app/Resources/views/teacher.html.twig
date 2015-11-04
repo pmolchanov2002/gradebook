@@ -1,0 +1,51 @@
+{# app/Resources/views/teacher.html.twig #}
+{% extends 'base-admin.html.twig' %}
+
+{% block pageTitle %}Teachers{% endblock %}
+{% block title %}Teachers{% endblock %}
+{% block script %}
+	$(document).ready(function() {
+	    $('#results').DataTable({
+	    	paging: false
+	    });
+	    $('.delete_row').click(function(){
+    		return confirm("Are you sure you want to delete?");
+		});
+	} );
+{% endblock %}
+
+{% block body %}
+    <div style="margin-bottom:10px;">
+    	<a class="btn btn-default" href="/admin/teacher/create" role="button">New teacher</a>
+	</div>
+	<table id="results" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>Last Name</th>
+                <th>First Name</th>
+                <th>E-mail</th>
+                <th>Mobile</th>
+                <th>Home</th>
+                <th>Username</th>
+                <th>Schedule</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+	    {% for user in users %}
+	    	<tr>
+	    		<td data-sort="{{ user.lastName }}">{{ user.lastName }}</td>
+	        	<td>{{ user.firstName }}</td>
+	        	<td>{{ user.email }}</td>
+	        	<td>{{ user.mobilePhone }}</td>
+	        	<td>{{ user.homePhone }}</td>
+	        	<td>{{ user.username }}</td>
+	        	<td width="10"><a href='/admin/teacher/lesson/{{ user.id }}'>Schedule</a></td>
+	        	<td width="10"><a href='/admin/teacher/edit/{{ user.id }}'>Edit</a></td>
+	        	<td class="delete_row" width="10"><a href='/admin/teacher/delete/{{ user.id }}'>Delete</a></td>
+	        </tr>
+	    {% endfor %}
+    	</tbody>        
+    </table>
+{% endblock %}

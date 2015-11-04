@@ -1,0 +1,40 @@
+{# app/Resources/views/course.html.twig #}
+{% extends 'base-admin.html.twig' %}
+
+{% block pageTitle %}Courses{% endblock %}
+{% block title %}Courses{% endblock %}
+{% block script %}
+	$(document).ready(function() {
+	    $('#results').DataTable({
+	    	paging: false
+	    });
+	    $('.delete_row').click(function(){
+    		return confirm("Are you sure you want to delete?");
+		});
+	} );
+{% endblock %}
+
+{% block body %}
+
+    <div style="margin-bottom:10px;">
+    	<a class="btn btn-default" href="/admin/course/create" role="button">New course</a>
+	</div>
+	<table id="results" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+	    {% for course in courses %}
+	    	<tr>
+	        	<td data-sort="{{ course.name }}">{{ course.name }}</td>
+	        	<td width="10"><a href='/admin/course/edit/{{ course.id }}'>Edit</a></td>
+	        	<td class="delete_row" width="10"><a href='/admin/course/delete/{{ course.id }}'>Delete</a></td>
+	        </tr>
+	    {% endfor %}
+    	</tbody>        
+    </table>
+{% endblock %}
