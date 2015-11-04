@@ -68,13 +68,13 @@ class ReportAdminController extends Controller {
 		$cachedGradeCourses = [];
 		
 		foreach($gradeCourses as $examGrade) {
-			$id = $examGrade->getStudent()->getId();
-			$id .= '-';
-			$id .= $examGrade->getCourse()->getId();
-			$id .= '-';
-			$id .= $examGrade->getClass()->getId();
-			$id .= '-';
-			$id .= $examGrade->getExam()->getId();
+			$compoundId = array(
+					$examGrade->getStudent()->getId(),
+					$examGrade->getCourse()->getId(),
+					$examGrade->getClass()->getId(),
+					$examGrade->getExam()->getId()
+			);
+			$id = join('-', $compoundId);
 			$cachedGradeCourses[$id] = $examGrade;
 		}
 		
