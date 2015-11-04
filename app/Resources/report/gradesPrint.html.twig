@@ -43,8 +43,8 @@
 		    		{% for exam in allExams %}
 			    	<td>
 			    		<h3 class="grade">	
-			    		{% if examCourses[[examStudent.student.id,examCourse.course.id,examStudent.class.id,exam.id]|join('-')] is defined %}	
-			    			{{ examCourses[[examStudent.student.id,examCourse.course.id,examStudent.class.id,exam.id]|join('-')].grade }}
+			    		{% if gradeCourses[[examStudent.student.id,examCourse.course.id,examStudent.class.id,exam.id]|join('-')] is defined %}	
+			    			{{ gradeCourses[[examStudent.student.id,examCourse.course.id,examStudent.class.id,exam.id]|join('-')].grade }}
 			    		{% else %}
 			    			&nbsp;
 			    		{% endif %}
@@ -55,37 +55,39 @@
 		    	{% endif %}
 	    	{% endfor %}
 	    	<tr>
-	    		<td><h3>Прилежание</h3></td>
-		    		{% for exam in allExams %}
-		    			{% set foundGrade2 = 0 %}
-		    			{% for examDiligence in diligence %}
-			    			{% if examDiligence.studentId == examStudent.student.id and
-			    		      	examDiligence.classId == examStudent.class.id and
-			    		      	examDiligence.examId == exam.id %}
-			    		      	{% set foundGrade2 = 1 %}
-			    		      	<td><h3 class="grade">{{ examDiligence.grade|round }}</h3></td>
-			    		     {% endif %}
-		    			{% endfor %}
-		    		{%if foundGrade2 == 0 %}
-	    				<td>&nbsp;</td>
-	    			{% endif %}		    		
+	    		<td>
+	    			<h3>
+	    				Прилежание
+	    			</h3>
+	    		</td>
+		    	{% for exam in allExams %}
+		    	<td>
+		    		<h3 class="grade">
+   		    		{%if examDiligence[[examStudent.student.id,examStudent.class.id,exam.id]|join('-')] is defined %}	
+		    			{{ examDiligence[[examStudent.student.id,examStudent.class.id,exam.id]|join('-')].grade|round }}
+		    		{% else %}
+		    			&nbsp;
+		    		{% endif %}
+		    		</h3>
+		    	</td>	    		
 	    		{% endfor %}
 	    	</tr>
 	    	<tr>
-	    		<td><h3>Поведение</h3></td>
-		    		{% for exam in allExams %}
-		    			{% set foundGrade = 0 %}
-		    			{% for examDiscipline in discipline %}
-		    			{% if examDiscipline.studentId == examStudent.student.id and
-		    		      	examDiscipline.classId == examStudent.class.id and
-		    		      	examDiscipline.examId == exam.id %}
-		    		      	{% set foundGrade = 1 %}
-		    		      	<td><h3 class="grade">{{ examDiscipline.grade|round }}</h3></td>
-		    		     {% endif %}
-		    			{% endfor %}
-		    		{%if foundGrade == 0 %}
-			    		<td>&nbsp;</td>
-			    	{% endif %}
+	    		<td>
+	    			<h3>
+	    				Поведение
+	    			</h3>
+	    		</td>
+		    	{% for exam in allExams %}
+		    	<td>
+		    		<h3 class="grade">
+	    		   	{%if examDiscipline[[examStudent.student.id,examStudent.class.id,exam.id]|join('-')] is defined %}	
+		    			{{ examDiscipline[[examStudent.student.id,examStudent.class.id,exam.id]|join('-')].grade|round }}
+		    		{% else %}
+		    			&nbsp;
+		    		{% endif %}
+		    		</h3>
+		    	</td>
 	    		{% endfor %}
 	    	</tr>
 	    	<tr>

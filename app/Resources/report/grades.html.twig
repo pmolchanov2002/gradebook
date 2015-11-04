@@ -35,8 +35,8 @@
 			    	{% for exam in allExams %}
 			    	<td>
 			    		<h3>
-			    		{%if examCourses[[examStudent.student.id,examCourse.course.id,examStudent.class.id,exam.id]|join('-')] is defined %}	
-			    			{{ examCourses[[examStudent.student.id,examCourse.course.id,examStudent.class.id,exam.id]|join('-')].grade }}
+			    		{%if gradeCourses[[examStudent.student.id,examCourse.course.id,examStudent.class.id,exam.id]|join('-')] is defined %}	
+			    			{{ gradeCourses[[examStudent.student.id,examCourse.course.id,examStudent.class.id,exam.id]|join('-')].grade }}
 			    		{% else %}
 			    			&nbsp;
 			    		{% endif %}
@@ -53,18 +53,16 @@
 	    			</h3>
 	    		</td>
 		    	{% for exam in exams %}
-		    		{% for examDiligence in diligence %}
-		    			{% if examDiligence.studentId == examStudent.student.id and
-		    		      	examDiligence.classId == examStudent.class.id and
-		    		      	examDiligence.examId == exam.id %}
-		    		      	<td>
-		    		      		<h3>
-		    		      			{{ examDiligence.grade|round }}
-		    		      		</h3>
-		    		      	</td>
-		    		     {% endif %}
-		    		{% endfor %}
-	    		{% endfor %}
+   		      	<td>
+   		      		<h3>
+   		    		{%if examDiligence[[examStudent.student.id,examStudent.class.id,exam.id]|join('-')] is defined %}	
+		    			{{ examDiligence[[examStudent.student.id,examStudent.class.id,exam.id]|join('-')].grade|round }}
+		    		{% else %}
+		    			&nbsp;
+		    		{% endif %}
+		    		</h3>
+   		      	</td>
+   		      	{% endfor %}
 	    	</tr>
 	    	<tr>
 	    		<td>
@@ -73,18 +71,16 @@
 	    			</h3>
 	    		</td>
 		    	{% for exam in exams %}
-		    		{% for examDiscipline in discipline %}
-		    			{% if examDiscipline.studentId == examStudent.student.id and
-		    		      	examDiscipline.classId == examStudent.class.id and
-		    		      	examDiscipline.examId == exam.id %}
-		    		      	<td>
-		    		      		<h3>
-		    		      			{{ examDiscipline.grade|round }}
-		    		      		</h3>
-		    		      	</td>
-		    		     {% endif %}
-		    		{% endfor %}
-	    		{% endfor %}
+   		      	<td>
+   		      		<h3>
+   		      			{%if examDiscipline[[examStudent.student.id,examStudent.class.id,exam.id]|join('-')] is defined %}	
+			    			{{ examDiscipline[[examStudent.student.id,examStudent.class.id,exam.id]|join('-')].grade|round }}
+			    		{% else %}
+			    			&nbsp;
+			    		{% endif %}
+   		      		</h3>
+   		      	</td>
+   		      	{% endfor %}
 	    	</tr>	    	
 	    	</tbody>
 	    </table>

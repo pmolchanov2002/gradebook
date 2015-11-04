@@ -63,6 +63,20 @@ class ReportAdminController extends Controller {
 		->addOrderBy ( 'co.name' )
 		->setParameter ( 'code', 'Course' );
 		
+		$examCourses = $q->getQuery ()->execute ();
+		
+		$q = $em->getRepository ( 'AppBundle:GradeExam' )
+		->createQueryBuilder ( 'g' )
+		->join ( 'g.course', 'co' )
+		->join ( 'g.class', 'c' )
+		->join ( 'c.year', 'y' )
+		->join ( 'g.student', 's' )
+		->join ( 'g.gradeType', 'gt' )
+		->where ( 's.active = true' )
+		->andWhere ( 'y.active = true' )
+		->andWhere ( 'gt.code = :code' )
+		->setParameter ( 'code', 'Course' );
+		
 		$gradeCourses = $q->getQuery ()->execute ();
 		
 		$cachedGradeCourses = [];
@@ -96,11 +110,12 @@ class ReportAdminController extends Controller {
 		
 		return $this->render ( $reportName, array (
 				'examStudents' => $examStudents,
-				'examCourses' => $cachedGradeCourses,
+				'examCourses' => $examCourses,
+				'gradeCourses' => $cachedGradeCourses,
 				'exams' => $exams,
 				'allExams' => $allExams,
-				'diligence' => $diligence,
-				'discipline' => $discipline 
+				'examDiligence' => $diligence,
+				'examDiscipline' => $discipline 
 		) );
 	}
 	
@@ -125,6 +140,20 @@ class ReportAdminController extends Controller {
 		->addOrderBy ( 'g.exam' )
 		->setParameter ( 'code', $gradeTypeCode );
 		
-		return $q->getQuery ()->execute ();
+		$grades = $q->getQuery ()->execute ();
+		
+		$cachedGrades = [];
+		
+		foreach($grades as $examGrade) {
+			$compoundId = array(
+					$examGrade['studentId'],
+					$examGrade['classId'],
+					$examGrade['examId']
+			);
+			$id = join('-', $compoundId);
+			$cachedGrades[$id] = $examGrade;
+		}
+		
+		return $cachedGrades;
 	}
 }
