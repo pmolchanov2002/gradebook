@@ -1,23 +1,23 @@
 # gradebook
 Grade Book is a PHP / Symfony project to collect/store grades of students
 
-# Purpose of the project
+## Purpose
 
 Main purpose of the application is to allow teachers enter quaterly grades including attendance, discipline and delligence.
 Adminitrators can notify teachers via e-mail about the next grading period.
 
-# Foundation
+## Foundation
 
 Application is based on the Symfony 2.x framework.
 It's powered by MySQL database and Doctrine ORM (which is part of the Symfony 2.x framework)
 Front end is powered by Bootstrap and is nicely resized on both mobile (Android, iPhone, iPad) and desktop (Windows, Mac, Linux) screens.
 
-#Maintenence
+## Maintenence
 
 Minimum maintenance is required. Code can be easily adjusted for specific school needs with minimum knowledge of PHP/ORM/MySQL.
 Some reports are in Russian!
 
-#Functionality
+## Functionality
 
 Application allow to:
 
@@ -38,12 +38,13 @@ E-mail support:
 1. Letter to all teachers to provide grades to students
 2. Follow up message to teachers with pending reports
 
-Application doesn't have unit-tests yet that are highly appreciated.
-
-#Future plans
+##Future plans
 
 1. Add support for parents
 2. Distribute grades to parents via e-mail
 3. School web-site CMS support
 
+#Coding
+Any help with code review and new functionality is highly appreciated.
+Application doesn't have unit-tests yet that are highly appreciated.
 
