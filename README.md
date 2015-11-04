@@ -19,7 +19,7 @@ Some reports are in Russian!
 
 #Howto run
 
-1. Create MySQL database and upload schema from /src/SQL folder
+1. Create MySQL database and upload schema from /app/schema/gradebook.sql file
 2. Update DB and Mail server connection settings in the /app/config/parameters.yml file
 3. Start local Symfony server:
 
