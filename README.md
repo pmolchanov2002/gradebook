@@ -24,6 +24,8 @@ Some reports are in Russian!
 3. Start local Symfony server:
 
 cd gradebook
+
+
 php app/console server:run
 
 4. Open http://127.0.0.1:8000/ in the browser. 
