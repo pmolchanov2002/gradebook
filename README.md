@@ -23,8 +23,10 @@ Some reports are in Russian!
 2. Update DB and Mail server connection settings in the /app/config/parameters.yml file
 3. Start local Symfony server:
 
+```
 cd gradebook
 php app/console server:run
+```
 
 4. Open http://127.0.0.1:8000/ in the browser. 
 5. Default administrator username: admin, password: 123
