@@ -108,6 +108,24 @@ class ReportAdminController extends Controller {
 		$diligence = $this->avgGrade ( 'Diligence' );
 		$discipline = $this->avgGrade ( 'Discipline' );
 		
+		$q = $em->getRepository ( 'AppBundle:GradeAttendance' )
+		->createQueryBuilder ( 'g' )
+		->join ( 'g.year', 'y' )
+		->where ( 'y.active = true' );
+		
+		$attendanceGrades = $q->getQuery ()->execute ();
+		
+		$cachedAttendance = [];
+		
+		foreach($attendanceGrades as $attendance) {
+			$compoundId = array(
+					$attendance->getStudent()->getId(),
+					$attendance->getExam()->getId()
+			);
+			$id = join('-', $compoundId);
+			$cachedAttendance[$id] = $attendance;
+		}		
+		
 		return $this->render ( $reportName, array (
 				'examStudents' => $examStudents,
 				'examCourses' => $examCourses,
@@ -115,7 +133,8 @@ class ReportAdminController extends Controller {
 				'exams' => $exams,
 				'allExams' => $allExams,
 				'examDiligence' => $diligence,
-				'examDiscipline' => $discipline 
+				'examDiscipline' => $discipline,
+				'examAttendance' => $cachedAttendance
 		) );
 	}
 	

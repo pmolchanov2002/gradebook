@@ -81,6 +81,25 @@
    		      		</h3>
    		      	</td>
    		      	{% endfor %}
+   		   </tr>
+   		   <tr>
+   		      	<td>
+	    			<h3>
+	    				Посещаемость
+	    			</h3>
+	    		</td>
+   		      	{% for exam in exams %}
+   		      	<td>
+   		      		<h3>
+   		      			{%if examAttendance[[examStudent.student.id,exam.id]|join('-')] is defined %}	
+			    			{{ examAttendance[[examStudent.student.id,exam.id]|join('-')].grade }} / 
+			    			{{ examAttendance[[examStudent.student.id,exam.id]|join('-')].maxGrade }}
+			    		{% else %}
+			    			&nbsp;
+			    		{% endif %}
+   		      		</h3>
+   		      	</td>
+   		      	{% endfor %}
 	    	</tr>	    	
 	    	</tbody>
 	    </table>
