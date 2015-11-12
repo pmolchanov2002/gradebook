@@ -74,6 +74,24 @@ class User implements UserInterface, \Serializable
      *      )
      **/
     protected $roles;
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="User")
+     * @ORM\JoinTable(name="User_Parent",
+     *      joinColumns={@ORM\JoinColumn(name="ParentId", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="UserId", referencedColumnName="id")}
+     *      )
+     **/
+    protected $parents;  
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="User")
+     * @ORM\JoinTable(name="User_Parent",
+     *      joinColumns={@ORM\JoinColumn(name="UserId", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="ParentId", referencedColumnName="id")}
+     *      )
+     **/
+    protected $students;    
 
     /**
      * @ORM\ManyToMany(targetEntity="ClassOfStudents")
@@ -86,7 +104,6 @@ class User implements UserInterface, \Serializable
 
     /**
      * @ORM\Column(name="Active", type="boolean")
-     * @Assert\NotBlank()
      */
     protected $active;     
 

@@ -4,8 +4,7 @@ parameters:
 #    parameter_name: value
 
 services:
-     GradeExamService:
-         class: AppBundle\Service\GradeExamService
-#    service_name:
-#        class: AppBundle\Directory\ClassName
-#        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+    GradeService:
+        class: AppBundle\Service\GradeService
+        arguments: 
+            entityManager: "@doctrine.orm.entity_manager"

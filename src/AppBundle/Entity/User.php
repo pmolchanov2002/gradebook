@@ -74,6 +74,24 @@ class User implements UserInterface, \Serializable
      *      )
      **/
     protected $roles;
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="User")
+     * @ORM\JoinTable(name="User_Parent",
+     *      joinColumns={@ORM\JoinColumn(name="UserId", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="ParentId", referencedColumnName="id")}
+     *      )
+     **/
+    protected $parents;  
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="User")
+     * @ORM\JoinTable(name="User_Parent",
+     *      joinColumns={@ORM\JoinColumn(name="ParentId", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="UserId", referencedColumnName="id")}
+     *      )
+     **/
+    protected $students;    
 
     /**
      * @ORM\ManyToMany(targetEntity="ClassOfStudents")
@@ -86,7 +104,6 @@ class User implements UserInterface, \Serializable
 
     /**
      * @ORM\Column(name="Active", type="boolean")
-     * @Assert\NotBlank()
      */
     protected $active;     
 
@@ -529,5 +546,71 @@ class User implements UserInterface, \Serializable
     public function getLessons()
     {
         return $this->lessons;
+    }
+
+    /**
+     * Add parents
+     *
+     * @param \AppBundle\Entity\User $parents
+     * @return User
+     */
+    public function addParent(\AppBundle\Entity\User $parents)
+    {
+        $this->parents[] = $parents;
+
+        return $this;
+    }
+
+    /**
+     * Remove parents
+     *
+     * @param \AppBundle\Entity\User $parents
+     */
+    public function removeParent(\AppBundle\Entity\User $parents)
+    {
+        $this->parents->removeElement($parents);
+    }
+
+    /**
+     * Get parents
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getParents()
+    {
+        return $this->parents;
+    }
+
+    /**
+     * Add students
+     *
+     * @param \AppBundle\Entity\User $students
+     * @return User
+     */
+    public function addStudent(\AppBundle\Entity\User $students)
+    {
+        $this->students[] = $students;
+
+        return $this;
+    }
+
+    /**
+     * Remove students
+     *
+     * @param \AppBundle\Entity\User $students
+     */
+    public function removeStudent(\AppBundle\Entity\User $students)
+    {
+        $this->students->removeElement($students);
+    }
+
+    /**
+     * Get students
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getStudents()
+    {
+        return $this->students;
     }
 }

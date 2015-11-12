@@ -1,6 +1,6 @@
 <?php
 
-// src/AppBundle/Controller/TeacherController.php
+// src/AppBundle/Controller/ParentController.php
 namespace AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -10,22 +10,21 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 
 use AppBundle\Entity\User;
+use Doctrine\ORM\EntityRepository;
 
 
-class TeacherController extends Controller
+class ParentController extends Controller
 {
 
-    private $displayRoute = 'app_teacher_display';
+    private $displayRoute = 'app_parent_display';
 
     /**
-     * @Route("/admin/teacher/create")
+     * @Route("/admin/parent/create")
      */
     public function create(Request $request)
     {
         $user = new User();
         $user->setActive(true);
-        $roles = $this->getDoctrine()->getRepository('AppBundle:Role')->findOneById(2);
-        $user->addRole($roles);
         $form = $this->createFormBuilder($user)
         	->add('lastName', 'text', array('label' => 'Last Name:'))
         	->add('firstName', 'text', array('label' => 'First Name:'))
@@ -37,14 +36,20 @@ class TeacherController extends Controller
             		'second_options' => array('label' => 'Repeat Password', 'required' => false),
             ))
            ->add('email', 'text', array('label' => 'Email:', 'required' => false))
-           ->add('mobilePhone', 'text', array('label' => 'Mobile Phone:', 'required' => false))
-           ->add('homePhone', 'text', array('label' => 'Home Phone:', 'required' => false))
-           ->add('roles', 'entity', array(
+           ->add('mobilePhone', 'text', array('label' => 'Phone:', 'required' => false))
+           ->add('students', 'entity', array(
+           		'label' => 'Parent of students: ',
            		'multiple' => true,
            		'expanded' => true,
-           		'class' => 'AppBundle:Role',
-           		'choice_label' => 'name',
-           		'label' => 'Roles: '
+           		'class' => 'AppBundle:User',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('u')
+                        ->join('u.roles', 'r')
+                        ->where('r.role = :role')
+                        ->andWhere('u.active = true')
+                        ->orderBy('u.lastName')
+                        ->setParameter('role', 'ROLE_STUDENT');
+                }
            ))
             ->add('save', 'submit', array('label' => 'Create'))
             ->getForm();
@@ -57,20 +62,20 @@ class TeacherController extends Controller
             if($user->getPassword() != '') {
                 $user->setPassword(md5($user->getPassword()));
             }
-            $roles = $this->getDoctrine()->getRepository('AppBundle:Role')->findOneById(2);
+            $roles = $this->getDoctrine()->getRepository('AppBundle:Role')->findOneById(4);
             $user->addRole($roles);
             $em->persist($user);
             $em->flush();
             return $this->redirectToRoute($this->displayRoute);
         }    
 
-        return $this->render('forms/teacher.html.twig', array(
+        return $this->render('forms/parent.html.twig', array(
             'form' => $form->createView(),
         ));
     }
 
     /**
-     * @Route("/admin/teacher/edit/{id}", name="app_teacher_edit")
+     * @Route("/admin/parent/edit/{id}", name="app_parent_edit")
      * @ParamConverter("user", class="AppBundle:User")     
      */
     public function edit($user, Request $request)
@@ -93,14 +98,20 @@ class TeacherController extends Controller
             ))
            	->add('email', 'text', array('label' => 'Email:', 'required' => false))
            	->add('mobilePhone', 'text', array('label' => 'Mobile Phone:', 'required' => false))
-           	->add('homePhone', 'text', array('label' => 'Home Phone:', 'required' => false))
-           	->add('roles', 'entity', array(
-           			'multiple' => true,
-           			'expanded' => true,
-           			'class' => 'AppBundle:Role',
-           			'choice_label' => 'name',
-           			'label' => 'Roles: '
-           	))
+           ->add('students', 'entity', array(
+           		'label' => 'Parent of students: ',
+           		'multiple' => true,
+           		'expanded' => true,
+           		'class' => 'AppBundle:User',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('u')
+                        ->join('u.roles', 'r')
+                        ->where('r.role = :role')
+                        ->andWhere('u.active = true')
+                        ->orderBy('u.lastName')
+                        ->setParameter('role', 'ROLE_STUDENT');
+                }
+           ))
             ->add('save', 'submit', array('label' => 'Save'))
             ->getForm();
 
@@ -119,13 +130,13 @@ class TeacherController extends Controller
             return $this->redirectToRoute($this->displayRoute);
         }    
 
-        return $this->render('forms/teacher.html.twig', array(
+        return $this->render('forms/parent.html.twig', array(
             'form' => $form->createView(),
         ));
     }
 
      /**
-     * @Route("/admin/teacher/delete/{id}")
+     * @Route("/admin/parent/delete/{id}")
      * @ParamConverter("user", class="AppBundle:User")
      */
     public function delete($user)
@@ -141,53 +152,15 @@ class TeacherController extends Controller
     }
 
     /**
-     * @Route("/admin/teacher", name="app_teacher_display")
+     * @Route("/admin/parent", name="app_parent_display")
      */              
     public function display() {
         $em = $this->getDoctrine()->getManager();
-        $q = $em->createQuery("select u from AppBundle\Entity\User u left join u.roles r where r.name='Teacher' and u.active=true");
+        $q = $em->createQuery("select u from AppBundle\Entity\User u left join u.roles r where r.role='ROLE_PARENT' and u.active=true");
         $users = $q->getResult();
-        return $this->render('views/teacher.html.twig',  array('users' => $users));
-    } 
-    
-    /**
-     * @Route("/admin/teacher/lesson/{id}")
-     * @ParamConverter("user", class="AppBundle:User")
-     */
-    public function displaySchedule($user) {
-
-        $em = $this->getDoctrine()->getManager();
-        $q = $em->createQuery("select l from AppBundle:Lesson l left join l.classOfStudents cl join cl.year y left join l.period p left join l.teacher t where t.id=:id and y.active=true order by p.ordinal")
-        ->setParameter("id", $user->getId());   
-
-        $lessons = $q->getResult();
-
-        //print_r ($students);
-
-        return $this->render('report/teacher/schedule.html.twig', array(
-            "lessons" => $lessons,
-        	'user' => $user
-        ));
+        return $this->render('views/parent.html.twig',  array('users' => $users));
     }
     
-    /**
-     * @Route("/admin/teacher/lesson/{id}/print")
-     * @ParamConverter("user", class="AppBundle:User")
-     */
-    public function displaySchedulePrint($user) {
-
-        $em = $this->getDoctrine()->getManager();
-        $q = $em->createQuery("select l from AppBundle:Lesson l left join l.classOfStudents cl join cl.year y left join l.period p left join l.teacher t where t.id=:id and y.active=true order by p.ordinal")
-        ->setParameter("id", $user->getId());   
-
-        $lessons = $q->getResult();
-
-        //print_r ($students);
-
-        return $this->render('report/teacher/schedulePrint.html.twig', array(
-            "lessons" => $lessons,
-        	'user' => $user
-        ));
-    }
+    
    
 }

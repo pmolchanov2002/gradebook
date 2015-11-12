@@ -216,7 +216,11 @@ class StudentController extends Controller
      * @ParamConverter("user", class="AppBundle:User")   
      */
     public function displayReport($user) {
-    	return $this->displayGrades ( $user, 'report/studentGrades.html.twig' );
+    	$gradeService = $this->get('GradeService');
+    	$query = new GradeQuery();
+    	$query->setStudentId($user->getId());
+    	//views/teacher/grades.html.twig
+    	return $this->render ( 'report/student/grades.html.twig', $gradeService->obtainGrades ($query));
     }
     
     /**
