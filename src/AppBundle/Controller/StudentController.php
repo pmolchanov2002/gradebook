@@ -213,7 +213,6 @@ class StudentController extends Controller
         return $this->render('views/student.html.twig',  array('users' => $users));
     }
     
-    //TODO: Finish grades from student
     /**
      * @Route("/admin/student/grade/{id}", name="app_student_grade")
      * @ParamConverter("user", class="AppBundle:User")   
