@@ -13,12 +13,10 @@ class ReportTeacherController extends Controller
     /**
      * @Route("/teacher/report/grades")
      */  
-	
     public function displayGrades() {
     	$gradeService = $this->get('GradeService');
     	$query = new GradeQuery();
     	$query->setTeacherId($this->get('security.context')->getToken()->getUser()->getId());
-    	//views/teacher/grades.html.twig
-    	return $this->render ( 'report/teacher/grades.html.twig', $gradeService->obtainGrades ($query));
+    	return $this->render ( 'report/teacher/grades.html.twig', array('gradeResult' => $gradeService->obtainGrades ($query)));
     }
 }

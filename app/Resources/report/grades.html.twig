@@ -1,5 +1,6 @@
-{# app/Resources/views/teacher/grades.html.twig #}
+{# app/Resources/report/grades.html.twig #}
 {% extends 'base-admin.html.twig' %}
+{% import 'report/macro_grades.html.twig' as report %}
 
 {% block title %}Grades{% endblock %}
 
@@ -9,100 +10,7 @@
   <a class="btn btn-default" href="/admin" role="button">&lt;&lt; Back</a>
   <a target='_blank' class="btn btn-default" href="/admin/report/grades/print" role="button">Print</a>
 
-	{% for examStudent in examStudents %}
-	 <hr>
-		<h3>{{ examStudent.class.name }} ({{ examStudent.class.year.name }})</h3>
-		<h1>{{ examStudent.student }}</h1>
-		<table class="table">
-			<thead>
-	    		<th>Предмет</th>
-	    			{% for exam in allExams %}
-	    		<th>{{ exam.name }}</th>
-	    			{% endfor %}
-	    	</thead>
-	    	<tbody>
-	    	{% for examCourse in examCourses %}
-		    	{% if examCourse.student.id == examStudent.student.id %}
-		    	<tr>
-		    		<td>
-		    			<h3>
-		    				{{ examCourse.course.name }}
-		    			</h3>
-		    			<small>
-		    				{{ examCourse.teacher }}
-		    			</small>
-		    		</td>
-			    	{% for exam in allExams %}
-			    	<td>
-			    		<h3>
-			    		{%if gradeCourses[[examStudent.student.id,examCourse.course.id,examStudent.class.id,exam.id]|join('-')] is defined %}	
-			    			{{ gradeCourses[[examStudent.student.id,examCourse.course.id,examStudent.class.id,exam.id]|join('-')].grade }}
-			    		{% else %}
-			    			&nbsp;
-			    		{% endif %}
-			    		</h3>
-			    	</td>
-		    		{% endfor %}
-		    	</tr>
-		    	{% endif %}
-	    	{% endfor %}
-	    	<tr>
-	    		<td>
-	    			<h3>
-	    				Прилежание
-	    			</h3>
-	    		</td>
-		    	{% for exam in exams %}
-   		      	<td>
-   		      		<h3>
-   		    		{%if examDiligence[[examStudent.student.id,examStudent.class.id,exam.id]|join('-')] is defined %}	
-		    			{{ examDiligence[[examStudent.student.id,examStudent.class.id,exam.id]|join('-')].grade|round }}
-		    		{% else %}
-		    			&nbsp;
-		    		{% endif %}
-		    		</h3>
-   		      	</td>
-   		      	{% endfor %}
-	    	</tr>
-	    	<tr>
-	    		<td>
-	    			<h3>
-	    				Поведение
-	    			</h3>
-	    		</td>
-		    	{% for exam in exams %}
-   		      	<td>
-   		      		<h3>
-   		      			{%if examDiscipline[[examStudent.student.id,examStudent.class.id,exam.id]|join('-')] is defined %}	
-			    			{{ examDiscipline[[examStudent.student.id,examStudent.class.id,exam.id]|join('-')].grade|round }}
-			    		{% else %}
-			    			&nbsp;
-			    		{% endif %}
-   		      		</h3>
-   		      	</td>
-   		      	{% endfor %}
-   		   </tr>
-   		   <tr>
-   		      	<td>
-	    			<h3>
-	    				Посещаемость
-	    			</h3>
-	    		</td>
-   		      	{% for exam in exams %}
-   		      	<td>
-   		      		<h3>
-   		      			{%if examAttendance[[examStudent.student.id,exam.id]|join('-')] is defined %}	
-			    			{{ examAttendance[[examStudent.student.id,exam.id]|join('-')].grade }} / 
-			    			{{ examAttendance[[examStudent.student.id,exam.id]|join('-')].maxGrade }}
-			    		{% else %}
-			    			&nbsp;
-			    		{% endif %}
-   		      		</h3>
-   		      	</td>
-   		      	{% endfor %}
-	    	</tr>	    	
-	    	</tbody>
-	    </table>
-	 {% endfor %}
+  {{ report.grades(gradeResult) }}
+
 </div>
 {% endblock %} 

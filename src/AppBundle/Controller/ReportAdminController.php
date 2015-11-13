@@ -12,7 +12,7 @@ class ReportAdminController extends Controller {
 	 */
 	public function display() {
 		$gradeService = $this->get('GradeService');
-		return $this->render ( 'report/grades.html.twig', $gradeService->obtainGrades ());
+		return $this->render ( 'report/grades.html.twig', array('gradeResult' => $gradeService->obtainGrades ()));
 	}
 	
 	/**
@@ -20,6 +20,6 @@ class ReportAdminController extends Controller {
 	 */
 	public function displayPrint() {
 		$gradeService = $this->get('GradeService');
-		return $this->render ( 'report/gradesPrint.html.twig', $gradeService->obtainGrades ());
+		return $this->render ( 'report/gradesPrint.html.twig', array('gradeResult' => $gradeService->obtainGrades ()));
 	}
 }

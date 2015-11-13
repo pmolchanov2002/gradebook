@@ -1,17 +1,17 @@
-{% macro gradesPrint() %}
-	{% for examStudent in examStudents %}
+{% macro grades(gradeResult) %}
+	{% for student in gradeResult.students %}
 		<div style="float:left;"><img src="/logo.png" alt="logo" style="margin-left:20px;margin-top:20px;margin-bottom:20px;width:130px;height:130px;"></img></div>
 	 	<div>
 	 	<div style="float:right;width:150px; height:170px;">&nbsp;</div>
 	 	<h1 class="middle">Аттестат</h1>
-	 	<h2 class="underline italic bold middle">{{ examStudent.student }}</h2>
-		<h4 class="middle">{{ examStudent.class.name }}</h4>
-		<h4 class="middle">{{ examStudent.class.year.name }}</h4>
+	 	<h2 class="underline italic bold middle">{{ student.student }}</h2>
+		<h4 class="middle">{{ student.class.name }}</h4>
+		<h4 class="middle">{{ student.class.year.name }}</h4>
 		</div>
 		<table width="100%">
 			<thead>
 	    		<th width="30%"><h3>Предмет</h3></th>
-	    		{% for exam in allExams %}
+	    		{% for exam in gradeResult.exams %}
 	    		<th>
 	    			<h3>
 	    				{{ exam.name }}
@@ -20,22 +20,22 @@
 	    		{% endfor %}
 	    	</thead>
 	    	<tbody>
-	    	{% for examCourse in examCourses %}
-		    	{% if examCourse.student.id == examStudent.student.id %}
+	    	{% for course in gradeResult.courses %}
+		    	{% if course.student.id == student.student.id %}
 		    	<tr>
 		    		<td>
 		    			<h3>
-		    				{{ examCourse.course.name }}
+		    				{{ course.course.name }}
 		    			</h3>
 		    			<small>
-		    				{{ examCourse.teacher }}
+		    				{{ course.teacher }}
 		    			</small>
 		    		</td>
-		    		{% for exam in allExams %}
+		    		{% for exam in gradeResult.exams %}
 			    	<td>
 			    		<h3 class="grade">	
-			    		{% if gradeCourses[[examStudent.student.id,examCourse.course.id,examStudent.class.id,exam.id]|join('-')] is defined %}	
-			    			{{ gradeCourses[[examStudent.student.id,examCourse.course.id,examStudent.class.id,exam.id]|join('-')].grade }}
+			    		{% if gradeResult.grades[[student.student.id,course.course.id,student.class.id,exam.id]|join('-')] is defined %}	
+			    			{{ gradeResult.grades[[student.student.id,course.course.id,student.class.id,exam.id]|join('-')].grade }}
 			    		{% else %}
 			    			&nbsp;
 			    		{% endif %}
@@ -51,11 +51,11 @@
 	    				Прилежание
 	    			</h3>
 	    		</td>
-		    	{% for exam in allExams %}
+		    	{% for exam in gradeResult.exams %}
 		    	<td>
 		    		<h3 class="grade">
-   		    		{%if examDiligence[[examStudent.student.id,examStudent.class.id,exam.id]|join('-')] is defined %}	
-		    			{{ examDiligence[[examStudent.student.id,examStudent.class.id,exam.id]|join('-')].grade|round }}
+   		    		{%if gradeResult.diligence[[student.student.id,student.class.id,exam.id]|join('-')] is defined %}	
+		    			{{ gradeResult.diligence[[student.student.id,student.class.id,exam.id]|join('-')].grade|round }}
 		    		{% else %}
 		    			&nbsp;
 		    		{% endif %}
@@ -69,11 +69,11 @@
 	    				Поведение
 	    			</h3>
 	    		</td>
-		    	{% for exam in allExams %}
+		    	{% for exam in gradeResult.exams %}
 		    	<td>
 		    		<h3 class="grade">
-	    		   	{%if examDiscipline[[examStudent.student.id,examStudent.class.id,exam.id]|join('-')] is defined %}	
-		    			{{ examDiscipline[[examStudent.student.id,examStudent.class.id,exam.id]|join('-')].grade|round }}
+	    		   	{%if gradeResult.discipline[[student.student.id,student.class.id,exam.id]|join('-')] is defined %}	
+		    			{{ gradeResult.discipline[[student.student.id,student.class.id,exam.id]|join('-')].grade|round }}
 		    		{% else %}
 		    			&nbsp;
 		    		{% endif %}
@@ -87,12 +87,12 @@
 	    				Посещаемость
 	    			</h3>
 	    		</td>
-   		      	{% for exam in exams %}
+   		      	{% for exam in gradeResult.exams %}
    		      	<td>
    		      		<h3 class="grade">
-   		      			{%if examAttendance[[examStudent.student.id,exam.id]|join('-')] is defined %}	
-			    			{{ examAttendance[[examStudent.student.id,exam.id]|join('-')].grade }} / 
-			    			{{ examAttendance[[examStudent.student.id,exam.id]|join('-')].maxGrade }}
+   		      			{%if gradeResult.attendance[[student.student.id,exam.id]|join('-')] is defined %}	
+			    			{{ gradeResult.attendance[[student.student.id,exam.id]|join('-')].grade }} / 
+			    			{{ gradeResult.attendance[[student.student.id,exam.id]|join('-')].maxGrade }}
 			    		{% else %}
 			    			&nbsp;
 			    		{% endif %}
@@ -102,7 +102,7 @@
    		    </tr>	    	
 	    	<tr>
 	    		<td><h3>Подпись родителей</h3></td>
-	    		{% for exam in allExams %}
+	    		{% for exam in gradeResult.exams %}
 	    		<td>&nbsp;</td>
 	    		{% endfor %}
 	    	</tr>	    	

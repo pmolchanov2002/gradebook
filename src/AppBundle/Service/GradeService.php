@@ -9,6 +9,7 @@ use AppBundle\Entity\GradeExam;
 use Doctrine\ORM\EntityManager;
 
 use AppBundle\Model\GradeQuery;
+use AppBundle\Model\GradeResult;
 
 class GradeService {
 	
@@ -117,18 +118,18 @@ class GradeService {
 			);
 			$id = join('-', $compoundId);
 			$cachedAttendance[$id] = $attendance;
-		}		
+		}
 		
-		return array (
-				'examStudents' => $examStudents,
-				'examCourses' => $examCourses,
-				'gradeCourses' => $cachedGradeCourses,
-				'exams' => $exams,
-				'allExams' => $allExams,
-				'examDiligence' => $diligence,
-				'examDiscipline' => $discipline,
-				'examAttendance' => $cachedAttendance
-		);
+		$result = new GradeResult();
+		$result->setStudents($examStudents);
+		$result->setCourses($examCourses);
+		$result->setGrades($cachedGradeCourses);
+		$result->setExams($allExams);
+		$result->setDiligence($diligence);
+		$result->setDiscipline($discipline);
+		$result->setAttendance($cachedAttendance);
+		
+		return $result;
 	}
 	
 	private function obtainAverageGrades(GradeQuery $query = null, $gradeTypeCode) {
@@ -176,6 +177,11 @@ class GradeService {
 				$q->andWhere('g.teacher = :teacherId');
 				$q->setParameter ( 'teacherId', $query->getTeacherId());
 			}
+			$studentId = $query->getStudentId();
+			if(isset($studentId)) {
+				$q->andWhere('g.student = :studentId');
+				$q->setParameter ( 'studentId', $query->getStudentId());
+			}			
 		}
 	}
 }

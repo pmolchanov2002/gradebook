@@ -13,6 +13,8 @@ use Doctrine\ORM\EntityRepository;
 
 use AppBundle\Entity\User;
 
+use AppBundle\Model\GradeQuery;
+
 
 class StudentController extends Controller
 {
@@ -220,8 +222,10 @@ class StudentController extends Controller
     	$gradeService = $this->get('GradeService');
     	$query = new GradeQuery();
     	$query->setStudentId($user->getId());
-    	//views/teacher/grades.html.twig
-    	return $this->render ( 'report/student/grades.html.twig', $gradeService->obtainGrades ($query));
+    	return $this->render ( 'report/student/grades.html.twig', array(
+    			'gradeResult' => $gradeService->obtainGrades ($query),
+    			'studentId' => $user->getId()
+    	));
     }
     
     /**
@@ -229,7 +233,12 @@ class StudentController extends Controller
      * @ParamConverter("user", class="AppBundle:User")
      */
     public function displayPrint($user) {
-    	return $this->displayGrades ( $user, 'report/gradesPrint.html.twig' );
+    	$gradeService = $this->get('GradeService');
+    	$query = new GradeQuery();
+    	$query->setStudentId($user->getId());
+    	return $this->render ( 'report/gradesPrint.html.twig', array(
+    			'gradeResult' => $gradeService->obtainGrades ($query),
+    	));    	
     }
     
     private function displayGrades($user, $report) {
