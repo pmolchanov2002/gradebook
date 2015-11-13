@@ -35,11 +35,11 @@
 	    		<td data-sort="{{ user.lastName }}">{{ user.lastName }}</td>
 	        	<td>{{ user.firstName }}</td>
 	        	{% if user.students is not empty %}
+	        		<td>
 	        	    {% for student in user.students %}
-	        	   	<td>
-        				<div>{{ student }}</div>
-        			</td>
-    				{% endfor %}
+	       				<div>{{ student }}</div>
+	   				{% endfor %}
+    			 	</td>
     			{% else %}
     				<td>Not assigned</td>
     			{% endif %}

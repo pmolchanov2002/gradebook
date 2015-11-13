@@ -1,6 +1,6 @@
 <?php
 
-// src/AppBundle/Controller/ReportPendingGradesController.php
+// src/AppBundle/Controller/PendingGradesController.php
 namespace AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -12,7 +12,7 @@ use AppBundle\Entity\Exam;
 use AppBundle\Entity\GradeExam;
 use Html2Pdf_HTML2PDF;
 
-class ReportPendingGradesController extends Controller {
+class PendingGradesController extends Controller {
 	
 	private $displayRoute = 'app_teacher_success';
 	

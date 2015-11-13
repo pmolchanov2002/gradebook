@@ -181,7 +181,13 @@ class GradeService {
 			if(isset($studentId)) {
 				$q->andWhere('g.student = :studentId');
 				$q->setParameter ( 'studentId', $query->getStudentId());
-			}			
+			}
+			$parentId = $query->getParentId();
+			if(isset($parentId)) {
+				$q->join ( 's.parents', 'p' );
+				$q->andWhere('p.id = :parentId');
+				$q->setParameter ( 'parentId', $query->getParentId());
+			}
 		}
 	}
 }

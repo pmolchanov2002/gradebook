@@ -1,0 +1,18 @@
+{# app/Resources/views/teacher/grades.html.twig #}
+{% extends 'base-admin.html.twig' %}
+
+{% import 'report/macro_grades.html.twig' as report %}
+
+{% block title %}Grades{% endblock %}
+
+{% block body %}
+<div class="container">
+  <!-- Example row of columns -->
+  <a class="btn btn-default" href="/admin/parent" role="button">&lt;&lt; Back</a>
+  <a target='_blank' class="btn btn-default" href="/admin/parent/grade/{{ parentId }}/print" role="button">Print</a>
+  <a target='_blank' class="btn btn-default" href="/admin/parent/grade/{{ parentId }}/mail" role="button">E-mail</a>
+
+	{{ report.grades(gradeResult) }}
+
+</div>
+{% endblock %} 

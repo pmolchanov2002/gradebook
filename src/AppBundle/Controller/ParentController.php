@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 use AppBundle\Entity\User;
 use Doctrine\ORM\EntityRepository;
-
+use AppBundle\Model\GradeQuery;
 
 class ParentController extends Controller
 {
@@ -161,6 +161,31 @@ class ParentController extends Controller
         return $this->render('views/parent.html.twig',  array('users' => $users));
     }
     
+    /**
+     * @Route("/admin/parent/grade/{id}", name="app_parent_grade")
+     * @ParamConverter("user", class="AppBundle:User")
+     */
+    public function displayReport($user) {
+    	$gradeService = $this->get('GradeService');
+    	$query = new GradeQuery();
+    	$query->setParentId($user->getId());
+    	return $this->render ( 'report/parent/grades.html.twig', array(
+    			'gradeResult' => $gradeService->obtainGrades ($query),
+    			'parentId' => $user->getId()
+    	));
+    }
     
+    /**
+     * @Route("/admin/parent/grade/{id}/print")
+     * @ParamConverter("user", class="AppBundle:User")
+     */
+    public function displayPrint($user) {
+    	$gradeService = $this->get('GradeService');
+    	$query = new GradeQuery();
+    	$query->setParentId($user->getId());
+    	return $this->render ( 'report/gradesPrint.html.twig', array(
+    			'gradeResult' => $gradeService->obtainGrades ($query),
+    	));
+    }
    
 }

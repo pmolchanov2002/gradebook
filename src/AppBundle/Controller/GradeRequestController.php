@@ -1,6 +1,6 @@
 <?php
 
-// src/AppBundle/Controller/AdminMailController.php
+// src/AppBundle/Controller/GradeRequestController.php
 namespace AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -13,7 +13,7 @@ use AppBundle\Entity\Notification;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 
-class AdminMailController extends Controller {
+class GradeRequestController extends Controller {
 	private $displayRoute = 'app_teacher_success';
 	
 	/**
@@ -103,7 +103,7 @@ class AdminMailController extends Controller {
 		->setTo($user->getEmail())
 		->setBody(
 				$this->renderView(
-						'mail/grades.html.twig',
+						'mail/gradesRequest.html.twig',
 						array(
 							'user' => $user,
 							'lessons' => $lessons,
@@ -114,7 +114,7 @@ class AdminMailController extends Controller {
 		)
 		->addPart(
 				$this->renderView(
-						'mail/grades.txt.twig',
+						'mail/gradesRequest.txt.twig',
 						array('user' => $user,
 							'lessons' => $lessons,
 							'exam' => $exam
