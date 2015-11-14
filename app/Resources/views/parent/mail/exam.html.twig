@@ -1,0 +1,18 @@
+{# app/Resources/views/parent/mail/exam.html.twig #}
+{% extends 'base-admin.html.twig' %}
+
+{% block title %}Notify parents by e-mail{% endblock %}
+
+{% block body %}
+<div class="container">
+  <!-- Example row of columns -->
+  <h3>Select period:</h3>
+  {%for exam in exams %}
+  <div class="row">
+      <div class="col-md-10">
+        <p><a class="btn btn-primary btn-lg" href="/admin/mail/parent/exam/{{ exam.id }}" role="button">{{ exam.name }} &raquo;</a></p>
+      </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %} 

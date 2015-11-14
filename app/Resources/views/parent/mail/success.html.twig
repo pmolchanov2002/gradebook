@@ -1,14 +1,14 @@
 {# app/Resources/views/teacher/exam.html.twig #}
 {% extends 'base-admin.html.twig' %}
 
-{% block title %}E-mail sent{% endblock %}
+{% block title %}E-mail sent successfully{% endblock %}
 
 {% block body %}
 <div class="container">
   <!-- Example row of columns -->
-  <h3>Notification e-mail was sent to the following teachers:</h3>
-  {%for teacher in teachers %}
-  	<p>{{ teacher }}</p>
+  <h3>Notification e-mail was sent to parents:</h3>
+  {%for parent in parents %}
+  	<p>{{ parent }}</p>
   {% endfor %}
 </div>
 {% endblock %} 

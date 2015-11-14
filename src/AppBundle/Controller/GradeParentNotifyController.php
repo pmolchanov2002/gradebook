@@ -1,6 +1,6 @@
 <?php
 
-// src/AppBundle/Controller/GradeRequestController.php
+// src/AppBundle/Controller/GradeParentNotifyController.php
 namespace AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -12,25 +12,26 @@ use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Model\Notification;
 use Symfony\Component\HttpFoundation\Session\Session;
 
+use AppBundle\Model\GradeQuery;
 
-class GradeRequestController extends Controller {
-	private $displayRoute = 'app_teacher_success';
+class GradeParentNotifyController extends Controller {
+	private $displayRoute = 'app_mail_parent_success';
 	
 	/**
-	 * @Route("/admin/mail/exam")
+	 * @Route("/admin/mail/parent")
 	 */	
 	public function displayExams() {
 		$exams = $this->getDoctrine ()->getRepository ( "AppBundle:Exam" )->findAll ();
-		return $this->render ( 'views/teacher/mail/exam.html.twig', array (
+		return $this->render ( 'views/parent/mail/exam.html.twig', array (
 				'exams' => $exams
 		) );
 	}
 	
 	/**
-	 * @Route("/admin/mail/exam/{id}")
+	 * @Route("/admin/mail/parent/exam/{id}")
 	 * @ParamConverter("exam", class="AppBundle:Exam")
 	 */
-	public function display_teachers($exam, Request $request) {
+	public function display_parents($exam, Request $request) {
 		
 		$notification = new Notification();
 		$notification->setExam($exam);
@@ -40,15 +41,14 @@ class GradeRequestController extends Controller {
 				'multiple' => true,
 				'expanded' => true,
 				'class' => 'AppBundle:User',
-				'label' => 'Teachers: ',
+				'label' => 'Parents: ',
 				'query_builder' => function (EntityRepository $er) {
 					return $er->createQueryBuilder('u')
-					->join('u.lessons', 'l')
-					->join ( 'l.classOfStudents', 'c' )
-					->join('c.year', 'y')
-					->where('y.active=true')
+					->join('u.roles', 'r')
+					->where('u.active=true')
+					->andWhere('r.role=:role')
 					->orderBy('u.lastName', 'ASC')
-					->groupBy('l.teacher');
+					->setParameter('role', 'ROLE_PARENT');
 				}
 		))
 		->add('send', 'submit', array('label' => 'Send'))
@@ -59,36 +59,36 @@ class GradeRequestController extends Controller {
 		if ($form->isValid()) {
 			$notification = $form->getData();
 			$teachers = array();
-			foreach ($notification->getUsers() as $teacher) {
-				$this->sendEmail($teacher, $exam, null);
-				$teachers[] = $teacher->__toString();
+			foreach ($notification->getUsers() as $parent) {
+				$this->sendEmail($parent, $exam, null);
+				$parents[] = $parent->__toString();
 			}
 			
 			$session = $request->getSession();
-			$session->set('teachers', $teachers);
+			$session->set('parents', $parents);
 			$session->set('exam', $exam->getName());
 			
 			return $this->redirectToRoute($this->displayRoute);
 		}
 		
-		return $this->render('forms/mailTeachers.html.twig', array(
+		return $this->render('forms/mailParents.html.twig', array(
 				'form' => $form->createView()
 		));
     
 	}
 	
 	/**
-	 * @Route("/admin/mail/success", name="app_teacher_success")
+	 * @Route("/admin/mail/parent/success", name="app_mail_parent_success")
 	 */		
 	public function display_success(Request $request) {
 		$session = $request->getSession();
-		$teachers = $session->get('teachers');
+		$parents = $session->get('parents');
 		$exam = $session->get('exam');
 		
 		return $this->render(
-				'teacher/mail/success.html.twig',
+				'parent/mail/success.html.twig',
 				array(
-						'teachers' => $teachers,
+						'parents' => $parents,
 						'exam'=> $exam
 				)
 		);
@@ -97,30 +97,24 @@ class GradeRequestController extends Controller {
 	
 	
 	private function sendEmail($user, $exam, $lessons) {
+		$gradeService = $this->get('GradeService');
+		$query = new GradeQuery();
+		$query->setParentId($user->getId());
+		
 		$message = \Swift_Message::newInstance()
-		->setSubject($exam->getName().': Please submit grades for St. Sergius School students')
+		->setSubject('St. Sergius School. '.$exam->getName().'. Оценки.')
 		->setFrom('pavel@stsergiuslc.com')
 		->setTo($user->getEmail())
 		->setBody(
 				$this->renderView(
-						'mail/gradesRequest.html.twig',
+						'mail/gradesReport.html.twig',
 						array(
+							'gradeResult' => $gradeService->obtainGrades ($query),
 							'user' => $user,
-							'lessons' => $lessons,
 							'exam' => $exam
 						)
 				),
 				'text/html'
-		)
-		->addPart(
-				$this->renderView(
-						'mail/gradesRequest.txt.twig',
-						array('user' => $user,
-							'lessons' => $lessons,
-							'exam' => $exam
-						)
-				),
-				'text/plain'
 		);
 		$this->get('mailer')->send($message);
 		return;
