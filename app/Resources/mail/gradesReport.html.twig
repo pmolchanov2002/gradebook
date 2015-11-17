@@ -6,11 +6,9 @@
 </head>
 <body>
 <h3>Уважаемый/ая {{ user.firstName }} {{ user.lastName }}!</h3>
-<p>Закончилась или закончился {{ exam.name }} в Русской школе Св. Сергия Радонежского!</p>
 <p>Направляем вам отметки ваших детей.</p>
 <hr/>
 <h3>Dear {{ user.firstName }} {{ user.lastName }},</h3>
-<p>Another period is finished at St. Sergius Learning Center!</p>
 <p>Please find your children grades below. </p>
 <div>
 	{{ report.grades(gradeResult) }}

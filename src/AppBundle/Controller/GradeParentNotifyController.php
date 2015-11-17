@@ -60,7 +60,7 @@ class GradeParentNotifyController extends Controller {
 			$notification = $form->getData();
 			$teachers = array();
 			foreach ($notification->getUsers() as $parent) {
-				$this->sendEmail($parent, $exam, null);
+				$this->sendEmail($parent);
 				$parents[] = $parent->__toString();
 			}
 			
@@ -88,21 +88,20 @@ class GradeParentNotifyController extends Controller {
 		return $this->render(
 				'parent/mail/success.html.twig',
 				array(
-						'parents' => $parents,
-						'exam'=> $exam
+						'parents' => $parents
 				)
 		);
 	}
 	
 	
 	
-	private function sendEmail($user, $exam, $lessons) {
+	private function sendEmail($user) {
 		$gradeService = $this->get('GradeService');
 		$query = new GradeQuery();
 		$query->setParentId($user->getId());
 		
 		$message = \Swift_Message::newInstance()
-		->setSubject('St. Sergius School. '.$exam->getName().'. Оценки.')
+		->setSubject('St. Sergius School. Grades.')
 		->setFrom('pavel@stsergiuslc.com')
 		->setTo($user->getEmail())
 		->setBody(
@@ -110,8 +109,7 @@ class GradeParentNotifyController extends Controller {
 						'mail/gradesReport.html.twig',
 						array(
 							'gradeResult' => $gradeService->obtainGrades ($query),
-							'user' => $user,
-							'exam' => $exam
+							'user' => $user
 						)
 				),
 				'text/html'

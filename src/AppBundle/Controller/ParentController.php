@@ -187,5 +187,42 @@ class ParentController extends Controller
     			'gradeResult' => $gradeService->obtainGrades ($query),
     	));
     }
+    
+    /**
+     * @Route("/admin/parent/grade/{id}/mail")
+     * @ParamConverter("user", class="AppBundle:User")
+     */
+    public function sendGrades($user) {
+    	$this->sendEmail($user);
+    	return $this->render(
+    			'parent/mail/success.html.twig',
+    			array(
+    					'parents' => array ($user->__toString())
+    			)
+    	);
+    }
    
+    private function sendEmail($user) {
+    	$gradeService = $this->get('GradeService');
+    	$query = new GradeQuery();
+    	$query->setParentId($user->getId());
+    
+    	$message = \Swift_Message::newInstance()
+    	->setSubject('St. Sergius School. Grades.')
+    	->setFrom('pavel@stsergiuslc.com')
+    	->setTo($user->getEmail())
+    	->setBody(
+    			$this->renderView(
+    					'mail/gradesReport.html.twig',
+    					array(
+    							'gradeResult' => $gradeService->obtainGrades ($query),
+    							'user' => $user
+    					)
+    					),
+    			'text/html'
+    			);
+    	$this->get('mailer')->send($message);
+    	return;
+    }    
+    
 }
