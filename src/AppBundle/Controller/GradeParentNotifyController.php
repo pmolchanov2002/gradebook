@@ -47,6 +47,7 @@ class GradeParentNotifyController extends Controller {
 					->join('u.roles', 'r')
 					->where('u.active=true')
 					->andWhere('r.role=:role')
+					->andWhere('u.email is not NULL')
 					->orderBy('u.lastName', 'ASC')
 					->setParameter('role', 'ROLE_PARENT');
 				}

@@ -112,6 +112,13 @@ class ParentController extends Controller
                         ->setParameter('role', 'ROLE_STUDENT');
                 }
            ))
+           ->add('roles', 'entity', array(
+           		'multiple' => true,
+           		'expanded' => true,
+           		'class' => 'AppBundle:Role',
+           		'choice_label' => 'name',
+           		'label' => 'Roles: '
+           ))
             ->add('save', 'submit', array('label' => 'Save'))
             ->getForm();
 

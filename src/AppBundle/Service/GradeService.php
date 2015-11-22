@@ -186,6 +186,7 @@ class GradeService {
 			if(isset($parentId)) {
 				$q->join ( 's.parents', 'p' );
 				$q->andWhere('p.id = :parentId');
+				$q->andWhere('p.email is not NULL');
 				$q->setParameter ( 'parentId', $query->getParentId());
 			}
 		}
