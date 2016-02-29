@@ -17,24 +17,13 @@ use AppBundle\Model\GradeQuery;
 class GradeParentNotifyController extends Controller {
 	private $displayRoute = 'app_mail_parent_success';
 	
+
 	/**
 	 * @Route("/admin/mail/parent")
-	 */	
-	public function displayExams() {
-		$exams = $this->getDoctrine ()->getRepository ( "AppBundle:Exam" )->findAll ();
-		return $this->render ( 'views/parent/mail/exam.html.twig', array (
-				'exams' => $exams
-		) );
-	}
-	
-	/**
-	 * @Route("/admin/mail/parent/exam/{id}")
-	 * @ParamConverter("exam", class="AppBundle:Exam")
 	 */
-	public function display_parents($exam, Request $request) {
+	public function display_parents(Request $request) {
 		
 		$notification = new Notification();
-		$notification->setExam($exam);
 		
 		$form = $this->createFormBuilder($notification)
 		->add('users', 'entity', array(
@@ -67,7 +56,6 @@ class GradeParentNotifyController extends Controller {
 			
 			$session = $request->getSession();
 			$session->set('parents', $parents);
-			$session->set('exam', $exam->getName());
 			
 			return $this->redirectToRoute($this->displayRoute);
 		}
@@ -84,7 +72,6 @@ class GradeParentNotifyController extends Controller {
 	public function display_success(Request $request) {
 		$session = $request->getSession();
 		$parents = $session->get('parents');
-		$exam = $session->get('exam');
 		
 		return $this->render(
 				'parent/mail/success.html.twig',

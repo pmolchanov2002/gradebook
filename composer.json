@@ -20,7 +20,8 @@
         "sensio/distribution-bundle": "~4.0",
         "sensio/framework-extra-bundle": "~3.0,>=3.0.2",
         "incenteev/composer-parameter-handler": "~2.0",
-        "ensepar/html2pdf-bundle" : "dev-master"
+        "ensepar/html2pdf-bundle" : "dev-master",
+        "ornj/markdown-bundle": "dev-master"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

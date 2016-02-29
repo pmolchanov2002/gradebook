@@ -132,12 +132,11 @@ class DbalLoggerTest extends \PHPUnit_Framework_TestCase
         ));
     }
 
+    /**
+     * @requires extension mbstring
+     */
     public function testLogUTF8LongString()
     {
-        if (!function_exists('mb_detect_encoding')) {
-            $this->markTestSkipped('Testing log shortening of utf8 charsets requires the mb_detect_encoding() function.');
-        }
-
         $logger = $this->getMock('Psr\\Log\\LoggerInterface');
 
         $dbalLogger = $this
@@ -161,7 +160,7 @@ class DbalLoggerTest extends \PHPUnit_Framework_TestCase
         $dbalLogger
             ->expects($this->once())
             ->method('log')
-            ->with('SQL', array('short' => $shortString, 'long' => mb_substr($longString, 0, DbalLogger::MAX_STRING_LENGTH - 6, mb_detect_encoding($longString)).' [...]'))
+            ->with('SQL', array('short' => $shortString, 'long' => mb_substr($longString, 0, DbalLogger::MAX_STRING_LENGTH - 6, 'UTF-8').' [...]'))
         ;
 
         $dbalLogger->startQuery('SQL', array(

@@ -116,6 +116,7 @@ class User implements UserInterface, \Serializable
      * @ORM\OneToMany(targetEntity="Lesson", mappedBy="teacher")
      **/
     protected $lessons;
+    
 
     public function __toString() {
         return $this->lastName.' '.$this->firstName;
@@ -613,4 +614,5 @@ class User implements UserInterface, \Serializable
     {
         return $this->students;
     }
+
 }

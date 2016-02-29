@@ -483,6 +483,22 @@ class FilesystemTest extends FilesystemTestCase
         $this->assertFilePermissions(753, $directory);
     }
 
+    public function testChmodChangesZeroModeOnSubdirectoriesOnRecursive()
+    {
+        $this->markAsSkippedIfChmodIsMissing();
+
+        $directory = $this->workspace.DIRECTORY_SEPARATOR.'directory';
+        $subdirectory = $directory.DIRECTORY_SEPARATOR.'subdirectory';
+
+        mkdir($directory);
+        mkdir($subdirectory);
+        chmod($subdirectory, 0000);
+
+        $this->filesystem->chmod($directory, 0753, 0000, true);
+
+        $this->assertFilePermissions(753, $subdirectory);
+    }
+
     public function testChown()
     {
         $this->markAsSkippedIfPosixIsMissing();
@@ -790,6 +806,8 @@ class FilesystemTest extends FilesystemTestCase
             array('/a/aab/bb', '/a/aa/', '../aab/bb/'),
             array('/a/aab/bb/', '/a/aa', '../aab/bb/'),
             array('/a/aab/bb/', '/a/aa/', '../aab/bb/'),
+            array('/a/aab/bb/', '/', 'a/aab/bb/'),
+            array('/a/aab/bb/', '/b/aab', '../../a/aab/bb/'),
         );
 
         if ('\\' === DIRECTORY_SEPARATOR) {
@@ -915,7 +933,7 @@ class FilesystemTest extends FilesystemTestCase
         $this->assertTrue(is_dir($targetPath));
         $this->assertFileEquals($sourcePath.'/nested/file1.txt', $targetPath.DIRECTORY_SEPARATOR.'link1/file1.txt');
         $this->assertTrue(is_link($targetPath.DIRECTORY_SEPARATOR.'link1'));
-        $this->assertEquals($sourcePath.'nested', readlink($targetPath.DIRECTORY_SEPARATOR.'link1'));
+        $this->assertEquals('\\' === DIRECTORY_SEPARATOR ? realpath($sourcePath.'\nested') : 'nested', readlink($targetPath.DIRECTORY_SEPARATOR.'link1'));
     }
 
     /**

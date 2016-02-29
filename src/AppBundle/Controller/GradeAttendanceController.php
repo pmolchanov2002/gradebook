@@ -70,7 +70,7 @@ class GradeAttendanceController extends Controller {
 							$allCorrect = false;
 							break;
 						}
-						if ($grade <= $maxGrade && $grade >= 1) {
+						if ($grade <= $maxGrade && $grade >= 0) {
 							$gradeAttendance->setGrade ( $grade );
 						} else {
 							$allCorrect = false;

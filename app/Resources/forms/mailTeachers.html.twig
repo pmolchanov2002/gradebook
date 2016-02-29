@@ -3,8 +3,16 @@
 {% block pageTitle %}Send e-mail to teachers{% endblock %}
 {% block title %}Send e-mail to teachers:{% endblock %}
 
+{% block script %}
+function toggle() {
+   $(':checkbox').each(function() {
+       this.checked = !this.checked;                        
+   });
+}
+{% endblock %}
 
 {% block body %}
+	<button class="btn btn-default" onclick="toggle()">Select All / Deselect All</button>
 	{{ form_start(form) }}
 	{{ form_widget(form) }}
 	{{ form_end(form) }}

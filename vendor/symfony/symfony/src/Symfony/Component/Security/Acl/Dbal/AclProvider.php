@@ -369,7 +369,7 @@ FINDCHILDREN;
      */
     protected function getSelectObjectIdentityIdSql(ObjectIdentityInterface $oid)
     {
-        $query = <<<QUERY
+        $query = <<<'QUERY'
             SELECT o.id
             FROM %s o
             INNER JOIN %s c ON c.id = o.class_id
@@ -573,7 +573,7 @@ QUERY;
                     $oidCache[$oidLookupKey] = new ObjectIdentity($objectIdentifier, $classType);
                 }
 
-                $acl = new Acl((int) $aclId, $oidCache[$oidLookupKey], $permissionGrantingStrategy, $emptyArray, !!$entriesInheriting);
+                $acl = new Acl((int) $aclId, $oidCache[$oidLookupKey], $permissionGrantingStrategy, $emptyArray, (bool) $entriesInheriting);
 
                 // keep a local, and global reference to this ACL
                 $loadedAcls[$classType][$objectIdentifier] = $acl;
@@ -615,9 +615,9 @@ QUERY;
                     }
 
                     if (null === $fieldName) {
-                        $loadedAces[$aceId] = new Entry((int) $aceId, $acl, $sids[$key], $grantingStrategy, (int) $mask, !!$granting, !!$auditFailure, !!$auditSuccess);
+                        $loadedAces[$aceId] = new Entry((int) $aceId, $acl, $sids[$key], $grantingStrategy, (int) $mask, (bool) $granting, (bool) $auditFailure, (bool) $auditSuccess);
                     } else {
-                        $loadedAces[$aceId] = new FieldEntry((int) $aceId, $acl, $fieldName, $sids[$key], $grantingStrategy, (int) $mask, !!$granting, !!$auditFailure, !!$auditSuccess);
+                        $loadedAces[$aceId] = new FieldEntry((int) $aceId, $acl, $fieldName, $sids[$key], $grantingStrategy, (int) $mask, (bool) $granting, (bool) $auditFailure, (bool) $auditSuccess);
                     }
                 }
                 $ace = $loadedAces[$aceId];

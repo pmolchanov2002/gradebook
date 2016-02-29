@@ -10,8 +10,8 @@ UPGRADE FROM 2.x to 3.0
    | -------- | ---
    | `registerNamespaces()` | `addPrefixes()`
    | `registerPrefixes()` | `addPrefixes()`
-   | `registerNamespaces()` | `addPrefix()`
-   | `registerPrefixes()` | `addPrefix()`
+   | `registerNamespace()` | `addPrefix()`
+   | `registerPrefix()` | `addPrefix()`
    | `getNamespaces()` | `getPrefixes()`
    | `getNamespaceFallbacks()` | `getFallbackDirs()`
    | `getPrefixFallbacks()` | `getFallbackDirs()`
@@ -299,17 +299,18 @@ UPGRADE FROM 2.x to 3.0
    ```php
    echo $form->getErrors(true, false);
    ```
-   * The `Symfony\Component\Form\Extension\Core\ChoiceList\ChoiceList` class has been removed in
-     favor of `Symfony\Component\Form\ChoiceList\ArrayChoiceList`.
 
-   * The `Symfony\Component\Form\Extension\Core\ChoiceList\LazyChoiceList` class has been removed in
-     favor of `Symfony\Component\Form\ChoiceList\LazyChoiceList`.
+ * The `Symfony\Component\Form\Extension\Core\ChoiceList\ChoiceList` class has been removed in
+   favor of `Symfony\Component\Form\ChoiceList\ArrayChoiceList`.
 
-   * The `Symfony\Component\Form\Extension\Core\ChoiceList\ObjectChoiceList` class has been removed in
-     favor of `Symfony\Component\Form\ChoiceList\ArrayChoiceList`.
+ * The `Symfony\Component\Form\Extension\Core\ChoiceList\LazyChoiceList` class has been removed in
+   favor of `Symfony\Component\Form\ChoiceList\LazyChoiceList`.
 
-   * The `Symfony\Component\Form\Extension\Core\ChoiceList\SimpleChoiceList` class has been removed in
-     favor of `Symfony\Component\Form\ChoiceList\ArrayChoiceList`.
+ * The `Symfony\Component\Form\Extension\Core\ChoiceList\ObjectChoiceList` class has been removed in
+   favor of `Symfony\Component\Form\ChoiceList\ArrayChoiceList`.
+
+ * The `Symfony\Component\Form\Extension\Core\ChoiceList\SimpleChoiceList` class has been removed in
+   favor of `Symfony\Component\Form\ChoiceList\ArrayChoiceList`.
 
 ### FrameworkBundle
 

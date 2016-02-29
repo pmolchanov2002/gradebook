@@ -7,6 +7,13 @@ $baseDir = dirname($vendorDir);
 
 return array(
     $vendorDir . '/swiftmailer/swiftmailer/lib/swift_required.php',
+    $vendorDir . '/paragonie/random_compat/lib/random.php',
     $vendorDir . '/symfony/symfony/src/Symfony/Component/Intl/Resources/stubs/functions.php',
     $vendorDir . '/kriswallsmith/assetic/src/functions.php',
+    $vendorDir . '/spipu/html2pdf/html2pdf.class.php',
+    $vendorDir . '/spipu/html2pdf/_class/exception.class.php',
+    $vendorDir . '/spipu/html2pdf/_class/locale.class.php',
+    $vendorDir . '/spipu/html2pdf/_class/myPdf.class.php',
+    $vendorDir . '/spipu/html2pdf/_class/parsingHtml.class.php',
+    $vendorDir . '/spipu/html2pdf/_class/parsingCss.class.php',
 );

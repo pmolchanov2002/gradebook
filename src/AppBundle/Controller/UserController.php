@@ -46,6 +46,13 @@ class UserController extends Controller
                 'choice_label' => 'name',
                 'label' => 'Roles: '
             ))
+            ->add('pages', 'entity', array(
+            		'multiple' => true,
+            		'expanded' => true,
+            		'class' => 'AppBundle:Page',
+            		'choice_label' => 'id',
+            		'label' => 'Web pages: '
+            ))
             ->add('save', 'submit', array('label' => 'Create user'))
             ->getForm();
 
@@ -103,6 +110,13 @@ class UserController extends Controller
                 'class' => 'AppBundle:Role',
                 'choice_label' => 'name',
                 'label' => 'Roles: '
+            ))
+            ->add('pages', 'entity', array(
+            		'multiple' => true,
+            		'expanded' => true,
+            		'class' => 'AppBundle:Page',
+            		'choice_label' => 'id',
+            		'label' => 'Web pages: '
             ))
             ->add('save', 'submit', array('label' => 'Save'))
             ->getForm();

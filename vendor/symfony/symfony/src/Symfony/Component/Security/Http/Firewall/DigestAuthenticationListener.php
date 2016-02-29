@@ -12,6 +12,7 @@
 namespace Symfony\Component\Security\Http\Firewall;
 
 use Symfony\Component\Security\Core\User\UserProviderInterface;
+use Symfony\Component\Security\Core\Util\StringUtils;
 use Symfony\Component\Security\Http\EntryPoint\DigestAuthenticationEntryPoint;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
@@ -99,7 +100,7 @@ class DigestAuthenticationListener implements ListenerInterface
             return;
         }
 
-        if ($serverDigestMd5 !== $digestAuth->getResponse()) {
+        if (!StringUtils::equals($serverDigestMd5, $digestAuth->getResponse())) {
             if (null !== $this->logger) {
                 $this->logger->debug('Unexpected response from the DigestAuth received; is the header returning a clear text passwords?', array('expected' => $serverDigestMd5, 'received' => $digestAuth->getResponse()));
             }
@@ -170,10 +171,8 @@ class DigestData
             throw new BadCredentialsException(sprintf('Missing mandatory digest value; received header "%s" (%s)', $this->header, implode(', ', $keys)));
         }
 
-        if ('auth' === $this->elements['qop']) {
-            if (!isset($this->elements['nc']) || !isset($this->elements['cnonce'])) {
-                throw new BadCredentialsException(sprintf('Missing mandatory digest value; received header "%s"', $this->header));
-            }
+        if ('auth' === $this->elements['qop'] && !isset($this->elements['nc'], $this->elements['cnonce'])) {
+            throw new BadCredentialsException(sprintf('Missing mandatory digest value; received header "%s"', $this->header));
         }
 
         if ($expectedRealm !== $this->elements['realm']) {

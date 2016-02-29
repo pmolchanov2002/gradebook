@@ -20,7 +20,6 @@
         "symfony/security-core": "~2.4"
     },
     "require-dev": {
-        "symfony/phpunit-bridge": "~2.7",
         "doctrine/common": "~2.2",
         "doctrine/dbal": "~2.2",
         "psr/log": "~1.0"
@@ -31,7 +30,10 @@
         "doctrine/dbal": "For using the built-in ACL implementation"
     },
     "autoload": {
-        "psr-4": { "Symfony\\Component\\Security\\Acl\\": "" }
+        "psr-4": { "Symfony\\Component\\Security\\Acl\\": "" },
+        "exclude-from-classmap": [
+            "/Tests/"
+        ]
     },
     "minimum-stability": "dev",
     "extra": {

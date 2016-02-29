@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the Symfony package.
+ *
+ * (c) Fabien Potencier <fabien@symfony.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Symfony\Bundle\FrameworkBundle\Tests\Command\CacheClearCommand;
 
 use Symfony\Bundle\FrameworkBundle\Console\Application;
@@ -74,5 +83,6 @@ class CacheClearCommandTest extends TestCase
             }
         }
         $this->assertTrue($found, 'Kernel file should present as resource');
+        $this->assertRegExp(sprintf('/\'kernel.name\'\s*=>\s*\'%s\'/', $this->kernel->getName()), file_get_contents($containerFile), 'kernel.name is properly set on the dumped container');
     }
 }

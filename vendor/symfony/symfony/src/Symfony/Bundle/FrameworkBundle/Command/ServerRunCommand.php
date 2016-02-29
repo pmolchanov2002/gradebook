@@ -28,18 +28,6 @@ class ServerRunCommand extends ServerCommand
     /**
      * {@inheritdoc}
      */
-    public function isEnabled()
-    {
-        if (PHP_VERSION_ID < 50400 || defined('HHVM_VERSION')) {
-            return false;
-        }
-
-        return parent::isEnabled();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     protected function configure()
     {
         $this
@@ -50,7 +38,7 @@ class ServerRunCommand extends ServerCommand
             ))
             ->setName('server:run')
             ->setDescription('Runs PHP built-in web server')
-            ->setHelp(<<<EOF
+            ->setHelp(<<<'EOF'
 The <info>%command.name%</info> runs PHP built-in web server:
 
   <info>%command.full_name%</info>
