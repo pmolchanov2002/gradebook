@@ -1,0 +1,42 @@
+{% extends 'base-admin.html.twig' %}
+
+{% block pageTitle %}Exam Weights{% endblock %}
+{% block title %}Exam Weights{% endblock %}
+{% block script %}
+	$(document).ready(function() {
+	    $('#results').DataTable({
+	    	paging: false
+	    });
+	    $('.delete_row').click(function(){
+    		return confirm("Are you sure you want to delete?");
+		});
+	} );
+{% endblock %}
+
+{% block body %}
+    <div style="margin-bottom:10px;">
+    	<a class="btn btn-default" href="/admin/examweight/create" role="button">New exam weight</a>
+	</div>
+	<table id="results" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>Exam Type</th>
+                <th>Grade Type</th>
+                <th>Weight</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+	    {% for examWeight in examWeights %}
+	    	<tr>
+	        	<td data-sort="{{ examWeight.examType.name }}">{{ examWeight.examType.name }}</td>
+	        	<td>{{ examWeight.gradeType.name }}</td>
+	        	<td>{{ examWeight.weight }}</td>
+	        	<td width="10"><a href='/admin/examweight/edit/{{ examWeight.examType.id }}/{{ examWeight.gradeType.id }}'>Edit</a></td>
+	        	<td class="delete_row" width="10"><a href='/admin/examweight/delete/{{ examWeight.examType.id }}/{{ examWeight.gradeType.id }}'>Delete</a></td>
+	        </tr>
+	    {% endfor %}
+    	</tbody>        
+    </table>
+{% endblock %}

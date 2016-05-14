@@ -1,0 +1,41 @@
+{% extends 'base-admin.html.twig' %}
+
+{% block title %}Окончательные оценки за год{% endblock %}
+
+{% block body %}
+
+<div class="container">
+
+  <a class="btn btn-default" href="/admin" role="button">&lt;&lt; Back</a>
+  <a target='_blank' class="btn btn-default" href="/admin/report/final/print" role="button">Print</a>
+
+  <div style="margin-bottom:10px"></div>
+  <!-- Example row of columns -->
+	<table width="100%">
+		<thead>
+    		<th width="20%">Класс</th>
+    		<th width="20%">Фамилия</th>
+    		<th width="20%">Имя</th>
+    		<th width="20%">Оценка</th>
+    	</thead>
+    	<tbody>
+    	{% set className = '' %}
+    	{% for result in results %}
+    		{% if result.name != className %}
+    			{% set className = result.name %}
+    			<tr>
+    				<td colspan="4"><hr/></td>
+    			</tr> 
+    		{% endif %}
+	    	<tr>
+		    	<td>{{ result.name }}</td>
+		    	<td>{{ result.lastName }}</td>
+		    	<td>{{ result.firstName }}</td>
+		    	<td>{{ result.grade|round(2) }}</td>
+	    	</tr>
+	    {% endfor %}
+		</tbody>
+    </table>
+    <div style="margin-bottom:10px"></div>
+</div>
+{% endblock %} 
