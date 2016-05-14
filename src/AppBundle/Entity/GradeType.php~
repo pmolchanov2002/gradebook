@@ -47,6 +47,12 @@ class GradeType
      */
     protected $ordinal;
     
+    /**
+     * @ORM\OneToMany(targetEntity="ExamWeight", mappedBy="gradeType")
+     * @ORM\JoinColumn(name="gradeTypeId", referencedColumnName="id")
+     **/
+    protected $examWeights;
+    
     public function __toString() {
     	return $this->name;
     }

@@ -30,6 +30,12 @@ class ClassOfStudents
     protected $name;
     
     /**
+     * @ORM\Column(name="EnglishName", unique=true)
+     * @Assert\NotBlank()
+     */
+    protected $englishName;    
+    
+    /**
      * @ORM\Column(type="integer")
      * @Assert\NotBlank()
      */
@@ -263,5 +269,28 @@ class ClassOfStudents
     public function getOrdinal()
     {
         return $this->ordinal;
+    }
+
+    /**
+     * Set englishName
+     *
+     * @param string $englishName
+     * @return ClassOfStudents
+     */
+    public function setEnglishName($englishName)
+    {
+        $this->englishName = $englishName;
+
+        return $this;
+    }
+
+    /**
+     * Get englishName
+     *
+     * @return string 
+     */
+    public function getEnglishName()
+    {
+        return $this->englishName;
     }
 }

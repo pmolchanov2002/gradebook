@@ -23,6 +23,12 @@ class Period
      * @Assert\NotBlank()
      */
     protected $name;
+    
+    /**
+     * @ORM\Column(name="EnglishName", unique=true)
+     * @Assert\NotBlank()
+     */
+    protected $englishName;
 
     /**
      * @ORM\Column()
@@ -204,5 +210,28 @@ class Period
     public function getOrdinal()
     {
         return $this->ordinal;
+    }
+
+    /**
+     * Set englishName
+     *
+     * @param string $englishName
+     * @return Period
+     */
+    public function setEnglishName($englishName)
+    {
+        $this->englishName = $englishName;
+
+        return $this;
+    }
+
+    /**
+     * Get englishName
+     *
+     * @return string 
+     */
+    public function getEnglishName()
+    {
+        return $this->englishName;
     }
 }

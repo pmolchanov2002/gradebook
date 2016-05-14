@@ -47,6 +47,12 @@ class GradeType
      */
     protected $ordinal;
     
+    /**
+     * @ORM\OneToMany(targetEntity="ExamWeight", mappedBy="gradeType")
+     * @ORM\JoinColumn(name="gradeTypeId", referencedColumnName="id")
+     **/
+    protected $examWeights;
+    
     public function __toString() {
     	return $this->name;
     }
@@ -152,5 +158,45 @@ class GradeType
     public function getAlgorithm()
     {
         return $this->algorithm;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->examWeights = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add examWeights
+     *
+     * @param \AppBundle\Entity\ExamWeight $examWeights
+     * @return GradeType
+     */
+    public function addExamWeight(\AppBundle\Entity\ExamWeight $examWeights)
+    {
+        $this->examWeights[] = $examWeights;
+
+        return $this;
+    }
+
+    /**
+     * Remove examWeights
+     *
+     * @param \AppBundle\Entity\ExamWeight $examWeights
+     */
+    public function removeExamWeight(\AppBundle\Entity\ExamWeight $examWeights)
+    {
+        $this->examWeights->removeElement($examWeights);
+    }
+
+    /**
+     * Get examWeights
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getExamWeights()
+    {
+        return $this->examWeights;
     }
 }

@@ -165,7 +165,7 @@ class GradeExamController extends Controller {
 		
 		$students = $q->getResult ();
 		
-		$q = $em->createQuery ( "select gt from AppBundle:GradeType gt" );
+		$q = $em->createQuery ( "select gt from AppBundle:GradeType gt join gt.examWeights ew join ew.examType et where et.id = :examTypeId")->setParameter("examTypeId", $exam->getExamType()->getId());
 		$gradeTypes = $q->getResult ();
 		
 		$grades = [ ];

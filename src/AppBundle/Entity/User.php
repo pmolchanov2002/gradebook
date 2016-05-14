@@ -33,16 +33,22 @@ class User implements UserInterface, \Serializable
     protected $password;
 
      /**
-     * @ORM\Column(name="firstName", type="string", length=50)
+     * @ORM\Column(name="FirstName", type="string", length=50)
      * @Assert\NotBlank()
      */
     protected $firstName;
 
      /**
-     * @ORM\Column(name="lastName", type="string", length=50)
+     * @ORM\Column(name="LastName", type="string", length=50)
      * @Assert\NotBlank()
      */
     protected $lastName;
+    
+    /**
+     * @ORM\Column(name="EnglishName", unique=true)
+     * @Assert\NotBlank()
+     */
+    protected $englishName;    
     
     /**
      * @ORM\Column(name="HomePhone", type="string", length=45)
@@ -615,4 +621,27 @@ class User implements UserInterface, \Serializable
         return $this->students;
     }
 
+
+    /**
+     * Set englishName
+     *
+     * @param string $englishName
+     * @return User
+     */
+    public function setEnglishName($englishName)
+    {
+        $this->englishName = $englishName;
+
+        return $this;
+    }
+
+    /**
+     * Get englishName
+     *
+     * @return string 
+     */
+    public function getEnglishName()
+    {
+        return $this->englishName;
+    }
 }

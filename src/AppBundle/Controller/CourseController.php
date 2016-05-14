@@ -24,6 +24,7 @@ class CourseController extends Controller
         $course = new Course();
         $form = $this->createFormBuilder($course)
             ->add('name', 'text', array('label' => 'Course name:'))
+            ->add('englishName', 'text', array('label' => 'English Name:'))
             ->add('save', 'submit', array('label' => 'Create'))
             ->getForm();
 
@@ -53,6 +54,7 @@ class CourseController extends Controller
         }
         $form = $this->createFormBuilder($course)
             ->add('name', 'text', array('label' => 'Course name:'))
+            ->add('englishName', 'text', array('label' => 'English Name:'))
             ->add('save', 'submit', array('label' => 'Save'))
             ->getForm();
 

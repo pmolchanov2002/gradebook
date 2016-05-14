@@ -28,6 +28,7 @@ class ParentController extends Controller
         $form = $this->createFormBuilder($user)
         	->add('lastName', 'text', array('label' => 'Last Name:'))
         	->add('firstName', 'text', array('label' => 'First Name:'))
+        	->add('englishName', 'text', array('label' => 'English Name:'))
             ->add('username', 'text', array('label' => 'Login:'))
             ->add('password', 'repeated', array(
             		'type' => 'password',
@@ -88,6 +89,7 @@ class ParentController extends Controller
         $form = $this->createFormBuilder($user)
         	->add('lastName', 'text', array('label' => 'Last Name:'))
             ->add('firstName', 'text', array('label' => 'First Name:'))
+            ->add('englishName', 'text', array('label' => 'English Name:'))
             ->add('username', 'text', array('label' => 'Login:'))
             ->add('password', 'repeated', array(
             		'type' => 'password',

@@ -29,6 +29,7 @@ class TeacherController extends Controller
         $form = $this->createFormBuilder($user)
         	->add('lastName', 'text', array('label' => 'Last Name:'))
         	->add('firstName', 'text', array('label' => 'First Name:'))
+        	->add('englishName', 'text', array('label' => 'English Name:'))
             ->add('username', 'text', array('label' => 'Login:'))
             ->add('password', 'repeated', array(
             		'type' => 'password',
@@ -57,8 +58,6 @@ class TeacherController extends Controller
             if($user->getPassword() != '') {
                 $user->setPassword(md5($user->getPassword()));
             }
-            $roles = $this->getDoctrine()->getRepository('AppBundle:Role')->findOneById(2);
-            $user->addRole($roles);
             $em->persist($user);
             $em->flush();
             return $this->redirectToRoute($this->displayRoute);
@@ -83,6 +82,7 @@ class TeacherController extends Controller
         $form = $this->createFormBuilder($user)
         	->add('lastName', 'text', array('label' => 'Last Name:'))
             ->add('firstName', 'text', array('label' => 'First Name:'))
+            ->add('englishName', 'text', array('label' => 'English Name:'))
             ->add('username', 'text', array('label' => 'Login:'))
             ->add('password', 'repeated', array(
             		'type' => 'password',

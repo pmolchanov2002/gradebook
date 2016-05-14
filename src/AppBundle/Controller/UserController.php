@@ -27,6 +27,7 @@ class UserController extends Controller
         $form = $this->createFormBuilder($user)
         	->add('lastName', 'text', array('label' => 'Last Name:'))
         	->add('firstName', 'text', array('label' => 'First Name:'))
+        	->add('englishName', 'text', array('label' => 'English Name:'))
             ->add('username', 'text', array('label' => 'Login:'))
             ->add('password', 'repeated', array(
                 'type' => 'password',
@@ -46,13 +47,13 @@ class UserController extends Controller
                 'choice_label' => 'name',
                 'label' => 'Roles: '
             ))
-            ->add('pages', 'entity', array(
-            		'multiple' => true,
-            		'expanded' => true,
-            		'class' => 'AppBundle:Page',
-            		'choice_label' => 'id',
-            		'label' => 'Web pages: '
-            ))
+//             ->add('pages', 'entity', array(
+//             		'multiple' => true,
+//             		'expanded' => true,
+//             		'class' => 'AppBundle:Page',
+//             		'choice_label' => 'id',
+//             		'label' => 'Web pages: '
+//             ))
             ->add('save', 'submit', array('label' => 'Create user'))
             ->getForm();
 
@@ -92,6 +93,7 @@ class UserController extends Controller
         	->add('lastName', 'text', array('label' => 'Last Name:'))
         	->add('firstName', 'text', array('label' => 'First Name:'))
             ->add('username', 'text', array('label' => 'Login:'))
+            ->add('englishName', 'text', array('label' => 'English Name:'))
             ->add('password', 'repeated', array(
                 'type' => 'password',
             	'required' => false,
@@ -111,13 +113,13 @@ class UserController extends Controller
                 'choice_label' => 'name',
                 'label' => 'Roles: '
             ))
-            ->add('pages', 'entity', array(
-            		'multiple' => true,
-            		'expanded' => true,
-            		'class' => 'AppBundle:Page',
-            		'choice_label' => 'id',
-            		'label' => 'Web pages: '
-            ))
+//             ->add('pages', 'entity', array(
+//             		'multiple' => true,
+//             		'expanded' => true,
+//             		'class' => 'AppBundle:Page',
+//             		'choice_label' => 'id',
+//             		'label' => 'Web pages: '
+//             ))
             ->add('save', 'submit', array('label' => 'Save'))
             ->getForm();
 

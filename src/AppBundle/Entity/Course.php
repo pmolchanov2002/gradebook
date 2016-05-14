@@ -23,6 +23,12 @@ class Course
      * @Assert\NotBlank()
      */
     protected $name;
+    
+    /**
+     * @ORM\Column(name="EnglishName", unique=true)
+     * @Assert\NotBlank()
+     */
+    protected $englishName;
 
     /** 
      * @ORM\OneToMany(targetEntity="Lesson", mappedBy="course")
@@ -39,6 +45,8 @@ class Course
      * @ORM\Column(type="datetime")
      */    
     protected $created;
+    
+    
 
 
 
@@ -162,5 +170,28 @@ class Course
     public function getLessons()
     {
         return $this->lessons;
+    }
+
+    /**
+     * Set englishName
+     *
+     * @param string $englishName
+     * @return Course
+     */
+    public function setEnglishName($englishName)
+    {
+        $this->englishName = $englishName;
+
+        return $this;
+    }
+
+    /**
+     * Get englishName
+     *
+     * @return string 
+     */
+    public function getEnglishName()
+    {
+        return $this->englishName;
     }
 }

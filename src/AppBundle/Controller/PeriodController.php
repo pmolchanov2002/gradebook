@@ -24,6 +24,7 @@ class PeriodController extends Controller
         $period = new Period();
         $form = $this->createFormBuilder($period)
             ->add('name', 'text', array('label' => 'Period name:'))
+            ->add('englishName', 'text', array('label' => 'English Name:'))
             ->add('startTime', 'time', array('label' => 'Start time:'))
             ->add('endTime', 'time', array('label' => 'End time:'))
             ->add('ordinal', 'integer', array('label' => 'Sort order:'))            
@@ -56,6 +57,7 @@ class PeriodController extends Controller
         }
         $form = $this->createFormBuilder($period)
             ->add('name', 'text', array('label' => 'Period name:'))
+            ->add('englishName', 'text', array('label' => 'English Name:'))
             ->add('startTime', 'time', array('label' => 'Start time:'))
             ->add('endTime', 'time', array('label' => 'End time:'))
             ->add('ordinal', 'integer', array('label' => 'Sort order:'))   

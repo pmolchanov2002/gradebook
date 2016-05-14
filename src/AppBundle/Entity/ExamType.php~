@@ -30,6 +30,12 @@ class ExamType
      */
     protected $code;
     
+    /**
+     * @ORM\OneToMany(targetEntity="ExamWeight", mappedBy="examType")
+     * @ORM\JoinColumn(name="examTypeId", referencedColumnName="id")
+     **/
+    protected $examWeights;
+    
     public function __toString() {
     	return $this->name;
     }

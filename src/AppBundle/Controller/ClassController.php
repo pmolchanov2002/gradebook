@@ -28,6 +28,7 @@ class ClassController extends Controller
         $classOfStudents = new ClassOfStudents();
         $form = $this->createFormBuilder($classOfStudents)
             ->add('name', 'text', array('label' => 'Name of the class:'))
+            ->add('englishName', 'text', array('label' => 'English Name:'))
             ->add('ordinal', 'integer', array('label' => 'Order number:'))
             ->add('save', 'submit', array('label' => 'Create class of students'))
             ->getForm();
@@ -61,6 +62,7 @@ class ClassController extends Controller
         }
         $form = $this->createFormBuilder($classOfStudents)
             ->add('name', 'text', array('label' => 'Name of the class:'))
+            ->add('englishName', 'text', array('label' => 'English Name:'))            
             ->add('ordinal', 'integer', array('label' => 'Order number:'))
             ->add('save', 'submit', array('label' => 'Save'))
             ->getForm();
