@@ -42,9 +42,12 @@ class Year
 
     /**
      * @ORM\Column(type="boolean")
-     * @Assert\NotBlank()
      */    
     protected $active;
+    
+    public function __toString() {
+    	return $this->name;
+    }
 
     /**
      * Get id

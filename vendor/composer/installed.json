@@ -1737,7 +1737,7 @@
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/ornj/markdown-bundle/zipball/d340f1b2d30450abd9acc0ab265f9eb2e846c21d",
+            "url": "https://api.github.com/repos/ornj/markdown-bundle/zipball/2caab7a984d8e47e1b27fcd2f470277b42c6cd1d",
             "reference": "d340f1b2d30450abd9acc0ab265f9eb2e846c21d",
             "shasum": ""
         },
@@ -1948,6 +1948,182 @@
             "TCPDF",
             "html2pdf",
             "pdf"
+        ]
+    },
+    {
+        "name": "aptoma/twig-markdown",
+        "version": "2.0.0",
+        "version_normalized": "2.0.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/aptoma/twig-markdown.git",
+            "reference": "64a9c5c7418c08faf91c4410b34bdb65fb25c23d"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/aptoma/twig-markdown/zipball/64a9c5c7418c08faf91c4410b34bdb65fb25c23d",
+            "reference": "64a9c5c7418c08faf91c4410b34bdb65fb25c23d",
+            "shasum": ""
+        },
+        "require": {
+            "twig/twig": "~1.12"
+        },
+        "require-dev": {
+            "codeclimate/php-test-reporter": "dev-master",
+            "erusev/parsedown": "^1.6",
+            "knplabs/github-api": "~1.2",
+            "league/commonmark": "~0.5",
+            "michelf/php-markdown": "~1",
+            "phpunit/phpunit": "~4.0",
+            "satooshi/php-coveralls": "~0.6"
+        },
+        "suggest": {
+            "knplabs/github-api": "Needed for using GitHub's Markdown engine provided through their API.",
+            "michelf/php-markdown": "Original Markdown engine with MarkdownExtra."
+        },
+        "time": "2015-10-23 20:27:08",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Aptoma": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Joris Berthelot",
+                "email": "joris@berthelot.tel"
+            },
+            {
+                "name": "Gunnar Lium",
+                "email": "gunnar@aptoma.com"
+            }
+        ],
+        "description": "Twig extension to work with Markdown content",
+        "keywords": [
+            "markdown",
+            "twig"
+        ]
+    },
+    {
+        "name": "michelf/php-markdown",
+        "version": "1.6.0",
+        "version_normalized": "1.6.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/michelf/php-markdown.git",
+            "reference": "156e56ee036505ec637d761ee62dc425d807183c"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/michelf/php-markdown/zipball/156e56ee036505ec637d761ee62dc425d807183c",
+            "reference": "156e56ee036505ec637d761ee62dc425d807183c",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.0"
+        },
+        "time": "2015-12-24 01:37:31",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-lib": "1.4.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Michelf": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-3-Clause"
+        ],
+        "authors": [
+            {
+                "name": "Michel Fortin",
+                "email": "michel.fortin@michelf.ca",
+                "homepage": "https://michelf.ca/",
+                "role": "Developer"
+            },
+            {
+                "name": "John Gruber",
+                "homepage": "https://daringfireball.net/"
+            }
+        ],
+        "description": "PHP Markdown",
+        "homepage": "https://michelf.ca/projects/php-markdown/",
+        "keywords": [
+            "markdown"
+        ]
+    },
+    {
+        "name": "knplabs/knp-markdown-bundle",
+        "version": "1.5.1",
+        "version_normalized": "1.5.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/KnpLabs/KnpMarkdownBundle.git",
+            "reference": "3581dabfc5e6627261abb0b6513b73b8e95f2c92"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/KnpLabs/KnpMarkdownBundle/zipball/3581dabfc5e6627261abb0b6513b73b8e95f2c92",
+            "reference": "3581dabfc5e6627261abb0b6513b73b8e95f2c92",
+            "shasum": ""
+        },
+        "require": {
+            "michelf/php-markdown": "~1.4",
+            "php": ">=5.3.9",
+            "symfony/dependency-injection": "~2.3|~3.0",
+            "symfony/framework-bundle": "~2.3|~3.0"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "~4.5"
+        },
+        "suggest": {
+            "ext-sundown": "to use optional support for php-sundown extension instead of php implementation",
+            "symfony/twig-bundle": "to use the Twig markdown filter"
+        },
+        "time": "2016-05-04 16:08:55",
+        "type": "symfony-bundle",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.4.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Knp\\Bundle\\MarkdownBundle\\": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "KnpLabs Team",
+                "homepage": "http://knplabs.com"
+            },
+            {
+                "name": "Symfony Community",
+                "homepage": "http://github.com/KnpLabs/KnpMarkdownBundle/contributors"
+            }
+        ],
+        "description": "Knplabs markdown bundle transforms markdown into html",
+        "homepage": "http://github.com/KnpLabs/KnpMarkdownBundle",
+        "keywords": [
+            "bundle",
+            "knp",
+            "knplabs",
+            "markdown"
         ]
     }
 ]

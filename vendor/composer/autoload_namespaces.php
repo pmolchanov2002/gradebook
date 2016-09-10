@@ -12,6 +12,7 @@ return array(
     'SensioLabs\\Security' => array($vendorDir . '/sensiolabs/security-checker'),
     'Psr\\Log\\' => array($vendorDir . '/psr/log'),
     'Ornj\\Bundle\\MarkdownBundle' => array($vendorDir . '/ornj/markdown-bundle'),
+    'Michelf' => array($vendorDir . '/michelf/php-markdown'),
     'Ensepar\\Html2pdfBundle' => array($vendorDir . '/ensepar/html2pdf-bundle'),
     'Doctrine\\ORM\\' => array($vendorDir . '/doctrine/orm/lib'),
     'Doctrine\\DBAL\\' => array($vendorDir . '/doctrine/dbal/lib'),
@@ -20,4 +21,5 @@ return array(
     'Doctrine\\Common\\Collections\\' => array($vendorDir . '/doctrine/collections/lib'),
     'Doctrine\\Common\\Annotations\\' => array($vendorDir . '/doctrine/annotations/lib'),
     'Assetic' => array($vendorDir . '/kriswallsmith/assetic/src'),
+    'Aptoma' => array($vendorDir . '/aptoma/twig-markdown/src'),
 );

@@ -9,6 +9,10 @@ class Notification
 {
 	protected $exam;    
     protected $users;
+    protected $subject;
+    protected $message;
+    protected $englishMessage;
+    
 	public function getExam() {
 		return $this->exam;
 	}
@@ -21,6 +25,29 @@ class Notification
 	}
 	public function setUsers($users) {
 		$this->users = $users;
+		return $this;
+	}
+	public function getMessage() {
+		return $this->message;
+	}
+	public function setMessage($message) {
+		$this->message = $message;
+		return $this;
+	}
+	
+	public function getEnglishMessage() {
+		return $this->englishMessage;
+	}
+	public function setEnglishMessage($message) {
+		$this->englishMessage = $message;
+		return $this;
+	}
+	
+	public function getSubject() {
+		return $this->subject;
+	}
+	public function setSubject($subject) {
+		$this->subject = $subject;
 		return $this;
 	}
 }

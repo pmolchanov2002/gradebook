@@ -31,6 +31,8 @@
 <script type="text/javascript">
         {% block script %}{% endblock %}
         </script>
+        
+{% block head %}{% endblock %}
 </head>
 <body>
 		<nav class="navbar navbar-default navbar-fixed-top">
@@ -59,7 +61,9 @@
 								<li><a href="/admin/exam">Exams</a></li>
 								<li><a href="/admin/day">Days</a></li>
 								<li><a href="/admin/year">Years</a></li>
+								<li role="separator" class="divider"></li>
 								<li><a href="/admin/examweight">Exam Weights</a></li>
+								<li><a href="/admin/year/migrate">Migrate year</a></li>
 							</ul></li>
 						<li class="dropdown"><a href="#" class="dropdown-toggle"
 							data-toggle="dropdown" role="button" aria-haspopup="true"
@@ -87,6 +91,8 @@
 							data-toggle="dropdown" role="button" aria-haspopup="true"
 							aria-expanded="false">Email <span class="caret"></span></a>
 							<ul class="dropdown-menu">
+								<li><a href="/admin/message/role">Send a message</a></li>
+								<li><a href="/admin/message/teacher">Send scheduler to teachers</a></li>
 								<li><a href="/admin/mail/exam">Request grades from teachers</a></li>
 								<li><a href="/admin/mail/parent">Report grades to parents</a></li>
 								<li role="separator" class="divider"></li>

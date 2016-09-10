@@ -71,6 +71,16 @@ class ClassOfStudents
      * @ORM\Column(type="datetime")
      */
     protected $created;
+    
+    public function createClone() {
+    	$result = new ClassOfStudents();
+    	$result->name = $this->name;
+    	$result->englishName = $this->englishName;
+    	$result->ordinal = $this->ordinal;
+    	$result->year = $this->year;
+    	$result->students = $this->students;
+    	return $result;
+    }
  
 
     /**

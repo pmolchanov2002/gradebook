@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="FinalGrades")
+ * @ORM\Table(name="FinalGradesAndAttendance")
  */
 class FinalGrade
 {    
@@ -34,6 +34,21 @@ class FinalGrade
      * @ORM\Column(name="grade")
      */
     protected $grade;
+    
+    /**
+     * @ORM\Column(name="attendanceGrade")
+     */
+    protected $attendanceGrade;
+    
+    /**
+     * @ORM\Column(name="attendanceMaxGrade")
+     */
+    protected $attendanceMaxGrade;
+    
+    /**
+     * @ORM\Column(name="attendancePercentage")
+     */
+    protected $attendancePercentage;
 
 
     /**
@@ -126,5 +141,74 @@ class FinalGrade
     public function getGrade()
     {
         return $this->grade;
+    }
+
+    /**
+     * Set attendanceGrade
+     *
+     * @param string $attendanceGrade
+     * @return FinalGrade
+     */
+    public function setAttendanceGrade($attendanceGrade)
+    {
+        $this->attendanceGrade = $attendanceGrade;
+
+        return $this;
+    }
+
+    /**
+     * Get attendanceGrade
+     *
+     * @return string 
+     */
+    public function getAttendanceGrade()
+    {
+        return $this->attendanceGrade;
+    }
+
+    /**
+     * Set attendanceMaxGrade
+     *
+     * @param string $attendanceMaxGrade
+     * @return FinalGrade
+     */
+    public function setAttendanceMaxGrade($attendanceMaxGrade)
+    {
+        $this->attendanceMaxGrade = $attendanceMaxGrade;
+
+        return $this;
+    }
+
+    /**
+     * Get attendanceMaxGrade
+     *
+     * @return string 
+     */
+    public function getAttendanceMaxGrade()
+    {
+        return $this->attendanceMaxGrade;
+    }
+
+    /**
+     * Set attendancePercentage
+     *
+     * @param string $attendancePercentage
+     * @return FinalGrade
+     */
+    public function setAttendancePercentage($attendancePercentage)
+    {
+        $this->attendancePercentage = $attendancePercentage;
+
+        return $this;
+    }
+
+    /**
+     * Get attendancePercentage
+     *
+     * @return string 
+     */
+    public function getAttendancePercentage()
+    {
+        return $this->attendancePercentage;
     }
 }

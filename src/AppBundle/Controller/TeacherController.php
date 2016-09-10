@@ -157,7 +157,7 @@ class TeacherController extends Controller
     public function displaySchedule($user) {
 
         $em = $this->getDoctrine()->getManager();
-        $q = $em->createQuery("select l from AppBundle:Lesson l left join l.classOfStudents cl join cl.year y left join l.period p left join l.teacher t where t.id=:id and y.active=true order by p.ordinal")
+        $q = $em->createQuery("select l from AppBundle:Lesson l left join l.classOfStudents cl join cl.year y left join l.period p left join l.teacher t where t.id=:id and y.active=true order by p.ordinal, cl.ordinal")
         ->setParameter("id", $user->getId());   
 
         $lessons = $q->getResult();
@@ -177,7 +177,7 @@ class TeacherController extends Controller
     public function displaySchedulePrint($user) {
 
         $em = $this->getDoctrine()->getManager();
-        $q = $em->createQuery("select l from AppBundle:Lesson l left join l.classOfStudents cl join cl.year y left join l.period p left join l.teacher t where t.id=:id and y.active=true order by p.ordinal")
+        $q = $em->createQuery("select l from AppBundle:Lesson l left join l.classOfStudents cl join cl.year y left join l.period p left join l.teacher t where t.id=:id and y.active=true order by p.ordinal, cl.ordinal")
         ->setParameter("id", $user->getId());   
 
         $lessons = $q->getResult();

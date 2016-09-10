@@ -19,6 +19,8 @@
     		<th width="20%">Фамилия</th>
     		<th width="20%">Имя</th>
     		<th width="20%">Оценка</th>
+    		<th width="20%">Посещаемость</th>
+    		<th width="20%">Final</th>
     	</thead>
     	<tbody>
     	{% set className = '' %}
@@ -26,7 +28,7 @@
     		{% if result.name != className %}
     			{% set className = result.name %}
     			<tr>
-    				<td colspan="4"><hr/></td>
+    				<td colspan="6"><hr/></td>
     			</tr> 
     		{% endif %}
 	    	<tr>
@@ -34,6 +36,8 @@
 		    	<td>{{ result.lastName }}</td>
 		    	<td>{{ result.firstName }}</td>
 		    	<td>{{ result.grade|round(2) }}</td>
+		    	<td>{{ result.attendanceGrade }} / {{ result.attendanceMaxGrade }} ({{ result.attendancePercentage }}%)</td>
+		    	<td>{{ result.grade|round(2) * 0.9 + result.attendancePercentage * 0.1  }}</td>
 	    	</tr>
 	    {% endfor %}
 		</tbody>
