@@ -1,0 +1,5 @@
+services:
+    ornj_markdown.form.type.markdown:
+        class: Ornj\Bundle\MarkdownBundle\Form\Type\MarkdownType
+        tags:
+            - { name: form.type, alias: markdown }

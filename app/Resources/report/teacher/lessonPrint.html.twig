@@ -1,0 +1,41 @@
+{# app/Resources/views/teacher/grades.html.twig #}
+{% extends 'base-print.html.twig' %}
+
+{% block title %}Grades{% endblock %}
+
+{% block body %}
+
+<div class="container">
+  <!-- Example row of columns -->
+
+	{% for classForLesson in classesForLesson %}
+	 	<h3 class="middle">Рассписание</h3>
+		<h1 class="bold middle">{{ classForLesson.classOfStudents.name }}</h1>
+		<h3 class="italic middle">{{ classForLesson.classOfStudents.year.name }}</h3>
+
+		<table width="100%">
+			<thead>
+	    		<th width="30%">Урок</th>
+	    		<th width="10%">Время</th>
+	    		<th>Предмет</th>
+	    		<th>Учитель</th>
+	    	</thead>
+	    	<tbody>
+	    	{% for lesson in lessons %}
+		    	{% if lesson.classOfStudents.id == classForLesson.classOfStudents.id %}
+		    	<tr>
+			    	<td><h3>{{ lesson.period.name }}</h3></td>
+		    		<td><h3>{{ lesson.period.startTime|date("H:i")}} - {{ lesson.period.endTime|date("H:i") }}</h3></td>
+		    		<td><h1>{{ lesson.course.name }}<h1></td>
+		    		<td><h2>{{ lesson.teacher.firstName }} {{ lesson.teacher.lastName }}</h2></td>
+		    	</tr>
+		    	{% endif %}
+		    {% endfor %}
+			</tbody>
+	    </table>
+	    {% if not loop.last %}
+	   		<hr style="page-break-after: always;"/>
+	   	{% endif %}
+	{% endfor %}
+</div>
+{% endblock %} 

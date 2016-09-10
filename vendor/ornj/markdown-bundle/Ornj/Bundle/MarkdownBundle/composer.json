@@ -1,0 +1,36 @@
+{
+    "name": "ornj/markdown-bundle",
+    "type": "symfony-bundle",
+    "description": "Form fields for inputting and previewing markdown in Symfony2",
+    "keywords": ["form", "markdown", "bootstrap", "bootstrap form"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Stephen Hurwitz",
+            "email": "steve@stevehurwitz.com",
+            "homepage": "http://stevehurwitz.com"
+        },
+        {
+            "name": "James Rickard",
+            "email": "james@frodosghost.com",
+            "homepage": "http://www.frodosghost.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "symfony/symfony": ">=2.2"
+    },
+    "require-dev": {
+
+    },
+    "suggest": {
+        "knplabs/knp-markdown-bundle": "1.2.*@dev"
+    },
+    "autoload": {
+        "psr-0": {
+            "Ornj\\Bundle\\MarkdownBundle": ""
+        }
+    },
+    "target-dir": "Ornj/Bundle/MarkdownBundle",
+    "minimum-stability": "dev"
+}

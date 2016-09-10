@@ -1,0 +1,56 @@
+.md-editor {
+    display: block;
+    border: 1px solid #ddd;
+    > .md-header, .md-footer {
+        display: block;
+        padding: 6px 4px;
+        background: #fff;
+    }
+    > {
+        .md-preview {
+            background: #fff;
+            border-top: 1px dashed #ddd;
+            border-bottom: 1px dashed #ddd;
+            min-height: 10px;
+        }
+        textarea {
+            font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
+            font-size: 14px;
+            outline: 0;
+            outline: thin dotted \9;
+            /* IE6-9 */
+            margin: 0;
+            display: block;
+            padding: 0;
+            width: 100%;
+            border: 0;
+            border-top: 1px dashed #ddd;
+            border-bottom: 1px dashed #ddd;
+            border-radius: 0;
+            box-shadow: none;
+            background: #eee;
+            &:focus {
+                box-shadow: none;
+                background: #fff;
+            }
+        }
+    }
+    &.active {
+        -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+        border-color: rgba(82, 168, 236, 0.8);
+        outline: 0;
+        outline: thin dotted \9;
+        /* IE6-9 */
+        transition: border linear 0.2s, box-shadow linear 0.2s;
+        -moz-transition: border linear 0.2s, box-shadow linear 0.2s;
+        /* Firefox 4 */
+        -webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
+        /* Safari and Chrome */
+    }
+    .btn-group {
+        display: inline-block;
+        vertical-align: middle;
+    }
+}

@@ -1,0 +1,23 @@
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Class</th>
+          <th>Subject</th>
+          <th>Lesson</th>
+          <th>Start</th>
+          <th>End</th>
+        </tr>
+      </thead>
+      <tbody>
+        {%for lesson in lessons %}
+          <tr>
+            <td>{{ lesson.classOfStudents.englishName }}</td>
+            <td>{{ lesson.course.englishName }}</td>
+            <td>{{ lesson.period.englishName }}</td>
+            <td>{{ lesson.period.startTime|date("H:i") }}</td>
+            <td>{{ lesson.period.endTime|date("H:i") }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>

@@ -1,0 +1,10 @@
+{# app/Resources/mail/message.html.twig #}
+<html>
+<head>
+<title>{{ notification.subject }}</title>
+</head>
+<body>
+<h3>Уважаемый/ая {{ user.firstName }} {{ user.lastName }}!</h3>
+{{ notification.message|markdown }}
+</body>
+</html>

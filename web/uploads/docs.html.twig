@@ -1,0 +1,9 @@
+{% macro docs(article) %}
+
+		{% for document in article.documents %}
+			<a href="{{ document.path }}" target="_blank">
+				<span style="margin-left:5 px;">{{ document.description }}</span>
+			</a>
+		{% endfor %} 
+
+{% endmacro %} 

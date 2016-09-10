@@ -1,0 +1,23 @@
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Класс</th>
+          <th>Предмет</th>
+          <th>Урок</th>
+          <th>Начало урока</th>
+          <th>Конец урока</th>
+        </tr>
+      </thead>
+      <tbody>
+        {%for lesson in lessons %}
+          <tr>
+            <td>{{ lesson.classOfStudents.name }}</td>
+            <td>{{ lesson.course.name }}</td>
+            <td>{{ lesson.period.name }}</td>
+            <td>{{ lesson.period.startTime|date("H:i") }}</td>
+            <td>{{ lesson.period.endTime|date("H:i") }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
