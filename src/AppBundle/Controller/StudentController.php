@@ -34,18 +34,19 @@ class StudentController extends Controller
         $form = $this->createFormBuilder($user)       
             ->add('firstName', 'text', array('label' => 'First Name:'))
             ->add('lastName', 'text', array('label' => 'Last Name:'))
-            ->add('dob', 'date', array('label' => 'Date of birth:', 'years' => range(date('Y'), date('Y') - 100)))
-            ->add('email', 'text', array('label' => 'Email:', 'required' => false))      
+            ->add('englishName', 'text', array('label' => 'English Name:'))   
             ->add('save', 'submit', array('label' => 'Create student'))
             ->getForm();
 
         $form->handleRequest($request);
+        
+        $user->setUsername(md5(rand()), 0, 7);
+        $user->setPassword(md5(time()));
+        $user->setEmail(md5(time())."@stsergiuslc.com");
 
         if ($form->isValid()) {
             $user = $form->getData();
             $em = $this->getDoctrine()->getManager();
-            $user->setUsername(md5(rand()), 0, 7);
-            $user->setPassword(md5(time()));
             $roles = $this->getDoctrine()->getRepository('AppBundle:Role')->findOneById(3);
             $user->addRole($roles);
             $em->persist($user);
@@ -68,16 +69,36 @@ class StudentController extends Controller
     	$form = $this->createFormBuilder($user)
     	->add('lastName', 'text', array('label' => 'Last Name:'))
     	->add('firstName', 'text', array('label' => 'First Name:'))
-    	->add('dob', 'date', array('label' => 'Date of birth:', 'years' => range(date('Y'), date('Y') - 100)))
-    	->add('email', 'text', array('label' => 'Email:', 'required' => false))
-    	->add('username', 'text', array('label' => 'Login:'))
-    	->add('password', 'repeated', array(
-    			'type' => 'password',
-    			'required' => false,
-    			'invalid_message' => 'Password fields do not match',
-    			'first_options' => array('label' => 'Password', 'required' => false),
-    			'second_options' => array('label' => 'Repeat Password', 'required' => false),
+    	->add('englishName', 'text', array('label' => 'English Name:'))
+    	->add('username', 'text', array(
+    			'label' => 'Username',
+    			'empty_data' => md5(time()),
+    			'data' => md5(time())
     	))
+    	->add('password', 'text', array(
+    			'label' => 'Password',
+    			'empty_data' => md5(time()),
+    			'data' => md5(time())
+    	))
+    	->add('email', 'text', array(
+    			'label' => 'Email',
+    			'empty_data' => md5(md5(time()))."@stsergiuslc.com",
+    			'data' => md5(md5(time()))."@stsergiuslc.com"
+    	))
+    	->add('classes', 'entity', array(
+    			'multiple' => true,
+    			'expanded' => true,
+    			'class' => 'AppBundle:ClassOfStudents',
+    			'choice_label' => 'name',
+    			'label' => 'Class: ',
+    			'query_builder' => function (EntityRepository $er) {
+    			return $er->createQueryBuilder('p')
+    			->leftJoin('p.year', 'y')
+    			->where('y.active=:active')
+    			->orderBy('p.ordinal', 'ASC')
+    			->setParameter('active', true);
+    			}
+    			))
     	->add('save', 'submit', array('label' => 'Create student'))
     	->getForm();
     
@@ -86,8 +107,6 @@ class StudentController extends Controller
     	if ($form->isValid()) {
     		$user = $form->getData();
     		$em = $this->getDoctrine()->getManager();
-    		$user->setUsername(md5(rand()), 0, 7);
-    		$user->setPassword(md5(time()));
     		$roles = $this->getDoctrine()->getRepository('AppBundle:Role')->findOneById(3);
     		$user->addRole($roles);
     		$em->persist($user);
@@ -123,6 +142,7 @@ class StudentController extends Controller
         $form = $this->createFormBuilder($user)        
             ->add('firstName', 'text', array('label' => 'First Name:'))
             ->add('lastName', 'text', array('label' => 'Last Name:'))
+            ->add('englishName', 'text', array('label' => 'English Name:'))
             ->add('active', 'checkbox', array('label' => 'Active', 'required' => false))          
             ->add('classes', 'entity', array(
             		'multiple' => true,
