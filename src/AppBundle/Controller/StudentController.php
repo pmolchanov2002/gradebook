@@ -35,6 +35,21 @@ class StudentController extends Controller
             ->add('firstName', 'text', array('label' => 'First Name:'))
             ->add('lastName', 'text', array('label' => 'Last Name:'))
             ->add('englishName', 'text', array('label' => 'English Name:'))   
+            ->add('username', 'text', array(
+            		'label' => 'Username',
+            		'empty_data' => md5(time()),
+            		'data' => md5(time())
+            ))
+            ->add('password', 'text', array(
+            		'label' => 'Password',
+            		'empty_data' => md5(time()),
+            		'data' => md5(time())
+            ))
+            ->add('email', 'text', array(
+            		'label' => 'Email',
+            		'empty_data' => md5(md5(time()))."@stsergiuslc.com",
+            		'data' => md5(md5(time()))."@stsergiuslc.com"
+            ))
             ->add('save', 'submit', array('label' => 'Create student'))
             ->getForm();
 

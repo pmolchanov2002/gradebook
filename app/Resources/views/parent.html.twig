@@ -23,6 +23,7 @@
             <tr>
                 <th>Last Name</th>
                 <th>First Name</th>
+                <th>Email</th>
                 <th>Kids</th>
                 <th>Kids Grades</th>
                 <th>Edit</th>
@@ -34,10 +35,17 @@
 	    	<tr>
 	    		<td data-sort="{{ user.lastName }}">{{ user.lastName }}</td>
 	        	<td>{{ user.firstName }}</td>
+	        	<td>{{ user.email }}</td>
 	        	{% if user.students is not empty %}
 	        		<td>
 	        	    {% for student in user.students %}
-	       				<div>{{ student }}</div>
+	       				<div>{{ student }}
+	       				{% for class in student.classes %}
+	       					{% if class.year.active %}
+	       					<span>({{ class.name }})</span>
+	       					{% endif %}
+	       				{% endfor %}
+	       				</div>
 	   				{% endfor %}
     			 	</td>
     			{% else %}
