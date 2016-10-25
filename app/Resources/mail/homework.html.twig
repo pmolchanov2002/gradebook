@@ -1,0 +1,24 @@
+{# app/Resources/mail/message.html.twig #}
+<html>
+<head>
+<title>{{ notification.subject }}</title>
+</head>
+<body>
+<h3>Уважаемые 
+{% for user in notification.users %}
+	{% if not loop.first %}
+	,
+	{% endif %}
+	{{ user.firstName }}
+{% endfor %} !
+</h3>
+
+<div>
+{{ notification.message|markdown }}
+</div>
+
+<p>C Уважением,</p> 
+<p>{{ teacher.firstName }} {{ teacher.lastName }}</p>
+
+</body>
+</html>

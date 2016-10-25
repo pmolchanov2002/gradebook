@@ -46,7 +46,6 @@ class User implements UserInterface, \Serializable
     
     /**
      * @ORM\Column(name="EnglishName", unique=true)
-     * @Assert\NotBlank()
      */
     protected $englishName;    
     

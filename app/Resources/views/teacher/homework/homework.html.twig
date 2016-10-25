@@ -1,0 +1,26 @@
+{# app/Resources/views/forms/mailParents.html.twig #}
+{% extends 'base-admin.html.twig' %}
+{% block pageTitle %}Send e-mail to parents{% endblock %}
+{% block title %}Send student homework assessment to parents:{% endblock %}
+{% block script %}
+function toggle() {
+   $(':checkbox').each(function() {
+       this.checked = !this.checked;                        
+   });
+}
+{% endblock %}
+
+{% block head %}
+	<link rel="stylesheet" href="/css/bootstrap-markdown.min.css" type="text/css" media="all" />
+	<script type="text/javascript" src="/js/bootbox.js"></script>
+	<script type="text/javascript" src="/js/to-markdown.js"></script>
+	<script type="text/javascript" src="/js/markdown.js"></script>
+	<script type="text/javascript" src="/js/bootstrap-markdown.js"></script>
+{% endblock %}
+
+{% block body %}
+	<button class="btn btn-default" onclick="toggle()">Select All / Deselect All</button>
+	{{ form_start(form) }}
+	{{ form_widget(form) }}
+	{{ form_end(form) }}
+{% endblock %}

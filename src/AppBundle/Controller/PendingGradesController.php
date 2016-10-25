@@ -19,7 +19,7 @@ class PendingGradesController extends Controller {
 	 * @Route("/admin/report/pendingGrades/exam")
 	 */
 	public function displayExams() {
-		$exams = $this->getDoctrine ()->getRepository ( "AppBundle:Exam" )->findAll ();
+		$exams = $this->getDoctrine ()->getRepository ( "AppBundle:Exam" )->findAll();
 		return $this->render ( 'report/pendingGrades/exam.html.twig', array (
 				'exams' => $exams
 		) );
