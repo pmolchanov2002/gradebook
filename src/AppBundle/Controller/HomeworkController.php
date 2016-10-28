@@ -81,6 +81,7 @@ class HomeworkController extends Controller {
 				'data' => 'Homework for '.$course->getEnglishName().' ('.$class->getEnglishName().') / Домашнее задание по предмету '.$course->getName().' ('.$class->getName().')',
 		))
 		->add('message', 'markdown', array('label' => 'Message:'))
+		->add('select', 'button', array('label' => 'Select All'))
 		->add('users', 'entity', array(
 				'multiple' => true,
 				'expanded' => true,

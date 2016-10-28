@@ -3,11 +3,16 @@
 {% block pageTitle %}Send e-mail to parents{% endblock %}
 {% block title %}Send student homework assessment to parents:{% endblock %}
 {% block script %}
-function toggle() {
-   $(':checkbox').each(function() {
-       this.checked = !this.checked;                        
-   });
-}
+
+$(document).ready(function(){
+	$('#form_select').click(function(){
+		   $(':checkbox').each(function() {
+		       this.checked = !this.checked;                        
+		   });
+	});
+});
+
+
 {% endblock %}
 
 {% block head %}
@@ -19,7 +24,6 @@ function toggle() {
 {% endblock %}
 
 {% block body %}
-	<button class="btn btn-default" onclick="toggle()">Select All / Deselect All</button>
 	{{ form_start(form) }}
 	{{ form_widget(form) }}
 	{{ form_end(form) }}
