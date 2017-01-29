@@ -67,6 +67,7 @@ class LessonController extends Controller
                     return $er->createQueryBuilder('u')
                         ->join('u.roles', 'r')
                         ->where('r.id = :id')
+                        ->orderBy('u.lastName', 'ASC')
                         ->setParameter('id', 2);
                 },
             ))                         

@@ -36,7 +36,23 @@ class GradeExamController extends Controller {
 				'multiple' => false,
 				'class' => 'AppBundle:Course',
 				'choice_label' => 'name',
-				'label' => 'Course: '
+				'label' => 'Course: ',
+				'query_builder' => function (EntityRepository $er) {
+				return $er->createQueryBuilder('c')
+				->orderBy('c.name', 'ASC');
+				}
+		))
+		->add('class', 'entity', array(
+				'multiple' => false,
+				'class' => 'AppBundle:ClassOfStudents',
+				'choice_label' => 'name',
+				'label' => 'Class: ',
+				'query_builder' => function (EntityRepository $er) {
+				return $er->createQueryBuilder('cl')
+				->join('cl.year', 'y')
+				->where('y.active = true')
+				->orderBy('cl.ordinal', 'ASC');
+				}
 		))
 		->add('student', 'entity', array(
 				'multiple' => false,
@@ -48,7 +64,13 @@ class GradeExamController extends Controller {
 					->where('r.id = :id')
 					->orderBy('u.lastName', 'ASC')
 					->setParameter('id', 3);
-					},
+					}
+		))
+		->add('gradeType', 'entity', array(
+				'multiple' => false,
+				'class' => 'AppBundle:GradeType',
+				'choice_label' => 'name',
+				'label' => 'Grade Type:'
 		))
 		->add('grade', 'text', array('label' => 'Grade:'))
 		->add('save', 'submit', array('label' => 'Save'))
@@ -61,7 +83,9 @@ class GradeExamController extends Controller {
 			$savedGradeExam = $this->getDoctrine ()->getRepository ( "AppBundle:GradeExam" )->findOneBy(array(
 				'student' => $gradeExam->getStudent(),
 				'exam' => $gradeExam->getExam(),
-				'course' => $gradeExam->getCourse()
+				'course' => $gradeExam->getCourse(),
+				'class' => $gradeExam->getClass(),
+				'gradeType' => $gradeExam->getGradeType()
 			));
 			
 			if(isset($savedGradeExam)) {

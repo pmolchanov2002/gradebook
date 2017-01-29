@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Session\Session;
 
 use AppBundle\Model\GradeQuery;
 
-class GradeParentNotifyController extends Controller {
+class GradeSendParentController extends Controller {
 	private $displayRoute = 'app_mail_parent_success';
 	
 
@@ -33,10 +33,14 @@ class GradeParentNotifyController extends Controller {
 				'label' => 'Parents: ',
 				'query_builder' => function (EntityRepository $er) {
 					return $er->createQueryBuilder('u')
+					->join('u.students','s')
+					->join('s.classes','c')
+					->join('c.year', 'y')
 					->join('u.roles', 'r')
 					->where('u.active=true')
 					->andWhere('r.role=:role')
 					->andWhere('u.email is not NULL')
+					->andWhere('y.active=true')
 					->orderBy('u.lastName', 'ASC')
 					->setParameter('role', 'ROLE_PARENT');
 				}
