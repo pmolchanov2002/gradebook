@@ -106,7 +106,11 @@ class GradeSendParentController extends Controller {
 				),
 				'text/html'
 		);
-		$this->get('mailer')->send($message);
+		$mailer = $this->get('mailer');
+		$mailer->send($message);
+		$spool = $mailer->getTransport()->getSpool();
+		$transport = $container->get('swiftmailer.transport.real');
+		$spool->flushQueue($transport);
 		return;
 	}
 
