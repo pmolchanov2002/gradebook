@@ -27,6 +27,54 @@ class MessageController extends Controller {
 	}
 	
 	/**
+	 * @Route("/admin/message/allrole")
+	 */
+	public function displayMessageForm(Request $request) {
+	
+		$notification = new Notification();
+	
+		$form = $this->createFormBuilder($notification)
+		->add('subject', 'text', array('label' => 'Subject:'))
+		->add('message', 'markdown', array('label' => 'Message:'))
+		->add('users', 'entity', array(
+				'multiple' => true,
+				'expanded' => true,
+				'class' => 'AppBundle:User',
+				'label' => 'Recepients: ',
+				'query_builder' => function (EntityRepository $er) use ($role) {
+				return $er->createQueryBuilder('u')
+				->join('u.roles', 'r')
+				->where('u.active=true')
+				->andWhere('u.email is not NULL')
+				->orderBy('u.lastName', 'ASC');
+				}
+				))
+				->add('send', 'submit', array('label' => 'Send'))
+				->getForm();
+	
+				$form->handleRequest($request);
+	
+				if ($form->isValid()) {
+					$notification = $form->getData();
+					$recipients = array();
+					foreach ($notification->getUsers() as $recipient) {
+						$this->sendEmail($notification, $recipient);
+						$recipients[] = $recipient->__toString();
+					}
+						
+					$session = $request->getSession();
+					$session->set('recipients', $recipients);
+						
+					return $this->redirectToRoute($this->displayRoute);
+				}
+	
+				return $this->render('forms/message/mail.html.twig', array(
+						'form' => $form->createView()
+				));
+	
+	}	
+	
+	/**
 	 * @Route("/admin/message/role/{role}")
 	 * @ParamConverter("role", class="AppBundle:Role")
 	 */
