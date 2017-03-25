@@ -27,7 +27,7 @@ class MessageController extends Controller {
 	}
 	
 	/**
-	 * @Route("/admin/message/allrole")
+	 * @Route("/admin/message/allroles")
 	 */
 	public function displayAllMessageForm(Request $request) {
 	
