@@ -29,7 +29,7 @@ class MessageController extends Controller {
 	/**
 	 * @Route("/admin/message/allrole")
 	 */
-	public function displayMessageForm(Request $request) {
+	public function displayAllMessageForm(Request $request) {
 	
 		$notification = new Notification();
 	
