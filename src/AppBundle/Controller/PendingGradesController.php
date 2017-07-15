@@ -91,7 +91,7 @@ class PendingGradesController extends Controller {
 	private function sendEmail($user, $exam) {
 		$message = \Swift_Message::newInstance()
 		->setSubject($exam->getName().': Grades are pending for St. Sergius School students')
-		->setFrom('pavel@stsergiuslc.com')
+		->setFrom($this->getParameter('mailer_user'))
 		->setTo($user->getEmail())
 		->setBody(
 				$this->renderView(

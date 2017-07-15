@@ -99,7 +99,7 @@ class GradeRequestController extends Controller {
 	private function sendEmail($user, $exam, $lessons) {
 		$message = \Swift_Message::newInstance()
 		->setSubject($exam->getName().': Please submit grades for St. Sergius School students')
-		->setFrom('pavel@stsergiuslc.com')
+		->setFrom($this->getParameter('mailer_user'))
 		->setTo($user->getEmail())
 		->setBody(
 				$this->renderView(

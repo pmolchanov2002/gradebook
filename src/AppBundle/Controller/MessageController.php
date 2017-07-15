@@ -152,7 +152,7 @@ class MessageController extends Controller {
 		
 		$message = \Swift_Message::newInstance()
 		->setSubject($notification->getSubject())
-		->setFrom('pavel@stsergiuslc.com')
+		->setFrom($this->getParameter('mailer_user'))
 		->setTo($user->getEmail())
 		->setBody(
 				$body,
