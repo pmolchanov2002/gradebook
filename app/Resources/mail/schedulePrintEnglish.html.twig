@@ -7,6 +7,7 @@
           <th>Lesson</th>
           <th>Start</th>
           <th>End</th>
+          <th>Students</th>
         </tr>
       </thead>
       <tbody>
@@ -17,6 +18,11 @@
             <td>{{ lesson.period.englishName }}</td>
             <td>{{ lesson.period.startTime|date("H:i") }}</td>
             <td>{{ lesson.period.endTime|date("H:i") }}</td>
+            <td>
+	        	  {% for student in lesson.classOfStudents.students %}
+        				<div>{{ student.englishName }}</div>
+    				  {% endfor %}
+            </td>
           </tr>
         {% endfor %}
       </tbody>

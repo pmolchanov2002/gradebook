@@ -7,6 +7,7 @@
           <th>Урок</th>
           <th>Начало урока</th>
           <th>Конец урока</th>
+          <th>Студенты</th>
         </tr>
       </thead>
       <tbody>
@@ -17,6 +18,11 @@
             <td>{{ lesson.period.name }}</td>
             <td>{{ lesson.period.startTime|date("H:i") }}</td>
             <td>{{ lesson.period.endTime|date("H:i") }}</td>
+            <td>
+	        	  {% for student in lesson.classOfStudents.students %}
+        				<div>{{ student.firstName }} {{ student.lastName }}</div>
+    				  {% endfor %}
+            </td>
           </tr>
         {% endfor %}
       </tbody>
