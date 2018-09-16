@@ -84,7 +84,7 @@ class TeacherMessageController extends Controller {
 		$em = $this->getDoctrine()->getManager();
 
 		// Get teacher's schedule from  the database
-		$q = $em->createQuery("select l from AppBundle:Lesson l left join l.classOfStudents cl join cl.year y left join l.period p left join l.teacher t where t.id=:id and y.active=true order by p.ordinal, cl.ordinal")
+		$q = $em->createQuery("select l from AppBundle:Lesson l left join l.classOfStudents cl left join cl.students s left join cl.year y left join l.period p left join l.teacher t where t.id=:id and y.active=true order by p.ordinal, cl.ordinal, s.lastName")
 		->setParameter("id", $user->getId());
 		$lessons = $q->getResult();
 		
