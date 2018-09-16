@@ -82,21 +82,27 @@ class TeacherMessageController extends Controller {
 	private function sendEmail($notification, $user) {
 		
 		$em = $this->getDoctrine()->getManager();
+
+		// Get teacher's schedule from  the database
 		$q = $em->createQuery("select l from AppBundle:Lesson l left join l.classOfStudents cl join cl.year y left join l.period p left join l.teacher t where t.id=:id and y.active=true order by p.ordinal, cl.ordinal")
 		->setParameter("id", $user->getId());
-		
 		$lessons = $q->getResult();
 		
+		// Create russian message
+
 		$notification->setMessage($this->renderView('mail/schedulePrint.html.twig', array(
 				"lessons" => $lessons,
 				'user' => $user
 		)));
+
+		// Create English message
 		
 		$notification->setEnglishMessage($this->renderView('mail/schedulePrintEnglish.html.twig', array(
 				"lessons" => $lessons,
 				'user' => $user
 		)));
 		
+		// Create message to send to the teacher
 		
 		$body = $this->renderView(
 				'mail/teacherMessage.html.twig',
@@ -114,8 +120,6 @@ class TeacherMessageController extends Controller {
 				$body,
 				'text/html'
 		);
-		
-
 		
 		$this->get('mailer')->send($message);
 		return;
