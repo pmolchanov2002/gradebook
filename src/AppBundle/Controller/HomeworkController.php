@@ -133,7 +133,7 @@ class HomeworkController extends Controller {
 	}
 	
 	/**
-	 * @Route("/admin/mail/message/success", name="app_homework_display")
+	 * @Route("/teacher/mail/message/success", name="app_homework_display")
 	 */		
 	public function display_success(Request $request) {
 		$session = $request->getSession();
