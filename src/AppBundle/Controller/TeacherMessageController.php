@@ -111,9 +111,8 @@ class TeacherMessageController extends Controller {
 						'user' => $user
 		));
 
-		
 		$message = \Swift_Message::newInstance()
-		->setSubject('Your personal teacher schedule at St.Sergius Learning Center')
+		->setSubject($user . ': Ваше рассписание уроков в школе Св. Сергия Радонежского')
 		->setFrom($this->getParameter('mailer_user'))
 		->setTo($user->getEmail())
 		->setBody(

@@ -19,9 +19,26 @@
             <td>{{ lesson.period.startTime|date("H:i") }}</td>
             <td>{{ lesson.period.endTime|date("H:i") }}</td>
             <td>
-	        	  {% for student in lesson.classOfStudents.students %}
-        				<div>{{ student.firstName }} {{ student.lastName }}</div>
-    				  {% endfor %}
+              <table>
+                <thead>
+                  <th>Студент</th>
+                  <th>Родитель</th>
+                  <th>Email</th>
+                  <th>Телефон</th>
+                  <th>Телефон</th>
+                </thead>
+                {% for student in lesson.classOfStudents.students %}
+                {% for parent in student.parents %}
+                  <tr>
+                    <td>{{ student.firstName }} {{ student.lastName }}</td>
+                    <td>{{ parent.firstName }} {{ parent.lastName }}</td>
+                    <td>{{ parent.email }}</td>
+                    <td>{{ parent.mobilePhone }}</td>
+                    <td>{{ parent.homePhone }}</td>
+                  </tr>
+                {% endfor %}
+                {% endfor %}
+                </table>
             </td>
           </tr>
         {% endfor %}

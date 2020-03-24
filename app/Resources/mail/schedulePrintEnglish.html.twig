@@ -7,8 +7,9 @@
           <th>Lesson</th>
           <th>Start</th>
           <th>End</th>
-          <!-- Not all students have English name, disabled -->
-          <!--<th>Students</th>-->
+          {# Not all students have English name, turning off printing students
+          <th>Students</th> 
+          #}
         </tr>
       </thead>
       <tbody>
@@ -19,14 +20,28 @@
             <td>{{ lesson.period.englishName }}</td>
             <td>{{ lesson.period.startTime|date("H:i") }}</td>
             <td>{{ lesson.period.endTime|date("H:i") }}</td>
-            <!-- Not all students have English name, disabled -->
-            <!--
-            <td>
-	        	  {% for student in lesson.classOfStudents.students %}
-        				<div>{{ student.englishName }}</div>
-    				  {% endfor %}
-            </td>
-            -->
+            {# <td>
+              <table>
+                <thead>
+                  <th>Student</th>
+                  <th>Parent</th>
+                  <th>Email</th>
+                  <th>Phone</th>
+                  <th>Phone</th>
+                </thead>
+                {% for student in lesson.classOfStudents.students %}
+                {% for parent in student.parents %}
+                  <tr>
+                    <td>{{ student.firstName }} {{ student.firstName }}</td>
+                    <td>{{ parent.firstName }} {{ parent.lastName }}</td>
+                    <td>{{ parent.email }}</td>
+                    <td>{{ parent.mobilePhone }}</td>
+                    <td>{{ parent.homePhone }}</td>
+                  </tr>
+                {% endfor %}
+                {% endfor %}
+                </table>
+            </td> #}
           </tr>
         {% endfor %}
       </tbody>
