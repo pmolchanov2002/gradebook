@@ -1,0 +1,77 @@
+    <div>&nbsp;</div>
+    <h2>Виртуальные уроки:</h2>
+    <div>&nbsp;</div>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Начало урока</th>
+          <th>Конец урока</th>
+          <th>Класс</th>
+          <th>Предмет</th>
+          <th>WebLink</th>
+        </tr>
+      </thead>
+      <tbody>
+        {%for lesson in lessons %}
+          <tr>
+            <td>{{ lesson.period.startTime|date("H:i") }}</td>
+            <td>{{ lesson.period.endTime|date("H:i") }}</td>
+            <td>{{ lesson.classOfStudents.name }}</td>
+            <td>{{ lesson.course.name }}</td>
+            <td>{{ lesson.meetingLink }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <div>&nbsp;</div>
+    <h2>Ученики и родители:</h2>
+    <div>&nbsp;</div>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Класс</th>
+          <th>Предмет</th>
+          <th>Студенты</th>
+        </tr>
+      </thead>
+      <tbody>
+        {%for lesson in lessons %}
+          <tr>
+            <td>{{ lesson.classOfStudents.name }}</td>
+            <td>{{ lesson.course.name }}</td>
+            <td>
+              {% set emails = ['administration@stsergiuslc.com'] %}
+              <table>
+                <thead>
+                  <th>Студент</th>
+                  <th>Родитель</th>
+                  <th>Email</th>
+                  <th>Телефон</th>
+                  <th>Телефон</th>
+                </thead>
+                {% for student in lesson.classOfStudents.students %}
+                {% for parent in student.parents %}
+                  <tr>
+                    <td>{{ student.firstName }} {{ student.lastName }}</td>
+                    <td>{{ parent.firstName }} {{ parent.lastName }}</td>
+                    <td>{{ parent.email }}</td>
+                    <td style="white-space: nowrap"><a href="tel:{{ lesson.parent.mobilePhone }}">{{ parent.mobilePhone }}</a></td>
+                    <td style="white-space: nowrap"><a href="tel:{{ lesson.parent.homePhone }}">{{ parent.homePhone }}</a></td>
+                  </tr>
+                {% if parent.email is not empty %}
+                  {% set emails = emails|merge([parent.email]) %}
+                {% endif %}
+                {% endfor %}
+                {% endfor %}
+                </table>
+                <div>
+                <div>Emails: {{ emails|join(', ') }}</div>
+                <div>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>

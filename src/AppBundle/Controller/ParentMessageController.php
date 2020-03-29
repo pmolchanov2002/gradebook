@@ -1,6 +1,6 @@
 <?php
 
-// src/AppBundle/Controller/TeacherMessageController.php
+// src/AppBundle/Controller/ParentMessageController.php
 namespace AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -12,12 +12,12 @@ use AppBundle\Model\Notification;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Doctrine\ORM\EntityRepository;
 
-class TeacherMessageController extends Controller {
+class ParentMessageController extends Controller {
 	
-	private $displayRoute = 'app_mail_schedule_success';
+	private $displayRoute = 'app_mail_parent_schedule_success';
 	
 	/**
-	 * @Route("/admin/message/teacher")
+	 * @Route("/admin/message/parent")
 	 */
 	public function displayMessageForm(Request $request) {
 		
@@ -36,7 +36,7 @@ class TeacherMessageController extends Controller {
 					->andWhere('r.role=:role')
 					->andWhere('u.email is not NULL')
 					->orderBy('u.lastName', 'ASC')
-					->setParameter('role', 'ROLE_TEACHER');
+					->setParameter('role', 'ROLE_PARENT');
 				}
 		))
 		->add('send', 'submit', array('label' => 'Send'))
@@ -65,7 +65,7 @@ class TeacherMessageController extends Controller {
 	}
 	
 	/**
-	 * @Route("/admin/mail/message/success", name="app_mail_schedule_success")
+	 * @Route("/admin/mail/message/success", name="app_mail_parent_schedule_success")
 	 */		
 	public function display_success(Request $request) {
 		$session = $request->getSession();
@@ -83,36 +83,50 @@ class TeacherMessageController extends Controller {
 		
 		$em = $this->getDoctrine()->getManager();
 
-		// Get teacher's schedule from  the database
-		$q = $em->createQuery("select l from AppBundle:Lesson l left join l.classOfStudents cl left join cl.students s left join cl.year y left join l.period p left join l.teacher t where t.id=:id and y.active=true order by p.ordinal, cl.ordinal, s.lastName")
+		// Get schedule from the database
+
+		$studentLessons = array();
+
+		$q = $em->createQuery("select u from AppBundle:User u left join u.parents pa where pa.id=:id and u.active=true order by u.firstName + u.lastName")
 		->setParameter("id", $user->getId());
-		$lessons = $q->getResult();
+		$students = $q->getResult();
+
+		foreach ($students as $student) {
+			
+			$q = $em->createQuery("select l from AppBundle:Lesson l left join l.classOfStudents cl left join cl.students s left join cl.year y left join l.period p where s.id=:id and y.active=true order by s.firstName + s.lastName, p.ordinal")
+			->setParameter("id", $student->getId());
+			$lessons = $q->getResult();
+			$studentLessons[] = array(
+				"student" => $student,
+				"lessons" => $lessons
+			);
+		}
 		
 		// Create Russian message
 
-		$notification->setMessage($this->renderView('mail/scheduleTeacher.html.twig', array(
-				"lessons" => $lessons,
+		$notification->setMessage($this->renderView('mail/scheduleParent.html.twig', array(
+				"studentLessons" => $studentLessons,
 				'user' => $user
 		)));
 
 		// Create English message
 		
-		$notification->setEnglishMessage($this->renderView('mail/scheduleTeacherEnglish.html.twig', array(
-				"lessons" => $lessons,
+		$notification->setEnglishMessage($this->renderView('mail/scheduleParentEnglish.html.twig', array(
+				"studentLessons" => $studentLessons,
 				'user' => $user
 		)));
 		
 		// Create message to send 
 		
 		$body = $this->renderView(
-				'mail/teacherMessage.html.twig',
+				'mail/parentMessage.html.twig',
 				array(
 						'notification' => $notification,
 						'user' => $user
 		));
 
 		$message = \Swift_Message::newInstance()
-		->setSubject('Учитель ' . $user . ': Ваше рассписание уроков в школе Св. Сергия Радонежского')
+		->setSubject('Родитель ' . $user . ': Ваше рассписание уроков в школе Св. Сергия Радонежского')
 		->setFrom($this->getParameter('mailer_user'))
 		->setTo($user->getEmail())
 		->setBody(

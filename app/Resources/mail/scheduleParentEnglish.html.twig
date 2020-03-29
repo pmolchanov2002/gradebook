@@ -1,0 +1,35 @@
+    <div>&nbsp;</div>
+    <h2>Virtual lessons:</h2>
+    <div>&nbsp;</div>
+
+    {% for studentLesson in studentLessons %}
+       <div>&nbsp;</div>
+       <h3>{{studentLesson.student.englishName}} ({{studentLesson.student.firstName}} {{studentLesson.student.lastName}})</h3>
+       <div>&nbsp;</div>
+       <table class="table">
+        <thead>
+          <tr>
+            <th>Start</th>
+            <th>Subject</th>
+            <th>WebLink</th>
+            <th>Teacher</th>
+            <th>Phone</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for lesson in studentLesson.lessons %}
+            <tr style="padding-bottom: 5px">
+              <td>{{ lesson.period.startTime|date("H:i") }}</td>
+              <td>{{ lesson.course.englishName }}</td>
+              <td>{{ lesson.meetingLink }}</td>
+              {% if lesson.teacher.englishName is not empty %}
+                <td>{{ lesson.teacher.englishName }}</td>
+              {% else %}
+                <td>{{ lesson.teacher.firstName }} {{ lesson.teacher.lastName }}</td>
+              {% endif %}
+              <td  style="white-space: nowrap"><a href="tel:{{ lesson.teacher.mobilePhone }}">{{ lesson.teacher.mobilePhone }}</a></td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% endfor %}

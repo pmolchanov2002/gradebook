@@ -49,6 +49,15 @@ class Lesson
      **/
     protected $period;  
 
+    /**
+     * @ORM\Column(name="MeetingLink", type="string", length=2048)
+     */
+    protected $meetingLink;
+
+    /**
+     * @ORM\Column(name="MeetingPassword", type="string", length=256)
+     */
+    protected $meetingPassword;
 
     /**
      * Get id
@@ -150,5 +159,51 @@ class Lesson
     public function getPeriod()
     {
         return $this->period;
+    }
+
+    /**
+     * Set meetingLink
+     *
+     * @param string $meetingLink
+     * @return User
+     */
+    public function setMeetingLink($meetingLink)
+    {
+        $this->meetingLink = $meetingLink;
+
+        return $this;
+    }
+
+    /**
+     * Get meetingLink
+     *
+     * @return string 
+     */
+    public function getMeetingLink()
+    {
+        return $this->meetingLink;
+    }
+
+    /**
+     * Set meetingPassword
+     *
+     * @param string $meetingPassword
+     * @return User
+     */
+    public function setMeetingPassword($meetingPassword)
+    {
+        $this->meetingPassword = $meetingPassword;
+
+        return $this;
+    }
+
+    /**
+     * Get meetingPassword
+     *
+     * @return string 
+     */
+    public function getMeetingPassword()
+    {
+        return $this->meetingPassword;
     }
 }

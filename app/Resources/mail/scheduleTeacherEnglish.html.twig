@@ -1,0 +1,26 @@
+    <div>&nbsp;</div>
+    <h2>Virtual lessons:</h2>
+    <div>&nbsp;</div>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Start time</th>
+          <th>End time</th>
+          <th>Grade</th>
+          <th>Subject</th>
+          <th>WebLink</th>
+        </tr>
+      </thead>
+      <tbody>
+        {%for lesson in lessons %}
+          <tr>
+            <td>{{ lesson.period.startTime|date("H:i") }}</td>
+            <td>{{ lesson.period.endTime|date("H:i") }}</td>
+            <td>{{ lesson.classOfStudents.name }}</td>
+            <td>{{ lesson.course.name }}</td>
+            <td>{{ lesson.meetingLink }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>

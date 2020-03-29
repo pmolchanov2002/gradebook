@@ -1,0 +1,32 @@
+    <div>&nbsp;</div>
+    <h2>Виртуальные уроки:</h2>
+    <div>&nbsp;</div>
+
+    {% for studentLesson in studentLessons %}
+       <div>&nbsp;</div>
+       <h3>{{studentLesson.student.firstName}} {{studentLesson.student.lastName}}</h3>
+       <div>&nbsp;</div>
+       <table class="table">
+        <thead>
+          <tr>
+            <th>Начало урока</th>
+            <th>Предмет</th>
+            <th>WebLink</th>
+            <th>Учитель</th>
+            <th>Телефон</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for lesson in studentLesson.lessons %}
+            <tr style="padding-bottom: 5px">
+              <td>{{ lesson.period.startTime|date("H:i") }}</td>
+              <td>{{ lesson.course.name }}</td>
+              <td>{{ lesson.meetingLink }}</td>
+              <td>{{ lesson.teacher.firstName }} {{ lesson.teacher.lastName }}</td>
+              <td  style="white-space: nowrap"><a href="tel:{{ lesson.teacher.mobilePhone }}">{{ lesson.teacher.mobilePhone }}</a></td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% endfor %}
+

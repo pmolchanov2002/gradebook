@@ -71,6 +71,8 @@ class LessonController extends Controller
                         ->setParameter('id', 2);
                 },
             ))                         
+            ->add('meetingLink', 'text', array('label' => 'Meeting Link:', 'required' => false))
+        	->add('meetingPassword', 'text', array('label' => 'Meeting Password:', 'required' => false))
             ->add('save', 'submit', array('label' => 'Create'))
             ->getForm();
 
@@ -144,6 +146,8 @@ class LessonController extends Controller
                         ->setParameter('id', 2);
                 },
             )) 
+            ->add('meetingLink', 'text', array('label' => 'Meeting Link:', 'required' => false))
+        	->add('meetingPassword', 'text', array('label' => 'Meeting Password:', 'required' => false ))
             ->add('save', 'submit', array('label' => 'Save'))
             ->getForm();
 
