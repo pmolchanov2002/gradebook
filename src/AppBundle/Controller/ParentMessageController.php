@@ -85,11 +85,11 @@ class ParentMessageController extends Controller {
 
 		// Get schedule from the database
 
-		$studentLessons = array();
-
 		$q = $em->createQuery("select u from AppBundle:User u left join u.parents pa where pa.id=:id and u.active=true order by u.firstName + u.lastName")
 		->setParameter("id", $user->getId());
 		$students = $q->getResult();
+
+		$studentLessons = array();
 
 		foreach ($students as $student) {
 			
