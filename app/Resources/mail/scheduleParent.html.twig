@@ -1,6 +1,12 @@
     <div>&nbsp;</div>
     <h2>Виртуальные уроки:</h2>
     <div>&nbsp;</div>
+    <h3>Пожалуйста, позвоните учителям до субботы и проверьте, что ссылки на виртуальные уроки работают и у вас нет проблем с подключением. Если у вас возникнут проблемы с подключением, созвонитесь с Павлом Молчановым по телефону (845) 553-0997.</h3>
+    <div>&nbsp;</div>
+    <div>Школа открывается с молитвы и общего собрания в 9:10 AM в субботу. Ссылка на общее собрание: <a href="https://us04web.zoom.us/j/8626417376">https://us04web.zoom.us/j/8626417376</a></div>
+    <div>&nbsp;</div>
+    <div>Нажмите на ссылку WebLink, чтобы начать виртуальный урок.</div>
+    <div>Если учитель не начал урок, Zoom поставит Вас в режим ожидания. Дождитесь, когда подключится учитель и не выходите из программы. Просто ждите, когда подключится учитель.</div>
 
     {% for studentLesson in studentLessons %}
        <div>&nbsp;</div>
@@ -17,14 +23,23 @@
           </tr>
         </thead>
         <tbody>
+          <tr>
+            <td class="high">09:10</td>
+            <td class="high">Общее собрание и молитва</td>
+            <td class="high"><a href="https://us04web.zoom.us/j/8626417376">https://us04web.zoom.us/j/8626417376</a></td>
+            <td class="high">Молчанов Павел</td>
+            <td class="high"><a href="tel:8455530997">(845)-553-0997</a></td>
+          </tr>
           {% for lesson in studentLesson.lessons %}
-            <tr style="padding-bottom: 5px">
-              <td>{{ lesson.period.startTime|date("H:i") }}</td>
-              <td>{{ lesson.course.name }}</td>
-              <td>{{ lesson.meetingLink }}</td>
-              <td>{{ lesson.teacher.firstName }} {{ lesson.teacher.lastName }}</td>
-              <td  style="white-space: nowrap"><a href="tel:{{ lesson.teacher.mobilePhone }}">{{ lesson.teacher.mobilePhone }}</a></td>
-            </tr>
+            {% if lesson.meetingLink is not empty %}
+              <tr style="padding-bottom: 5px">
+                <td>{{ lesson.period.startTime|date("H:i") }}</td>
+                <td>{{ lesson.course.name }}</td>
+                <td>{{ lesson.meetingLink }}</td>
+                <td>{{ lesson.teacher.firstName }} {{ lesson.teacher.lastName }}</td>
+                <td  style="white-space: nowrap"><a href="tel:{{ lesson.teacher.mobilePhone }}">{{ lesson.teacher.mobilePhone }}</a></td>
+              </tr>
+            {% endif %}
           {% endfor %}
         </tbody>
       </table>

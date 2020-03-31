@@ -1,5 +1,12 @@
-    <div>&nbsp;</div>
+
     <h2>Виртуальные уроки:</h2>
+    <div>&nbsp;</div>
+    <h3>Пожалуйста, позвоните родителям до субботы и проверьте, что ссылки на виртуальные уроки работают и у вас нет проблем с подключением. Если у вас возникнут проблемы с подключением, созвонитесь с Павлом Молчановым по телефону (845) 553-0997.</h3>
+    <div>&nbsp;</div>
+    <div>Школа открывается с молитвы и общего собрания в 9:10 AM в субботу. Ссылка на общее собрание: <a href="https://us04web.zoom.us/j/8626417376">https://us04web.zoom.us/j/8626417376</a></div>
+    <div>&nbsp;</div>
+    <div>Нажмите на ссылку WebLink, чтобы начать виртуальный урок.</div>
+    <div>Учитель должен первым зайти в Zoom и подключиться к уроку. Все остальные будут в режиме ожидания, пока учитель не подключится. Будьте пунктуальны и начинайте урок на 2-3 минуты раньше.</div>
     <div>&nbsp;</div>
 
     <table class="table">
@@ -13,14 +20,23 @@
         </tr>
       </thead>
       <tbody>
+        <tr>
+          <td class="high">09:10</td>
+          <td class="high">09:20</td>
+          <td class="high">Все классы</td>
+          <td class="high">Общее собрание и молитва</td>
+          <td class="high"><a href="https://us04web.zoom.us/j/8626417376">https://us04web.zoom.us/j/8626417376</a></td>
+        </tr>
         {%for lesson in lessons %}
-          <tr>
-            <td>{{ lesson.period.startTime|date("H:i") }}</td>
-            <td>{{ lesson.period.endTime|date("H:i") }}</td>
-            <td>{{ lesson.classOfStudents.name }}</td>
-            <td>{{ lesson.course.name }}</td>
-            <td>{{ lesson.meetingLink }}</td>
-          </tr>
+          {% if lesson.meetingLink is not empty %}
+            <tr>
+              <td>{{ lesson.period.startTime|date("H:i") }}</td>
+              <td>{{ lesson.period.endTime|date("H:i") }}</td>
+              <td>{{ lesson.classOfStudents.name }}</td>
+              <td>{{ lesson.course.name }}</td>
+              <td>{{ lesson.meetingLink }}</td>
+            </tr>
+          {% endif %}
         {% endfor %}
       </tbody>
     </table>
@@ -39,39 +55,49 @@
       </thead>
       <tbody>
         {%for lesson in lessons %}
-          <tr>
-            <td>{{ lesson.classOfStudents.name }}</td>
-            <td>{{ lesson.course.name }}</td>
-            <td>
-              {% set emails = ['administration@stsergiuslc.com'] %}
-              <table>
-                <thead>
-                  <th>Студент</th>
-                  <th>Родитель</th>
-                  <th>Email</th>
-                  <th>Телефон</th>
-                  <th>Телефон</th>
-                </thead>
-                {% for student in lesson.classOfStudents.students %}
-                {% for parent in student.parents %}
-                  <tr>
-                    <td>{{ student.firstName }} {{ student.lastName }}</td>
-                    <td>{{ parent.firstName }} {{ parent.lastName }}</td>
-                    <td>{{ parent.email }}</td>
-                    <td style="white-space: nowrap"><a href="tel:{{ lesson.parent.mobilePhone }}">{{ parent.mobilePhone }}</a></td>
-                    <td style="white-space: nowrap"><a href="tel:{{ lesson.parent.homePhone }}">{{ parent.homePhone }}</a></td>
-                  </tr>
-                {% if parent.email is not empty %}
-                  {% set emails = emails|merge([parent.email]) %}
-                {% endif %}
-                {% endfor %}
-                {% endfor %}
-                </table>
-                <div>
-                <div>Emails: {{ emails|join(', ') }}</div>
-                <div>
-            </td>
-          </tr>
+          {% if lesson.meetingLink is not empty %}
+            <tr>
+              <td>{{ lesson.classOfStudents.name }}</td>
+              <td>{{ lesson.course.name }}</td>
+              <td>
+                {% set emails = ['administration@stsergiuslc.com'] %}
+                <table>
+                  <thead>
+                    <th>Студент</th>
+                    <th>Родитель</th>
+                    <th>Email</th>
+                    <th>Телефон</th>
+                    <th>Телефон</th>
+                  </thead>
+                  {% for student in lesson.classOfStudents.students %}
+                    {% for parent in student.parents %}
+                      <tr>
+                        <td>{{ student.firstName }} {{ student.lastName }}</td>
+                        <td>{{ parent.firstName }} {{ parent.lastName }}</td>
+                        <td>{{ parent.email }}</td>
+                        <td style="white-space: nowrap">
+                          {% if parent.mobilePhone is not empty %}
+                            <a href="tel:{{ parent.mobilePhone }}">{{ parent.mobilePhone }}</a>
+                          {% endif %}
+                        </td>
+                        <td style="white-space: nowrap">
+                          {% if parent.homePhone is not empty %}
+                            <a href="tel:{{ parent.homePhone }}">{{ parent.homePhone }}</a>
+                          {% endif %}
+                        </td>
+                      </tr>
+                      {% if parent.email is not empty %}
+                        {% set emails = emails|merge([parent.email]) %}
+                      {% endif %}
+                    {% endfor %}
+                  {% endfor %}
+                  </table>
+                  <div>
+                  <div>Emails: {{ emails|join(', ') }}</div>
+                  <div>
+              </td>
+            </tr>
+          {% endif %}
         {% endfor %}
       </tbody>
     </table>

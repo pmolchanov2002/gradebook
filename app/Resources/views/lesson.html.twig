@@ -39,7 +39,7 @@
 	        	<td>{{ lesson.course.name }}</td>
 	        	<td data-sort="{{ lesson.period.ordinal }}">{{ lesson.period.name }}</td>
 	        	<td>{{ lesson.teacher.firstName }} {{ lesson.teacher.lastName }}</td>
-				<td>{{ lesson.meetingLink }}</td>
+				<td><a href="{{ lesson.meetingLink }}">{{ lesson.meetingLink }}</a></td>
 				<td>{{ lesson.meetingPassword}}</td>
 	        	<td width="10"><a href='/admin/lesson/edit/{{ lesson.id }}'>Edit</a></td>
 	        	<td class="delete_row" width="10"><a href='/admin/lesson/delete/{{ lesson.id }}'>Delete</a></td>
