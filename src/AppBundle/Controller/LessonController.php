@@ -204,7 +204,8 @@ class LessonController extends Controller
     	->getRepository('AppBundle:Lesson')
     	->createQueryBuilder('l')
     	->join('l.classOfStudents', 'cl')
-    	->join('cl.year', 'y')
+        ->join('cl.year', 'y')
+    	->orderBy('cl.ordinal')
     	->groupBy('l.classOfStudents')
     	->where('y.active=true')
     	->getQuery()->execute();
