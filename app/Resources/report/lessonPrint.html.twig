@@ -9,7 +9,7 @@
   <!-- Example row of columns -->
 
 	{% for classForLesson in classesForLesson %}
-	 	<h3 class="middle">Рассписание</h3>
+	 	<h3 class="middle">Расписание</h3>
 		<h1 class="bold middle">{{ classForLesson.classOfStudents.name }}</h1>
 		<h3 class="italic middle">{{ classForLesson.classOfStudents.year.name }}</h3>
 
@@ -19,6 +19,8 @@
 	    		<th width="10%">Время</th>
 	    		<th>Предмет</th>
 	    		<th>Учитель</th>
+				<th>WebLink</th>
+				<th>Пароль</th>
 	    	</thead>
 	    	<tbody>
 	    	{% for lesson in lessons %}
@@ -28,6 +30,8 @@
 		    		<td><h3>{{ lesson.period.startTime|date("H:i")}} - {{ lesson.period.endTime|date("H:i") }}</h3></td>
 		    		<td><h1>{{ lesson.course.name }}<h1></td>
 		    		<td><h2>{{ lesson.teacher.firstName }} {{ lesson.teacher.lastName }}</h2></td>
+					<td><a href="{{ lesson.meetingLink }}" target="_blank">{{ lesson.meetingLink }}</a></td>
+					<td>{{ lesson.meetingPassword}}</td>
 		    	</tr>
 		    	{% endif %}
 		    {% endfor %}
