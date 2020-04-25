@@ -23,6 +23,7 @@
             <tr>
                 <th>Name</th>
                 <th>Active?</th>
+				<th>Lessons per year</th>
                 <th>Edit</th>
                 <th>Delete</th>
             </tr>
@@ -32,6 +33,7 @@
 	    	<tr>
 	        	<td>{{ year.name }}</td>
 	        	<td>{% if year.active %}Active{% else %}Archived{% endif %}</td>
+				<td>{{ year.lessonCount }}</td>
 	        	<td width="10"><a href='/admin/year/edit/{{ year.id }}'>Edit</a></td>
 	        	<td class="delete_row" width="10"><a href='/admin/year/delete/{{ year.id }}'>Delete</a></td>
 	        </tr>

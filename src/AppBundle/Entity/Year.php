@@ -44,6 +44,11 @@ class Year
      * @ORM\Column(type="boolean")
      */    
     protected $active;
+
+	 /**
+     * @ORM\Column(name="LessonCount",type="integer")
+     */
+    protected $lessonCount;
     
     public function __toString() {
     	return $this->name;
@@ -149,5 +154,28 @@ class Year
     public function getActive()
     {
         return $this->active;
+    }
+
+    /**
+     * Set lesson count. Number of lessons per year
+     *
+     * @param int $lessonCount
+     * @return Year
+     */
+    public function setLessonCount($lessonCount)
+    {
+        $this->lessonCount = $lessonCount;
+
+        return $this;
+    }
+
+    /**
+     * Get lesson count. Number of lessons per year.
+     *
+     * @return int 
+     */
+    public function getLessonCount()
+    {
+        return $this->lessonCount;
     }
 }

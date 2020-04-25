@@ -25,6 +25,7 @@ class YearController extends Controller
         $form = $this->createFormBuilder($year)
             ->add('name', 'text', array('label' => 'Year of study:'))
             ->add('active', 'checkbox', array('label' => 'current year', 'required' => false ))
+            ->add('lessonCount', 'integer', array('label' => 'Lessons per year:'))
             ->add('save', 'submit', array('label' => 'Create year of study'))
             ->getForm();
 
@@ -55,6 +56,7 @@ class YearController extends Controller
         $form = $this->createFormBuilder($year)
             ->add('name', 'text', array('label' => 'Year of study:'))
             ->add('active', 'checkbox', array('label' => 'current year', 'required' => false))
+            ->add('lessonCount', 'integer', array('label' => 'Lessons per year:'))
             ->add('save', 'submit', array('label' => 'Save'))
             ->getForm();
 

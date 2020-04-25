@@ -1,0 +1,100 @@
+{% extends 'base-print.html.twig' %}
+
+{% block title %}Transcript{% endblock %}
+
+{% block body %}
+
+<style>
+td {
+	font-size: 14px;
+}
+
+th {
+	font-size: 14px;
+}
+
+.principal {
+	margin-top:60px; 
+	margin-bottom:10px;
+	text-align:right;
+	font-size: 14px;
+}
+
+.principal-signature {
+	margin-top:20px; 
+	text-align:right;
+	font-size: 14px;
+	float: right;
+}
+
+</style>
+
+<div class="container">
+
+	<div class="principal-signature">
+		<div>Saint Sergius Learning Center</div>
+		<div>Tolstoy Foundation</div>
+		<div>104 Lake Dr., Valley Cottage, NY, 10989</div>
+		<div>administration@stsergiuslc.com</div>
+		<div>+1 (845) 267-8397</div>
+	</div>
+
+	<div style="float:left;">
+		<img src="/logo.png" alt="logo" style="margin-left:20px;margin-top:20px;margin-bottom:20px;width:130px;height:130px;"></img>
+	</div>
+
+	<h1 class="middle">Transcript</h1>
+	<h2 class="underline italic bold middle">{{ student.englishName }}</h2>
+
+	<div style="margin-bottom: 50px">&nbsp;</div>
+
+
+	<h3 class="middle">Summary</h3>
+
+	<table width="100%">
+		<thead>
+			<th width="80%">Subject</th>
+			<th width="20%">Total hours</th>
+		</thead>
+		<tbody>
+		{% for s in summary %}
+			<tr>
+				<td>{{ s.name }}</td>
+				<td style="text-align:right">{{ s.hours }}</td>
+			</tr>
+		{% endfor %}
+		</tbody>
+	</table>
+
+	<div>&nbsp;</div>
+
+	<h3 class="middle">Details</h3>
+
+	<table width="100%">
+		<thead>
+			<th width="30%">Subject</th>
+			<th>Year</th>
+			<th>Grade</th>
+			<th width="20%">Total hours</th>
+			<th width="20%">Grade</th>
+		</thead>
+		<tbody>
+		{% for d in details %}
+			<tr>
+				<td>{{ d.courseName }}</td>
+				<td>{{ d.yearName }}</td>
+				<td>{{ d.className }}</td>
+				<td style="text-align:right">{{ d.hours }}</td>
+				<td style="text-align:right">{{ d.grade }}</td>
+			</tr>
+		{% endfor %}
+		</tbody>
+	</table>
+
+	<div>&nbsp;</div>
+
+	<div class="principal">Principal: _______________________________________ Tatiana Rodzianko</div>	    
+	
+	<div>&nbsp;</div>
+
+{% endblock %} 
