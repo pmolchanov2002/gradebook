@@ -38,14 +38,14 @@ class TeacherScheduleNotificationCommand extends ContainerAwareCommand
         ->andWhere('u.email is not NULL')
         ->orderBy('u.lastName', 'ASC')
 		->setParameter('role', 'ROLE_TEACHER')
-		->andWhere('u.email=:email')
+		//->andWhere('u.email=:email')
 		//->setParameter('email', 'pmolchanov2002@gmail.com')
         ->getQuery()
         ->execute();
 
 		if(count($users) != 0) {
 			foreach($users as $user) {
-				$output->writeln("Teacher to send: " . $user->getEmail());
+				$output->writeln("Teacher to send: " . $user->getEmail()."(".$user->getLastName()." ".$user->getFirstName().")");
 				$this->sendEmail($user,$output);
             }
 		}
@@ -92,9 +92,9 @@ class TeacherScheduleNotificationCommand extends ContainerAwareCommand
 				$body,
 				'text/html'
 		);
-		//$output->writeln($body);
+		$output->writeln($body);
 
-		\Swift_Mailer::newInstance(\Swift_MailTransport::newInstance())->send($message);
+		//\Swift_Mailer::newInstance(\Swift_MailTransport::newInstance())->send($message);
 		return;
 	}
 }

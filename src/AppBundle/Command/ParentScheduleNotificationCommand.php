@@ -38,7 +38,7 @@ class ParentScheduleNotificationCommand extends ContainerAwareCommand
         ->andWhere('u.email is not NULL')
         ->orderBy('u.lastName', 'ASC')
 		->setParameter('role', 'ROLE_PARENT')
-		->andWhere('u.email=:email')
+		//->andWhere('u.email=:email')
 		//->setParameter('email', 'pmolchanov2002@gmail.com')
         ->getQuery()
         ->execute();
