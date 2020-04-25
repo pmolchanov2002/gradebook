@@ -6,7 +6,8 @@
 {% block script %}
 	$(document).ready(function() {
 	    $('#results').DataTable({
-	    	paging: false
+	    	paging: false,
+			order: [[ 2, "asc" ], [0, "asc"]]
 	    });
 	    $('.delete_row').click(function(){
     		return confirm("Are you sure you want to delete?");
