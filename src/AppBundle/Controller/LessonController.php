@@ -216,8 +216,8 @@ class LessonController extends Controller
     	->join('l.classOfStudents', 'cl')
     	->join('cl.year', 'y')
     	->join('l.period', 'p')
-    	->orderBy('cl.ordinal')
-    	->addOrderBy('p.ordinal')
+    	->orderBy('p.ordinal')
+    	->addOrderBy('cl.ordinal')
     	->where('y.active=true')
     	->getQuery()->execute();
     	
