@@ -24,6 +24,7 @@
                 <th>Last Name</th>
                 <th>First Name</th>
                 <th>Email</th>
+				<th>Phone</th>
                 <th>Kids</th>
                 <th>Kids Grades</th>
                 <th>Edit</th>
@@ -36,6 +37,7 @@
 	    		<td data-sort="{{ user.lastName }}">{{ user.lastName }}</td>
 	        	<td>{{ user.firstName }}</td>
 	        	<td>{{ user.email }}</td>
+				<td>{{ user.mobilePhone }}</td>
 	        	{% if user.students is not empty %}
 	        		<td>
 	        	    {% for student in user.students %}
