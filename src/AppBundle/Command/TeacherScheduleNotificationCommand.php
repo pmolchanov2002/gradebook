@@ -92,9 +92,9 @@ class TeacherScheduleNotificationCommand extends ContainerAwareCommand
 				$body,
 				'text/html'
 		);
-		$output->writeln($body);
+		//$output->writeln($body);
 
-		//\Swift_Mailer::newInstance(\Swift_MailTransport::newInstance())->send($message);
+		\Swift_Mailer::newInstance(\Swift_MailTransport::newInstance())->send($message);
 		return;
 	}
 }
