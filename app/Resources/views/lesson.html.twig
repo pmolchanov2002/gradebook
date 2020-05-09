@@ -27,8 +27,12 @@
                 <th>Course</th>
                 <th>Period</th>
                 <th>Teacher</th>
+				<th>Email</th>
+				<th>Phone</th>
 				<th>Meeting Link</th>
 				<th>Meeting Password</th>
+				<th>Start</th>
+				<th>End</th>
                 <th>Edit</th>
                 <th>Delete</th>
             </tr>
@@ -40,8 +44,12 @@
 	        	<td>{{ lesson.course.name }}</td>
 	        	<td data-sort="{{ lesson.period.ordinal }}">{{ lesson.period.name }}</td>
 	        	<td>{{ lesson.teacher.firstName }} {{ lesson.teacher.lastName }}</td>
-				<td><a href="{{ lesson.meetingLink }}">{{ lesson.meetingLink }}</a></td>
+				<td>{{ lesson.teacher.email }}</td>
+				<td>{{ lesson.teacher.mobilePhone }}</td>
+				<td><a href="{{ lesson.meetingLink }}" target="_blank">{{ lesson.meetingLink }}</a></td>
 				<td>{{ lesson.meetingPassword}}</td>
+				<td>{{ lesson.period.startTime|date("H:i") }} </td>
+				<td>{{ lesson.period.endTime|date("H:i") }} </td>
 	        	<td width="10"><a href='/admin/lesson/edit/{{ lesson.id }}'>Edit</a></td>
 	        	<td class="delete_row" width="10"><a href='/admin/lesson/delete/{{ lesson.id }}'>Delete</a></td>
 	        </tr>
