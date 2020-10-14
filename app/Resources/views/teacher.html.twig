@@ -27,6 +27,8 @@
                 <th>Mobile</th>
                 <th>Home</th>
                 <th>Username</th>
+				<th>WebLink</th>
+				<th>Password</th>
                 <th>Schedule</th>
                 <th>Edit</th>
                 <th>Delete</th>
@@ -41,6 +43,8 @@
 	        	<td>{{ user.mobilePhone }}</td>
 	        	<td>{{ user.homePhone }}</td>
 	        	<td>{{ user.username }}</td>
+				<td>{{ user.meetingLink }}</td>
+				<td>{{ user.meetingPassword }}</td>
 	        	<td width="10"><a href='/admin/teacher/lesson/{{ user.id }}'>Schedule</a></td>
 	        	<td width="10"><a href='/admin/teacher/edit/{{ user.id }}'>Edit</a></td>
 	        	<td class="delete_row" width="10"><a href='/admin/teacher/delete/{{ user.id }}'>Delete</a></td>

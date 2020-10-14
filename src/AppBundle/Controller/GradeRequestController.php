@@ -100,7 +100,7 @@ class GradeRequestController extends Controller {
 		$message = \Swift_Message::newInstance()
 		->setSubject($exam->getName().': Please submit grades for St. Sergius School students')
 		->setFrom($this->getParameter('mailer_user'))
-		->setTo($user->getEmail())
+		->setTo(!empty($user->getRoutingEmail()) ? $user->getRoutingEmail() : $user->getEmail())		
 		->setBody(
 				$this->renderView(
 						'mail/gradesRequest.html.twig',

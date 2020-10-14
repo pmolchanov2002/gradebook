@@ -46,8 +46,8 @@
 	        	<td>{{ lesson.teacher.firstName }} {{ lesson.teacher.lastName }}</td>
 				<td>{{ lesson.teacher.email }}</td>
 				<td>{{ lesson.teacher.mobilePhone }}</td>
-				<td><a href="{{ lesson.meetingLink }}" target="_blank">{{ lesson.meetingLink }}</a></td>
-				<td>{{ lesson.meetingPassword}}</td>
+				<td><a href="{{ lesson.teacher.meetingLink }}" target="_blank">{{ lesson.teacher.meetingLink }}</a></td>
+				<td>{{ lesson.teacher.meetingPassword}}</td>
 				<td>{{ lesson.period.startTime|date("H:i") }} </td>
 				<td>{{ lesson.period.endTime|date("H:i") }} </td>
 	        	<td width="10"><a href='/admin/lesson/edit/{{ lesson.id }}'>Edit</a></td>

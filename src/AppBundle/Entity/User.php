@@ -72,6 +72,12 @@ class User implements UserInterface, \Serializable
     protected $email;
 
     /**
+     * @ORM\Column(name="RoutingEmail", type="string", length=50)
+     * @Assert\Email
+     */
+    protected $routingEmail;
+
+    /**
      * @ORM\ManyToMany(targetEntity="Role")
      * @ORM\JoinTable(name="User_Role",
      *      joinColumns={@ORM\JoinColumn(name="userId", referencedColumnName="id")},
@@ -121,6 +127,16 @@ class User implements UserInterface, \Serializable
      * @ORM\OneToMany(targetEntity="Lesson", mappedBy="teacher")
      **/
     protected $lessons;
+
+    /**
+     * @ORM\Column(name="MeetingLink", type="string", length=2048)
+     */
+    protected $meetingLink;
+
+    /**
+     * @ORM\Column(name="MeetingPassword", type="string", length=256)
+     */
+    protected $meetingPassword;
     
 
     public function __toString() {
@@ -295,6 +311,29 @@ class User implements UserInterface, \Serializable
     public function setEmail($email)
     {
         $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * Get email
+     *
+     * @return string 
+     */
+    public function getRoutingEmail()
+    {
+        return $this->routingEmail;
+    }
+
+    /**
+     * Set email
+     *
+     * @param string $email
+     * @return User
+     */
+    public function setRoutingEmail($email)
+    {
+        $this->routingEmail = $email;
 
         return $this;
     }
@@ -642,5 +681,51 @@ class User implements UserInterface, \Serializable
     public function getEnglishName()
     {
         return $this->englishName;
+    }
+
+    /**
+     * Set meetingLink
+     *
+     * @param string $meetingLink
+     * @return User
+     */
+    public function setMeetingLink($meetingLink)
+    {
+        $this->meetingLink = $meetingLink;
+
+        return $this;
+    }
+
+    /**
+     * Get meetingLink
+     *
+     * @return string 
+     */
+    public function getMeetingLink()
+    {
+        return $this->meetingLink;
+    }
+
+    /**
+     * Set meetingPassword
+     *
+     * @param string $meetingPassword
+     * 
+     */
+    public function setMeetingPassword($meetingPassword)
+    {
+        $this->meetingPassword = $meetingPassword;
+
+        return $this;
+    }
+
+    /**
+     * Get meetingPassword
+     *
+     * @return string 
+     */
+    public function getMeetingPassword()
+    {
+        return $this->meetingPassword;
     }
 }

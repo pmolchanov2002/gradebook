@@ -102,7 +102,7 @@ class ParentScheduleNotificationCommand extends ContainerAwareCommand
 		$message = \Swift_Message::newInstance()
 		->setSubject('Родитель ' . $user . ': Ваше рассписание уроков в школе Св. Сергия Радонежского')
 		->setFrom($this->getContainer()->getParameter('mailer_user'))
-		->setTo($user->getEmail())
+		->setTo(!empty($user->getRoutingEmail()) ? $user->getRoutingEmail() : $user->getEmail())
 		->setBody(
 				$body,
 				'text/html'

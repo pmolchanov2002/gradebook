@@ -123,7 +123,7 @@ class StudentMessageController extends Controller {
 		$message = \Swift_Message::newInstance()
 		->setSubject('Студент ' . $user . ': Ваше рассписание уроков в школе Св. Сергия Радонежского')
 		->setFrom($this->getParameter('mailer_user'))
-		->setTo($user->getEmail())
+		->setTo(!empty($user->getRoutingEmail()) ? $user->getRoutingEmail() : $user->getEmail())
 		->setBody(
 				$body,
 				'text/html'

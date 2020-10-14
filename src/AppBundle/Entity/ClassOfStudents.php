@@ -71,6 +71,11 @@ class ClassOfStudents
      * @ORM\Column(type="datetime")
      */
     protected $created;
+
+    /**
+     * @ORM\Column(name="ManualLink", type="string", length=2048)
+     */
+    protected $manualLink;
     
     public function createClone() {
     	$result = new ClassOfStudents();
@@ -302,5 +307,28 @@ class ClassOfStudents
     public function getEnglishName()
     {
         return $this->englishName;
+    }
+
+    /**
+     * Set manualLink
+     *
+     * @param string $manualLink
+     * @return User
+     */
+    public function setManualLink($manualLink)
+    {
+        $this->manualLink = $manualLink;
+
+        return $this;
+    }
+
+    /**
+     * Get manualLink
+     *
+     * @return string 
+     */
+    public function getManualLink()
+    {
+        return $this->manualLink;
     }
 }

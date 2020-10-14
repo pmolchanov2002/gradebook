@@ -37,6 +37,7 @@ class ParentController extends Controller
             		'second_options' => array('label' => 'Repeat Password', 'required' => false),
             ))
            ->add('email', 'text', array('label' => 'Email:', 'required' => false))
+           ->add('routingEmail', 'text', array('label' => 'Routing Email:', 'required' => false))
            ->add('mobilePhone', 'text', array('label' => 'Phone:', 'required' => false))
            ->add('students', 'entity', array(
            		'label' => 'Parent of students: ',
@@ -98,7 +99,8 @@ class ParentController extends Controller
             		'first_options' => array('label' => 'Password', 'required' => false),
             		'second_options' => array('label' => 'Repeat Password', 'required' => false),
             ))
-           	->add('email', 'text', array('label' => 'Email:', 'required' => false))
+               ->add('email', 'text', array('label' => 'Email:', 'required' => false))
+               ->add('routingEmail', 'text', array('label' => 'Routing Email:', 'required' => false))
            	->add('mobilePhone', 'text', array('label' => 'Mobile Phone:', 'required' => false))
            ->add('students', 'entity', array(
            		'label' => 'Parent of students: ',
@@ -219,7 +221,7 @@ class ParentController extends Controller
     	$message = \Swift_Message::newInstance()
     	->setSubject('St. Sergius School. Grades.')
     	->setFrom($this->getParameter('mailer_user'))
-    	->setTo($user->getEmail())
+		->setTo(!empty($user->getRoutingEmail()) ? $user->getRoutingEmail() : $user->getEmail())
     	->setBody(
     			$this->renderView(
     					'mail/gradesReport.html.twig',

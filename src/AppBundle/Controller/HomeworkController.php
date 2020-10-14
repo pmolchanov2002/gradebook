@@ -160,7 +160,7 @@ class HomeworkController extends Controller {
 		$recepients = array();
 		
 		foreach ($notification->getUsers() as $recipient) {
-			$recipients[$recipient->getEmail()] = $recipient->getFirstName().' '.$recipient->getLastName();
+			$recipients[!empty($recipient->getRoutingEmail()) ? $recipient->getRoutingEmail() : $recipient->getEmail()] = $recipient->getFirstName().' '.$recipient->getLastName();
 		}
 		
 		$message = \Swift_Message::newInstance()

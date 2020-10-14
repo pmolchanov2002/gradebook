@@ -56,7 +56,7 @@ class TeacherScheduleNotificationCommand extends ContainerAwareCommand
 		$notification = new Notification();
 
 		// Get teacher's schedule from  the database
-		$q = $this->em->createQuery("select l from AppBundle:Lesson l left join l.classOfStudents cl left join cl.students s left join cl.year y left join l.period p left join l.teacher t where t.id=:id and y.active=true order by p.ordinal, cl.ordinal, s.lastName")
+		$q = $this->em->createQuery("select l from AppBundle:Lesson l left join l.classOfStudents cl left join cl.students s left join cl.year y left join l.period p left join l.teacher t where t.id=:id and y.active=true and s.active=true order by p.ordinal, cl.ordinal, s.lastName")
 		->setParameter("id", $user->getId());
 		$lessons = $q->getResult();
 		
@@ -87,7 +87,7 @@ class TeacherScheduleNotificationCommand extends ContainerAwareCommand
 		$message = \Swift_Message::newInstance()
 		->setSubject('Учитель ' . $user . ': Ваше рассписание уроков в школе Св. Сергия Радонежского')
 		->setFrom($this->getContainer()->getParameter('mailer_user'))
-		->setTo($user->getEmail())
+		->setTo(!empty($user->getRoutingEmail()) ? $user->getRoutingEmail() : $user->getEmail())
 		->setBody(
 				$body,
 				'text/html'

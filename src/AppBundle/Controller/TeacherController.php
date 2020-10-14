@@ -38,6 +38,7 @@ class TeacherController extends Controller
             		'second_options' => array('label' => 'Repeat Password', 'required' => false),
             ))
            ->add('email', 'text', array('label' => 'Email:', 'required' => false))
+           ->add('routingEmail', 'text', array('label' => 'Routing Email:', 'required' => false))
            ->add('mobilePhone', 'text', array('label' => 'Mobile Phone:', 'required' => false))
            ->add('homePhone', 'text', array('label' => 'Home Phone:', 'required' => false))
            ->add('roles', 'entity', array(
@@ -46,7 +47,9 @@ class TeacherController extends Controller
            		'class' => 'AppBundle:Role',
            		'choice_label' => 'name',
            		'label' => 'Roles: '
-           ))
+           )) 
+           ->add('meetingLink', 'text', array('label' => 'Meeting Link:', 'required' => false))
+           ->add('meetingPassword', 'text', array('label' => 'Meeting Password:', 'required' => false ))
             ->add('save', 'submit', array('label' => 'Create'))
             ->getForm();
 
@@ -91,7 +94,9 @@ class TeacherController extends Controller
             		'first_options' => array('label' => 'Password', 'required' => false),
             		'second_options' => array('label' => 'Repeat Password', 'required' => false),
             ))
-           	->add('email', 'text', array('label' => 'Email:', 'required' => false))
+               ->add('email', 'text', array('label' => 'Email:', 'required' => false))
+               ->add('routingEmail', 'text', array('label' => 'Routing Email:', 'required' => false))
+
            	->add('mobilePhone', 'text', array('label' => 'Mobile Phone:', 'required' => false))
            	->add('homePhone', 'text', array('label' => 'Home Phone:', 'required' => false))
            	->add('roles', 'entity', array(
@@ -101,6 +106,8 @@ class TeacherController extends Controller
            			'choice_label' => 'name',
            			'label' => 'Roles: '
            	))
+            ->add('meetingLink', 'text', array('label' => 'Meeting Link:', 'required' => false))
+            ->add('meetingPassword', 'text', array('label' => 'Meeting Password:', 'required' => false ))
             ->add('save', 'submit', array('label' => 'Save'))
             ->getForm();
 

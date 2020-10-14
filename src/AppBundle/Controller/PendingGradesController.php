@@ -92,7 +92,7 @@ class PendingGradesController extends Controller {
 		$message = \Swift_Message::newInstance()
 		->setSubject($exam->getName().': Grades are pending for St. Sergius School students')
 		->setFrom($this->getParameter('mailer_user'))
-		->setTo($user->getEmail())
+		->setTo(!empty($user->getRoutingEmail()) ? $user->getRoutingEmail() : $user->getEmail())
 		->setBody(
 				$this->renderView(
 						'mail/pendingGrades.html.twig',

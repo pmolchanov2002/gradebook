@@ -95,7 +95,7 @@ class GradeSendParentController extends Controller {
 		$message = \Swift_Message::newInstance()
 		->setSubject('St. Sergius School. Grades.')
 		->setFrom($this->getParameter('mailer_user'))
-		->setTo($user->getEmail())
+		->setTo(!empty($user->getRoutingEmail()) ? $user->getRoutingEmail() : $user->getEmail())
 		->setBody(
 				$this->renderView(
 						'mail/gradesReport.html.twig',

@@ -24,12 +24,11 @@
             <td class="high"><a href="tel:8455530997">(845)-553-0997</a></td>
           </tr>
           {% for lesson in studentLesson.lessons %}
-            {% if lesson.meetingLink is not empty %}
               <tr style="padding-bottom: 5px">
                 <td>{{ lesson.period.startTime|date("H:i") }}</td>
                 <td>{{ lesson.course.englishName }}</td>
-                <td><a href="{{ lesson.meetingLink }}">{{ lesson.meetingLink }}</a></td>
-                <td class="pass">{{ lesson.meetingPassword }}</td>
+                <td><a href="{{ lesson.teacher.meetingLink }}">{{ lesson.teacher.meetingLink }}</a></td>
+                <td class="pass">{{ lesson.teacher.meetingPassword }}</td>
                 {% if lesson.teacher.englishName is not empty %}
                   <td>{{ lesson.teacher.englishName }}</td>
                 {% else %}
@@ -37,7 +36,6 @@
                 {% endif %}
                 <td  style="white-space: nowrap"><a href="tel:{{ lesson.teacher.mobilePhone }}">{{ lesson.teacher.mobilePhone }}</a></td>
               </tr>
-            {% endif %}
           {% endfor %}
         </tbody>
       </table>

@@ -25,6 +25,7 @@
                 <th>First Name</th>
                 <th>E-mail</th>
                 <th>Username</th>
+				<th>Mobile</th>
                 <th>Roles</th>
                 <th>Active</th>
                 <th>Edit</th>
@@ -38,6 +39,7 @@
 	        	<td>{{ user.firstName }}</td>
 	        	<td>{{ user.email }}</td>
 	        	<td>{{ user.username }}</td>
+				<td>{{ user.mobilePhone }}</td>
 	        	<td>
 	        	    {% for role in user.roles %}
         					<div>{{ role.name }}</div>
