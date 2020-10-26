@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Model\Notification;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Doctrine\ORM\EntityRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 
 class TeacherMessageController extends Controller {
 	
@@ -86,7 +87,19 @@ class TeacherMessageController extends Controller {
 		// Get teacher's schedule from  the database
 		$q = $em->createQuery("select l from AppBundle:Lesson l left join l.classOfStudents cl left join cl.students s left join cl.year y left join l.period p left join l.teacher t where t.id=:id and y.active=true order by p.ordinal, cl.ordinal, s.lastName")
 		->setParameter("id", $user->getId());
-		$lessons = $q->getResult();
+		$teacher_lessons = $q->getResult();
+
+		$q = $em->createQuery("select l from AppBundle:Lesson l left join l.classOfStudents cl left join cl.students s left join cl.year y left join l.period p left join l.substitute t where t.id=:id and y.active=true order by p.ordinal, cl.ordinal, s.lastName")
+		->setParameter("id", $user->getId());
+		$sub_lessons = $q->getResult();
+
+		$lessons = new ArrayCollection(array_merge($teacher_lessons, $sub_lessons));
+
+		$iterator = $lessons->getIterator();
+		$iterator->uasort(function ($a, $b) {
+			return ($a->getPeriod()->getStartTime() < $b->getPeriod()->getStartTime()) ? -1 : 1;
+		});
+		$lessons = new ArrayCollection(iterator_to_array($iterator));
 		
 		// Create Russian message
 

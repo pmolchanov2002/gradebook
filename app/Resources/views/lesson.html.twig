@@ -39,15 +39,43 @@
         </thead>
         <tbody>
 	    {% for lesson in lessons %}
+		    {% if lesson.substitute %}
+                {% set teacher = lesson.substitute %}
+              {% else %}
+                {% set teacher = lesson.teacher %}
+            {% endif %}
 	    	<tr>
 	        	<td data-sort="{{ lesson.classOfStudents.ordinal }}">{{ lesson.classOfStudents.name }}</td>
 	        	<td>{{ lesson.course.name }}</td>
 	        	<td data-sort="{{ lesson.period.ordinal }}">{{ lesson.period.name }}</td>
-	        	<td>{{ lesson.teacher.firstName }} {{ lesson.teacher.lastName }}</td>
-				<td>{{ lesson.teacher.email }}</td>
-				<td>{{ lesson.teacher.mobilePhone }}</td>
-				<td><a href="{{ lesson.teacher.meetingLink }}" target="_blank">{{ lesson.teacher.meetingLink }}</a></td>
-				<td>{{ lesson.teacher.meetingPassword}}</td>
+	        	<td>{{ lesson.teacher.firstName }} {{ lesson.teacher.lastName }}
+				{% if lesson.substitute %}
+					<div style="color:red">
+					{{ lesson.substitute.firstName }} {{ lesson.substitute.lastName }}
+					</div>
+				{% endif %}
+
+				</td>
+				<td>{{ teacher.email }}</td>
+				<td>{{ teacher.mobilePhone }}</td>
+				<td>
+				{% if lesson.substitute %}
+					<div style="color:red">
+					<a style="color:red" href="{{ lesson.substitute.meetingLink }}" target="_blank">{{ lesson.substitute.meetingLink }}</a>
+					</div>
+				{% else %}
+					<a href="{{ lesson.teacher.meetingLink }}" target="_blank">{{ lesson.teacher.meetingLink }}</a>
+				{% endif %}
+				</td>
+				<td>
+				{% if lesson.substitute %}
+					<div style="color:red">
+					{{ lesson.substitute.meetingPassword}}
+					</div>
+				{% else %}
+					{{ lesson.teacher.meetingPassword}}
+				{% endif %}
+				</td>
 				<td>{{ lesson.period.startTime|date("H:i") }} </td>
 				<td>{{ lesson.period.endTime|date("H:i") }} </td>
 	        	<td width="10"><a href='/admin/lesson/edit/{{ lesson.id }}'>Edit</a></td>

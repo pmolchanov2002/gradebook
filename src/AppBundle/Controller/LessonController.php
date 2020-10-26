@@ -69,7 +69,20 @@ class LessonController extends Controller
                         ->where('r.id = :id')
                         ->orderBy('u.lastName', 'ASC')
                         ->setParameter('id', 2);
+                }
+            ))
+            ->add('substitute', 'entity', array(
+                'multiple' => false,
+                'class' => 'AppBundle:User',
+                'label' => 'Substitute: ',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('u')
+                        ->join('u.roles', 'r')
+                        ->where('r.id = :id')
+                        ->orderBy('u.lastName', 'ASC')
+                        ->setParameter('id', 2);
                 },
+                'required' => false
             ))                         
             ->add('meetingLink', 'text', array('label' => 'Meeting Link:', 'required' => false))
         	->add('meetingPassword', 'text', array('label' => 'Meeting Password:', 'required' => false))
@@ -128,7 +141,7 @@ class LessonController extends Controller
                 'label' => 'Class: ',
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('p')
-                        ->leftJoin('AppBundle:Year', 'y')
+                        ->leftJoin('p.year', 'y')
                         ->where('y.active=:active')
                         ->orderBy('p.ordinal', 'ASC')
                         ->setParameter('active', true);
@@ -144,7 +157,20 @@ class LessonController extends Controller
                         ->where('r.id = :id')
                         ->orderBy('u.lastName', 'ASC')
                         ->setParameter('id', 2);
+                }
+            )) 
+            ->add('substitute', 'entity', array(
+                'multiple' => false,
+                'class' => 'AppBundle:User',
+                'label' => 'Substitute: ',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('u')
+                        ->join('u.roles', 'r')
+                        ->where('r.id = :id')
+                        ->orderBy('u.lastName', 'ASC')
+                        ->setParameter('id', 2);
                 },
+                'required' => false
             )) 
             ->add('meetingLink', 'text', array('label' => 'Meeting Link:', 'required' => false))
         	->add('meetingPassword', 'text', array('label' => 'Meeting Password:', 'required' => false ))

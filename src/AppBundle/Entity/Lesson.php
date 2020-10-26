@@ -38,6 +38,12 @@ class Lesson
     protected $teacher;
 
     /** 
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="lessons")
+     * @ORM\JoinColumn(name="substituteId", referencedColumnName="id")     
+     **/
+    protected $substitute;
+
+    /** 
      * @ORM\ManyToOne(targetEntity="ClassOfStudents", inversedBy="lessons")
      * @ORM\JoinColumn(name="classId", referencedColumnName="id")
      **/
@@ -113,6 +119,29 @@ class Lesson
     public function getTeacher()
     {
         return $this->teacher;
+    }
+
+    /**
+     * Set substitute
+     *
+     * @param \AppBundle\Entity\User $substitute
+     * @return Lesson
+     */
+    public function setSubstitute(\AppBundle\Entity\User $substitute = null)
+    {
+        $this->substitute = $substitute;
+
+        return $this;
+    }
+
+    /**
+     * Get teacher
+     *
+     * @return \AppBundle\Entity\User 
+     */
+    public function getSubstitute()
+    {
+        return $this->substitute;
     }
 
     /**

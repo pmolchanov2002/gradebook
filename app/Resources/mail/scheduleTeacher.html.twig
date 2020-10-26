@@ -29,14 +29,19 @@
           <td class="high"><a href="https://us04web.zoom.us/j/8626417376?pwd=U3oxV3ZjT0xnL3M0cHl5MzJDeGdsZz09">https://us04web.zoom.us/j/8626417376?pwd=U3oxV3ZjT0xnL3M0cHl5MzJDeGdsZz09</a></td>
           <td class="pass"></td>
         </tr>
-        {%for lesson in lessons %}
+        {% for lesson in lessons %}
+              {% if lesson.substitute %}
+                {% set teacher = lesson.substitute %}
+              {% else %}
+                {% set teacher = lesson.teacher %}
+              {% endif %}
             <tr>
               <td>{{ lesson.period.startTime|date("H:i") }}</td>
               <td>{{ lesson.period.endTime|date("H:i") }}</td>
               <td>{{ lesson.classOfStudents.name }}</td>
               <td>{{ lesson.course.name }}</td>
-              <td><a href="{{ lesson.teacher.meetingLink }}">{{ lesson.teacher.meetingLink }}</a></td>
-              <td class="pass">{{ lesson.teacher.meetingPassword }}</td>
+              <td><a href="{{ teacher.meetingLink }}">{{ teacher.meetingLink }}</a></td>
+              <td class="pass">{{ teacher.meetingPassword }}</td>
             </tr>
         {% endfor %}
       </tbody>
