@@ -28,13 +28,18 @@
             <td class="high"><a href="tel:8455530997">(845)-553-0997</a></td>
           </tr>
           {% for lesson in studentLesson.lessons %}
+              {% if lesson.substitute %}
+                {% set teacher = lesson.substitute %}
+              {% else %}
+                {% set teacher = lesson.teacher %}
+              {% endif %}
               <tr style="padding-bottom: 5px">
                 <td>{{ lesson.period.startTime|date("H:i") }}</td>
                 <td>{{ lesson.course.name }}</td>
-                <td><a href="{{ lesson.meetingLink }}">{{ lesson.meetingLink }}</a></td>
-                <td class="pass">{{ lesson.meetingPassword }}</td>
-                <td>{{ lesson.teacher.firstName }} {{ lesson.teacher.lastName }}</td>
-                <td  style="white-space: nowrap"><a href="tel:{{ lesson.teacher.mobilePhone }}">{{ lesson.teacher.mobilePhone }}</a></td>
+                <td><a href="{{ teacher.meetingLink }}">{{ teacher.meetingLink }}</a></td>
+                <td class="pass">{{ teacher.meetingPassword }}</td>
+                <td>{{ teacher.firstName }} {{ teacher.lastName }}</td>
+                <td  style="white-space: nowrap"><a href="tel:{{ teacher.mobilePhone }}">{{ teacher.mobilePhone }}</a></td>
               </tr>
           {% endfor %}
         </tbody>
