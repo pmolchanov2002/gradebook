@@ -54,6 +54,7 @@ class HomeworkController extends Controller {
 	 * @Route("/teacher/homework/class/{classId}/course/{courseId}")
 	 */
 	public function displayEmailForm($courseId, $classId, Request $request) {
+		return 'Not available';
 		$course = $this->getCourse ( $courseId );
 		if (! isset ( $course )) {
 			return new Response ( "Course is not permitted" );
