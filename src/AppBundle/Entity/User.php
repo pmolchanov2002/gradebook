@@ -128,6 +128,11 @@ class User implements UserInterface, \Serializable
      **/
     protected $lessons;
 
+    /** 
+     * @ORM\OneToMany(targetEntity="Lesson", mappedBy="substitute")
+     **/
+    protected $substituteLessons;
+
     /**
      * @ORM\Column(name="MeetingLink", type="string", length=2048)
      */
@@ -591,6 +596,39 @@ class User implements UserInterface, \Serializable
     public function getLessons()
     {
         return $this->lessons;
+    }
+
+    /**
+     * Add substitute lessons
+     *
+     * @param \AppBundle\Entity\Lesson $substituteLessons
+     * @return User
+     */
+    public function addSubstituteLesson(\AppBundle\Entity\Lesson $lessons)
+    {
+        $this->substituteLessons[] = $lessons;
+
+        return $this;
+    }
+
+    /**
+     * Remove substitute lessons
+     *
+     * @param \AppBundle\Entity\Lesson $lessons
+     */
+    public function removeSubstituteLesson(\AppBundle\Entity\Lesson $lessons)
+    {
+        $this->substituteLessons->removeElement($lessons);
+    }
+
+    /**
+     * Get substitute lessons
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getSubstituteLessons()
+    {
+        return $this->substituteLessons;
     }
 
     /**

@@ -32,7 +32,11 @@ class ParentMessageController extends Controller {
 				'query_builder' => function (EntityRepository $er) {
 					return $er->createQueryBuilder('u')
 					->join('u.roles', 'r')
+					->join('u.students','s')
+					->join('s.classes','c')
+					->join('c.year','y')
 					->where('u.active=true')
+					->andWhere('y.active=true')
 					->andWhere('r.role=:role')
 					->andWhere('u.email is not NULL')
 					->orderBy('u.lastName', 'ASC')

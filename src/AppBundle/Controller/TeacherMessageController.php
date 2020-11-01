@@ -29,16 +29,39 @@ class TeacherMessageController extends Controller {
 				'multiple' => true,
 				'expanded' => true,
 				'class' => 'AppBundle:User',
-				'label' => 'Recepients: ',
+				'label' => 'Teachers: ',
 				'query_builder' => function (EntityRepository $er) {
 					return $er->createQueryBuilder('u')
 					->join('u.roles', 'r')
+					->join('u.lessons', 'l')
+					->join('l.classOfStudents', 'c')
+					->join('c.year', 'y')
 					->where('u.active=true')
+					->andWhere('y.active=true')
 					->andWhere('r.role=:role')
 					->andWhere('u.email is not NULL')
 					->orderBy('u.lastName', 'ASC')
 					->setParameter('role', 'ROLE_TEACHER');
 				}
+		))
+		->add('substitutes', 'entity', array(
+			'multiple' => true,
+			'expanded' => true,
+			'class' => 'AppBundle:User',
+			'label' => 'Substitutes: ',
+			'query_builder' => function (EntityRepository $er) {
+				return $er->createQueryBuilder('u')
+				->join('u.roles', 'r')
+				->join('u.substituteLessons', 'l')
+				->join('l.classOfStudents', 'c')
+				->join('c.year', 'y')
+				->where('u.active=true')
+				->andWhere('y.active=true')
+				->andWhere('r.role=:role')
+				->andWhere('u.email is not NULL')
+				->orderBy('u.lastName', 'ASC')
+				->setParameter('role', 'ROLE_TEACHER');
+			}
 		))
 		->add('send', 'submit', array('label' => 'Send'))
 		->getForm();
@@ -48,7 +71,13 @@ class TeacherMessageController extends Controller {
 		if ($form->isValid()) {
 			$notification = $form->getData();
 			$recipients = array();
+			
 			foreach ($notification->getUsers() as $recipient) {
+				$this->sendEmail($notification, $recipient);
+				$recipients[] = $recipient->__toString();
+			}
+
+			foreach ($notification->getSubstitutes() as $recipient) {
 				$this->sendEmail($notification, $recipient);
 				$recipients[] = $recipient->__toString();
 			}

@@ -8,7 +8,8 @@ use AppBundle\Entity\Exam;
 class Notification
 {
 	protected $exam;    
-    protected $users;
+	protected $users;
+	protected $substitutes;
     protected $subject;
     protected $message;
     protected $englishMessage;
@@ -27,6 +28,15 @@ class Notification
 		$this->users = $users;
 		return $this;
 	}
+
+	public function getSubstitutes() {
+		return $this->substitutes;
+	}
+	public function setSubstitutes($substitutes) {
+		$this->substitutes = $substitutes;
+		return $this;
+	}
+
 	public function getMessage() {
 		return $this->message;
 	}
