@@ -33,6 +33,7 @@
 				<th>Meeting Password</th>
 				<th>Start</th>
 				<th>End</th>
+				<th>Comment</th>
                 <th>Edit</th>
                 <th>Delete</th>
             </tr>
@@ -78,6 +79,7 @@
 				</td>
 				<td>{{ lesson.period.startTime|date("H:i") }} </td>
 				<td>{{ lesson.period.endTime|date("H:i") }} </td>
+				<td>{{ lesson.comment }} </td>
 	        	<td width="10"><a href='/admin/lesson/edit/{{ lesson.id }}'>Edit</a></td>
 	        	<td class="delete_row" width="10"><a href='/admin/lesson/delete/{{ lesson.id }}'>Delete</a></td>
 	        </tr>

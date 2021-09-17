@@ -66,6 +66,12 @@ class Lesson
     protected $meetingPassword;
 
     /**
+     * @ORM\Column(name="Comment", type="string", length=2048)
+     */
+    protected $comment;
+
+
+    /**
      * Get id
      *
      * @return integer 
@@ -235,4 +241,28 @@ class Lesson
     {
         return $this->meetingPassword;
     }
+
+    /**
+     * Set comment
+     *
+     * @param string $comment
+     * @return User
+     */
+    public function setComment($comment)
+    {
+        $this->comment = $comment;
+
+        return $this;
+    }
+
+    /**
+     * Get comment
+     *
+     * @return string 
+     */
+    public function getComment()
+    {
+        return $this->comment;
+    }
+
 }

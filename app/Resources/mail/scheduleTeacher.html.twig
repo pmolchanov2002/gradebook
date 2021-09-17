@@ -40,7 +40,11 @@
               <td>{{ lesson.period.endTime|date("H:i") }}</td>
               <td>{{ lesson.classOfStudents.name }}</td>
               <td>{{ lesson.course.name }}</td>
-              <td><a href="{{ teacher.meetingLink }}">{{ teacher.meetingLink }}</a></td>
+              <td><a href="{{ teacher.meetingLink }}">{{ teacher.meetingLink }}</a>
+                  {% if lesson.comment %}
+                    <div style="color:red; font-weight: bold;">{{ lesson.comment }}</div>
+                  {% endif %}
+              </td>
               <td class="pass">{{ teacher.meetingPassword }}</td>
             </tr>
         {% endfor %}
@@ -108,3 +112,5 @@
 
     <div>&nbsp;</div>
     <div>Пожалуйста, позвоните родителям до субботы и проверьте, что ссылки на виртуальные уроки работают и у вас нет проблем с подключением. Если у вас возникнут проблемы с подключением, созвонитесь с Павлом Молчановым по телефону (845) 553-0997.</div>
+
+
