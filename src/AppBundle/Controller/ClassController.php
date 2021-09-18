@@ -120,7 +120,7 @@ class ClassController extends Controller
      */       
     public function displayStudents($classOfStudents) {
         $em = $this->getDoctrine()->getManager();
-        $q = $em->createQuery("select u from AppBundle\Entity\User u left join u.classes c join c.year y where y.active=true and c.id=:id")
+        $q = $em->createQuery("select u from AppBundle\Entity\User u left join u.classes c join c.year y where y.active=true and c.id=:id and u.active=true")
         ->setParameter('id', $classOfStudents->getId());
 
         $users = $q->getResult();
