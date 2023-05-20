@@ -29,6 +29,7 @@ class GradeService {
 		->join ( 'g.gradeType', 'gt' )
 		->where ( 's.active = true' )
 		->andWhere ( 'y.active = true' )
+		->andWhere ( 's.active = true' )
 		->andWhere ( 'gt.code = :code' )
 		->addGroupBy ( 'g.class' )
 		->addGroupBy ( 'g.student' )
